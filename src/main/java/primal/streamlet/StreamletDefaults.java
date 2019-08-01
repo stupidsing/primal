@@ -3,6 +3,7 @@ package primal.streamlet;
 import primal.fp.Funs.Fun;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.IntPrim.Obj_Int;
+import primal.puller.PullerDefaults;
 
 public interface StreamletDefaults<T, Puller_ extends PullerDefaults<T>> extends Iterable<T> {
 

@@ -7,15 +7,8 @@ import java.util.function.IntPredicate;
 import primal.Verbs.Compare;
 import primal.Verbs.Equals;
 import primal.adt.Pair;
-import primal.fp.Funs.Sink;
 
 public class String_ {
-
-	public static String build(Sink<StringBuilder> sink) {
-		var sb = new StringBuilder();
-		sink.f(sb);
-		return sb.toString();
-	}
 
 	public static char charAt(String s, int pos) {
 		if (pos < 0)

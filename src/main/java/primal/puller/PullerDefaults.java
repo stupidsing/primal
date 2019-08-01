@@ -1,4 +1,4 @@
-package primal.streamlet;
+package primal.puller;
 
 public interface PullerDefaults<T> extends Iterable<T> {
 

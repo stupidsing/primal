@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,9 +26,19 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import primal.fp.Funs.Sink;
+import primal.fp.Funs.Source;
 import primal.os.Log_;
 
 public class Verbs {
+
+	public static class Build {
+		public static String string(Sink<StringBuilder> sink) {
+			var sb = new StringBuilder();
+			sink.f(sb);
+			return sb.toString();
+		}
+	}
 
 	public static class Close {
 		public static void quietly(Closeable... os) {
@@ -201,6 +212,21 @@ public class Verbs {
 		}
 	}
 
+	public static class Intersect {
+		@SafeVarargs
+		public static <T> Set<T> of(Collection<T>... collections) {
+			return of(List.of(collections));
+		}
+
+		public static <T> Set<T> of(Collection<Collection<T>> collections) {
+			var iter = collections.iterator();
+			Set<T> set = iter.hasNext() ? new HashSet<>(iter.next()) : fail();
+			while (iter.hasNext())
+				set.retainAll(iter.next());
+			return set;
+		}
+	}
+
 	public static class Last {
 		public static <T> T of(List<T> c) {
 			return !c.isEmpty() ? c.get(c.size() - 1) : null;
@@ -362,6 +388,43 @@ public class Verbs {
 			Collections.sort(list1, comparator);
 			return list1;
 		}
+	}
+
+	public static class Take {
+		@SafeVarargs
+		public static <T> Source<T> from(T... array) {
+			return new Source<>() {
+				private int i;
+
+				public T g() {
+					return i < array.length ? array[i++] : null;
+				}
+			};
+		}
+
+		public static <T> Source<T> from(Enumeration<T> en) {
+			return () -> en.hasMoreElements() ? en.nextElement() : null;
+		}
+
+		public static <T> Source<T> from(Iterable<T> iterable) {
+			var iterator = iterable.iterator();
+			return () -> iterator.hasNext() ? iterator.next() : null;
+		}
+	}
+
+	public static class Union {
+		@SafeVarargs
+		public static <T> Set<T> of(Collection<T>... collections) {
+			return of(List.of(collections));
+		}
+
+		private static <T> Set<T> of(Collection<Collection<T>> collections) {
+			var set = new HashSet<T>();
+			for (var collection : collections)
+				set.addAll(collection);
+			return set;
+		}
+
 	}
 
 	public static class Wait {

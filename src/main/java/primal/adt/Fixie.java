@@ -3,7 +3,7 @@ package primal.adt;
 import java.util.Comparator;
 import java.util.Objects;
 
-import primal.String_;
+import primal.Verbs.Build;
 import primal.Verbs.Compare;
 import primal.Verbs.Equals;
 import primal.Verbs.Get;
@@ -237,7 +237,7 @@ public class Fixie<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> implements FixieA<T0,
 
 	@Override
 	public String toString() {
-		return String_.build(sb -> {
+		return Build.string(sb -> {
 			if (t0 != D)
 				sb.append(t0.toString());
 			if (t1 != D)
