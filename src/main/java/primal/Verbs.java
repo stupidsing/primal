@@ -11,6 +11,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,6 +26,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
@@ -360,6 +362,18 @@ public class Verbs {
 	}
 
 	public static class Start {
+		public static void thenJoin(RunnableEx... rs) {
+			Arrays.stream(rs).map(Start::thread).collect(Collectors.toList()).forEach(Th::join_);
+		}
+
+		public static Void thenJoin(Iterable<Th> threads0) {
+			var threads1 = new ArrayList<Th>();
+			threads0.iterator().forEachRemaining(threads1::add);
+			threads1.forEach(Th::start);
+			threads1.forEach(Th::join_);
+			return null;
+		}
+
 		public static Th thread(RunnableEx runnable) {
 			var thread = new Th(runnable);
 			thread.start();

@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 import primal.Verbs.Get;
 import primal.fp.Funs.Iterate;
-import primal.primitive.LngPrim;
 import primal.primitive.ChrPrim;
+import primal.primitive.LngPrim;
 
 public class LngChrPair {
 
