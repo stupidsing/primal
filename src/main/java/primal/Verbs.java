@@ -1,15 +1,20 @@
 package primal;
 
 import static java.lang.Math.min;
+import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static primal.statics.Fail.fail;
 import static primal.statics.Rethrow.ex;
 
 import java.io.Closeable;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,10 +31,14 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 
+import primal.adt.Pair;
 import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
+import primal.io.ReadStream;
+import primal.io.WriteStream;
 import primal.os.Log_;
 
 public class Verbs {
@@ -97,6 +106,10 @@ public class Verbs {
 		public static int primitive(short a, short b) {
 			return Short.compare(a, b);
 		}
+
+		public static int string(String a, String b) {
+			return objects(a, b);
+		}
 	}
 
 	public static class Concat {
@@ -162,6 +175,10 @@ public class Verbs {
 		public static boolean ab(Object a, Object b) {
 			return Objects.equals(a, b);
 		}
+
+		public static boolean string(String a, String b) {
+			return Objects.equals(a, b);
+		}
 	}
 
 	public static class First {
@@ -173,6 +190,12 @@ public class Verbs {
 
 	public static class Get {
 		private static AtomicInteger counter = new AtomicInteger();
+
+		public static char ch(String s, int pos) {
+			if (pos < 0)
+				pos += s.length();
+			return s.charAt(pos);
+		}
 
 		public static Class<?> clazz(Object object) {
 			return object != null ? object.getClass() : null;
@@ -229,6 +252,53 @@ public class Verbs {
 		}
 	}
 
+	public static class Is {
+		public static boolean blank(String s) {
+			return s == null || isAll(s, Character::isWhitespace);
+		}
+
+		public static boolean integer(String s) {
+			if (!s.isEmpty()) {
+				if (s.charAt(0) == '-')
+					s = s.substring(1);
+
+				return !s.isEmpty() && isAll(s, Character::isDigit);
+			} else
+				return false;
+		}
+
+		public static boolean notBlank(String s) {
+			return !blank(s);
+		}
+
+		public static boolean whitespace(byte b) {
+			return b == 0;
+		}
+
+		public static boolean whitespace(char c) {
+			return Character.isWhitespace(c);
+		}
+
+		public static boolean whitespace(double d) {
+			return d == 0d;
+		}
+
+		public static boolean whitespace(float f) {
+			return f == 0f;
+		}
+
+		public static boolean whitespace(int i) {
+			return i == 0;
+		}
+
+		private static boolean isAll(String s, IntPredicate pred) {
+			var b = true;
+			for (var i = 0; i < s.length(); i++)
+				b &= pred.test(s.charAt(i));
+			return b;
+		}
+	}
+
 	public static class Last {
 		public static <T> T of(List<T> c) {
 			return !c.isEmpty() ? c.get(c.size() - 1) : null;
@@ -243,11 +313,32 @@ public class Verbs {
 				pos += size;
 			return list.subList(0, min(pos, size));
 		}
+
+		public static String of(String s, int pos) {
+			var size = s.length();
+			if (pos < 0)
+				pos += size;
+			return s.substring(0, pos);
+		}
 	}
 
 	public static class Min {
 		public static <T extends Comparable<? super T>> T of(T t0, T t1) {
 			return Compare.objects(t0, t1) < 0 ? t0 : t1;
+		}
+	}
+
+	/**
+	 * Files.createDirectory() might fail with FileAlreadyExistsException in MacOSX,
+	 * contrary to its documentation. This re-implementation would not.
+	 */
+	public static class Mk {
+		public static void dir(Path path) {
+			if (path != null) {
+				dir(path.getParent());
+				if (!Files.isDirectory(path))
+					ex(() -> Files.createDirectories(path));
+			}
 		}
 	}
 
@@ -281,6 +372,34 @@ public class Verbs {
 		private static ThreadPoolExecutor newExecutor(int corePoolSize, int maxPoolSize) {
 			var queue = new ArrayBlockingQueue<Runnable>(256);
 			return new ThreadPoolExecutor(corePoolSize, maxPoolSize, 10, TimeUnit.SECONDS, queue);
+		}
+	}
+
+	public static class Range {
+		public static String of(String s, int start, int end) {
+			var length = s.length();
+			if (start < 0)
+				start += length;
+			if (end < 0)
+				end += length;
+			end = min(length, end);
+			return s.substring(start, end);
+		}
+	}
+
+	public static class ReadFile {
+		public static ReadStream from(String filename) {
+			return in_(Paths.get(filename));
+		}
+
+		public static ReadStream from(Path path) {
+			return in_(path);
+		}
+
+		private static ReadStream in_(Path path) {
+			var is = ex(() -> Files.newInputStream(path));
+
+			return ReadStream.of(is);
 		}
 	}
 
@@ -335,6 +454,13 @@ public class Verbs {
 				pos += size;
 			return list.subList(min(pos, size), size);
 		}
+
+		public static String of(String s, int pos) {
+			var size = s.length();
+			if (pos < 0)
+				pos += size;
+			return s.substring(pos);
+		}
 	}
 
 	public static class Sleep {
@@ -358,6 +484,21 @@ public class Verbs {
 				s = s1;
 			}
 			return subsets;
+		}
+
+		public static Pair<String, String> string(String s, String delimiter) {
+			var pos = s.indexOf(delimiter);
+			return 0 <= pos ? Pair.of(s.substring(0, pos).trim(), s.substring(pos + delimiter.length()).trim()) : null;
+		}
+
+		public static Pair<String, String> strl(String s, String delimiter) {
+			var pair = string(s, delimiter);
+			return pair != null ? pair : Pair.of(s.trim(), "");
+		}
+
+		public static Pair<String, String> strr(String s, String delimiter) {
+			var pair = string(s, delimiter);
+			return pair != null ? pair : Pair.of("", s.trim());
 		}
 	}
 
@@ -451,6 +592,36 @@ public class Verbs {
 				object.wait(timeOut);
 				return object;
 			});
+		}
+	}
+
+	public static class WriteFile {
+		public static WriteStream to(String filename) {
+			return out_(Paths.get(filename));
+		}
+
+		public static WriteStream to(Path path) {
+			return out_(path);
+		}
+
+		private static WriteStream out_(Path path) {
+			var parent = path.getParent();
+			var path1 = parent.resolve(path.getFileName() + ".new");
+
+			Mk.dir(parent);
+			var os = ex(() -> Files.newOutputStream(path1));
+
+			return new WriteStream(os) {
+				private boolean isClosed = false;
+
+				public void close() throws IOException {
+					if (!isClosed) {
+						os.close();
+						isClosed = true;
+						Files.move(path1, path, ATOMIC_MOVE, REPLACE_EXISTING);
+					}
+				}
+			};
 		}
 	}
 

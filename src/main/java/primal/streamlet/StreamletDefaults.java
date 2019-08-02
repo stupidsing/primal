@@ -5,7 +5,8 @@ import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.puller.PullerDefaults;
 
-public interface StreamletDefaults<T, Puller_ extends PullerDefaults<T>> extends Iterable<T> {
+public interface StreamletDefaults<T, Opt, Pred, Puller_ extends PullerDefaults<T, Opt, Pred, Sink, Source>, Sink, Source>
+		extends Iterable<T> {
 
 	public Puller_ puller();
 
@@ -13,8 +14,28 @@ public interface StreamletDefaults<T, Puller_ extends PullerDefaults<T>> extends
 		return fun.apply(puller());
 	}
 
+	public default boolean isAll(Pred pred) {
+		return puller().isAll(pred);
+	}
+
+	public default boolean isAny(Pred pred) {
+		return puller().isAny(pred);
+	}
+
+	public default Opt opt() {
+		return puller().opt();
+	}
+
+	public default void sink(Sink sink) {
+		puller().sink(sink);
+	}
+
 	public default int size() {
 		return puller().count();
+	}
+
+	public default Source source() {
+		return puller().source();
 	}
 
 	public default double toDouble(Obj_Dbl<Puller_> fun) {

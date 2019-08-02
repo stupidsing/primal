@@ -34,7 +34,7 @@ import primal.fp.Funs2.Fun2;
 import primal.fp.Funs2.Sink2;
 import primal.fp.Funs2.Source2;
 
-public class Puller2<K, V> implements PullerDefaults<Pair<K, V>> {
+public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiPredicate<K, V>, Sink2<K, V>, Source2<K, V>> {
 
 	private Source2<K, V> source2;
 

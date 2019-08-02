@@ -42,7 +42,7 @@ import primal.fp.Funs2.Fun2;
  *
  * @author ywsing
  */
-public class Puller<T> implements PullerDefaults<T> {
+public class Puller<T> implements PullerDefaults<T, Opt<T>, Predicate<T>, Sink<T>, Source<T>> {
 
 	private Source<T> source;
 
@@ -192,10 +192,12 @@ public class Puller<T> implements PullerDefaults<T> {
 		return h;
 	}
 
+	@Override
 	public boolean isAll(Predicate<T> pred) {
 		return FunUtil.isAll(pred, source);
 	}
 
+	@Override
 	public boolean isAny(Predicate<T> pred) {
 		return FunUtil.isAny(pred, source);
 	}

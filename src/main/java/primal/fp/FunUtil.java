@@ -198,7 +198,7 @@ public class FunUtil {
 		return new Source<>() {
 			private T t = source.g();
 			private boolean isAvail = t != null;
-			private Source<T> source_ = () -> (isAvail = isAvail && (t = source.g()) != null) && !fun1.test(t) ? t : null;
+			private Source<T> source_ = () -> (isAvail &= (t = source.g()) != null) && !fun1.test(t) ? t : null;
 
 			public Source<T> g() {
 				return isAvail ? cons(t, source_) : null;

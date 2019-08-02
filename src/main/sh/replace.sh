@@ -55,3 +55,5 @@ replace src/main/java/primal/primitive/ChrObj_Dbl.java
 replace src/main/java/primal/primitive/ChrOpt.java
 replace src/main/java/primal/primitive/ChrPrim.java
 replace src/main/java/primal/primitive/ChrVerbs.java
+replace src/main/java/primal/primitive/puller/ChrObjPuller.java
+replace src/main/java/primal/primitive/puller/ChrPuller.java
