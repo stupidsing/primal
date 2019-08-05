@@ -14,9 +14,9 @@ import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.LngObjSource;
+import primal.primitive.LngPrim.LngPred;
 import primal.primitive.LngPrim.LngSink;
 import primal.primitive.LngPrim.LngSource;
-import primal.primitive.LngPrim.LngTest;
 import primal.primitive.LngPrim.Lng_Obj;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.LngObjPair;
@@ -72,7 +72,7 @@ public class LngFunUtil {
 		};
 	}
 
-	public static LngSource filter(LngTest fun0, LngSource source) {
+	public static LngSource filter(LngPred fun0, LngSource source) {
 		var fun1 = fun0.rethrow();
 		return () -> {
 			var c = LngPrim.EMPTYVALUE;
@@ -106,7 +106,7 @@ public class LngFunUtil {
 		return init;
 	}
 
-	public static boolean isAll(LngTest pred0, LngSource source) {
+	public static boolean isAll(LngPred pred0, LngSource source) {
 		var pred1 = pred0.rethrow();
 		long c;
 		while ((c = source.g()) != LngPrim.EMPTYVALUE)
@@ -115,7 +115,7 @@ public class LngFunUtil {
 		return true;
 	}
 
-	public static boolean isAny(LngTest pred0, LngSource source) {
+	public static boolean isAny(LngPred pred0, LngSource source) {
 		var pred1 = pred0.rethrow();
 		long c;
 		while ((c = source.g()) != LngPrim.EMPTYVALUE)
@@ -220,7 +220,7 @@ public class LngFunUtil {
 	 * Problematic split: all data must be read, i.e. the children lists must not be
 	 * skipped.
 	 */
-	public static Source<LngSource> split(LngTest fun0, LngSource source) {
+	public static Source<LngSource> split(LngPred fun0, LngSource source) {
 		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private long c = source.g();

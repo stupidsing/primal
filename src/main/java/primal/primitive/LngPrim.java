@@ -72,10 +72,10 @@ public class LngPrim {
 		public boolean source2(LngObjPair<T> pair);
 	}
 
-	public interface LngTest {
+	public interface LngPred {
 		public boolean test(long c);
 
-		public default LngTest rethrow() {
+		public default LngPred rethrow() {
 			return c -> {
 				try {
 					return test(c);

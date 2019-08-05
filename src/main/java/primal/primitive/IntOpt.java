@@ -2,12 +2,10 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import java.util.Objects;
-
-import primal.Verbs.Equals;
 import primal.Verbs.Get;
 import primal.adt.Opt;
-import primal.primitive.IntPrim.IntTest;
+import primal.primitive.IntPrim.IntPred;
+import primal.primitive.IntPrim.Int_Obj;
 
 public class IntOpt {
 
@@ -16,10 +14,6 @@ public class IntOpt {
 
 	private int value;
 
-	public interface Map<T> {
-		public T apply(int c);
-	}
-	
 	public static IntOpt none() {
 		return none_;
 	}
@@ -34,11 +28,15 @@ public class IntOpt {
 		return value == empty;
 	}
 
-	public IntOpt filter(IntTest pred) {
+	public <T> IntOpt concatMap(Int_Obj<IntOpt> fun) {
+		return !isEmpty() ? fun.apply(value) : none_;
+	}
+
+	public IntOpt filter(IntPred pred) {
 		return isEmpty() || pred.test(value) ? this : none();
 	}
 
-	public <T> Opt<T> map(Map<T> fun) {
+	public <T> Opt<T> map(Int_Obj<T> fun) {
 		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
@@ -48,12 +46,12 @@ public class IntOpt {
 
 	@Override
 	public boolean equals(Object object) {
-		return Get.clazz(object) == IntOpt.class && Equals.ab(value, ((IntOpt) object).value);
+		return Get.clazz(object) == IntOpt.class && value == ((IntOpt) object).value;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(value);
+		return Integer.hashCode(value);
 	}
 
 	@Override

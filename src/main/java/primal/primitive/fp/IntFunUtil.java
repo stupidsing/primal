@@ -14,9 +14,9 @@ import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.IntPrim;
 import primal.primitive.IntPrim.IntObjSource;
+import primal.primitive.IntPrim.IntPred;
 import primal.primitive.IntPrim.IntSink;
 import primal.primitive.IntPrim.IntSource;
-import primal.primitive.IntPrim.IntTest;
 import primal.primitive.IntPrim.Int_Obj;
 import primal.primitive.Int_Int;
 import primal.primitive.adt.pair.IntObjPair;
@@ -72,7 +72,7 @@ public class IntFunUtil {
 		};
 	}
 
-	public static IntSource filter(IntTest fun0, IntSource source) {
+	public static IntSource filter(IntPred fun0, IntSource source) {
 		var fun1 = fun0.rethrow();
 		return () -> {
 			var c = IntPrim.EMPTYVALUE;
@@ -106,7 +106,7 @@ public class IntFunUtil {
 		return init;
 	}
 
-	public static boolean isAll(IntTest pred0, IntSource source) {
+	public static boolean isAll(IntPred pred0, IntSource source) {
 		var pred1 = pred0.rethrow();
 		int c;
 		while ((c = source.g()) != IntPrim.EMPTYVALUE)
@@ -115,7 +115,7 @@ public class IntFunUtil {
 		return true;
 	}
 
-	public static boolean isAny(IntTest pred0, IntSource source) {
+	public static boolean isAny(IntPred pred0, IntSource source) {
 		var pred1 = pred0.rethrow();
 		int c;
 		while ((c = source.g()) != IntPrim.EMPTYVALUE)
@@ -220,7 +220,7 @@ public class IntFunUtil {
 	 * Problematic split: all data must be read, i.e. the children lists must not be
 	 * skipped.
 	 */
-	public static Source<IntSource> split(IntTest fun0, IntSource source) {
+	public static Source<IntSource> split(IntPred fun0, IntSource source) {
 		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private int c = source.g();

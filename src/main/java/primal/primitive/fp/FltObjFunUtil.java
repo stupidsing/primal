@@ -17,7 +17,7 @@ import primal.primitive.FltObj_Flt;
 import primal.primitive.FltPrim.FltObjPredicate;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.FltObj_Obj;
-import primal.primitive.FltPrim.FltTest;
+import primal.primitive.FltPrim.FltPred;
 import primal.primitive.adt.pair.FltObjPair;
 import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
@@ -87,7 +87,7 @@ public class FltObjFunUtil {
 		};
 	}
 
-	public static <V> FltObjSource<V> filterKey(FltTest fun0, FltObjSource<V> source2) {
+	public static <V> FltObjSource<V> filterKey(FltPred fun0, FltObjSource<V> source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;

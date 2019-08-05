@@ -30,9 +30,9 @@ import primal.primitive.LngOpt;
 import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.LngComparator;
 import primal.primitive.LngPrim.LngObj_Obj;
+import primal.primitive.LngPrim.LngPred;
 import primal.primitive.LngPrim.LngSink;
 import primal.primitive.LngPrim.LngSource;
-import primal.primitive.LngPrim.LngTest;
 import primal.primitive.LngPrim.Lng_Obj;
 import primal.primitive.Lng_Lng;
 import primal.primitive.fp.LngFunUtil;
@@ -40,7 +40,7 @@ import primal.puller.Puller;
 import primal.puller.Puller2;
 import primal.puller.PullerDefaults;
 
-public class LngPuller implements PullerDefaults<Long, LngOpt, LngTest, LngSink, LngSource> {
+public class LngPuller implements PullerDefaults<Long, LngOpt, LngPred, LngSink, LngSource> {
 
 	private static long empty = LngPrim.EMPTYVALUE;
 
@@ -195,7 +195,7 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngTest, LngSink,
 			return false;
 	}
 
-	public LngPuller filter(LngTest fun) {
+	public LngPuller filter(LngPred fun) {
 		return of(LngFunUtil.filter(fun, source));
 	}
 
@@ -223,11 +223,11 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngTest, LngSink,
 		return h;
 	}
 
-	public boolean isAll(LngTest pred) {
+	public boolean isAll(LngPred pred) {
 		return LngFunUtil.isAll(pred, source);
 	}
 
-	public boolean isAny(LngTest pred) {
+	public boolean isAny(LngPred pred) {
 		return LngFunUtil.isAny(pred, source);
 	}
 
@@ -303,7 +303,7 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngTest, LngSink,
 			return LngOpt.none();
 	}
 
-	public Pair<LngPuller, LngPuller> partition(LngTest pred) {
+	public Pair<LngPuller, LngPuller> partition(LngPred pred) {
 		return Pair.of(filter(pred), filter(c -> !pred.test(c)));
 	}
 
@@ -344,7 +344,7 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngTest, LngSink,
 		return LngPuller.of(array);
 	}
 
-	public Puller<LngPuller> split(LngTest fun) {
+	public Puller<LngPuller> split(LngPred fun) {
 		return Puller.of(FunUtil.map(LngPuller::new, LngFunUtil.split(fun, source)));
 	}
 

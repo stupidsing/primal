@@ -14,9 +14,9 @@ import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.DblPrim;
 import primal.primitive.DblPrim.DblObjSource;
+import primal.primitive.DblPrim.DblPred;
 import primal.primitive.DblPrim.DblSink;
 import primal.primitive.DblPrim.DblSource;
-import primal.primitive.DblPrim.DblTest;
 import primal.primitive.DblPrim.Dbl_Obj;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.adt.pair.DblObjPair;
@@ -72,7 +72,7 @@ public class DblFunUtil {
 		};
 	}
 
-	public static DblSource filter(DblTest fun0, DblSource source) {
+	public static DblSource filter(DblPred fun0, DblSource source) {
 		var fun1 = fun0.rethrow();
 		return () -> {
 			var c = DblPrim.EMPTYVALUE;
@@ -106,7 +106,7 @@ public class DblFunUtil {
 		return init;
 	}
 
-	public static boolean isAll(DblTest pred0, DblSource source) {
+	public static boolean isAll(DblPred pred0, DblSource source) {
 		var pred1 = pred0.rethrow();
 		double c;
 		while ((c = source.g()) != DblPrim.EMPTYVALUE)
@@ -115,7 +115,7 @@ public class DblFunUtil {
 		return true;
 	}
 
-	public static boolean isAny(DblTest pred0, DblSource source) {
+	public static boolean isAny(DblPred pred0, DblSource source) {
 		var pred1 = pred0.rethrow();
 		double c;
 		while ((c = source.g()) != DblPrim.EMPTYVALUE)
@@ -220,7 +220,7 @@ public class DblFunUtil {
 	 * Problematic split: all data must be read, i.e. the children lists must not be
 	 * skipped.
 	 */
-	public static Source<DblSource> split(DblTest fun0, DblSource source) {
+	public static Source<DblSource> split(DblPred fun0, DblSource source) {
 		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private double c = source.g();

@@ -72,10 +72,10 @@ public class IntPrim {
 		public boolean source2(IntObjPair<T> pair);
 	}
 
-	public interface IntTest {
+	public interface IntPred {
 		public boolean test(int c);
 
-		public default IntTest rethrow() {
+		public default IntPred rethrow() {
 			return c -> {
 				try {
 					return test(c);

@@ -30,9 +30,9 @@ import primal.primitive.ChrOpt;
 import primal.primitive.ChrPrim;
 import primal.primitive.ChrPrim.ChrComparator;
 import primal.primitive.ChrPrim.ChrObj_Obj;
+import primal.primitive.ChrPrim.ChrPred;
 import primal.primitive.ChrPrim.ChrSink;
 import primal.primitive.ChrPrim.ChrSource;
-import primal.primitive.ChrPrim.ChrTest;
 import primal.primitive.ChrPrim.Chr_Obj;
 import primal.primitive.Chr_Chr;
 import primal.primitive.fp.ChrFunUtil;
@@ -40,7 +40,7 @@ import primal.puller.Puller;
 import primal.puller.Puller2;
 import primal.puller.PullerDefaults;
 
-public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrTest, ChrSink, ChrSource> {
+public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrPred, ChrSink, ChrSource> {
 
 	private static char empty = ChrPrim.EMPTYVALUE;
 
@@ -195,7 +195,7 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrTest, Chr
 			return false;
 	}
 
-	public ChrPuller filter(ChrTest fun) {
+	public ChrPuller filter(ChrPred fun) {
 		return of(ChrFunUtil.filter(fun, source));
 	}
 
@@ -223,11 +223,11 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrTest, Chr
 		return h;
 	}
 
-	public boolean isAll(ChrTest pred) {
+	public boolean isAll(ChrPred pred) {
 		return ChrFunUtil.isAll(pred, source);
 	}
 
-	public boolean isAny(ChrTest pred) {
+	public boolean isAny(ChrPred pred) {
 		return ChrFunUtil.isAny(pred, source);
 	}
 
@@ -303,7 +303,7 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrTest, Chr
 			return ChrOpt.none();
 	}
 
-	public Pair<ChrPuller, ChrPuller> partition(ChrTest pred) {
+	public Pair<ChrPuller, ChrPuller> partition(ChrPred pred) {
 		return Pair.of(filter(pred), filter(c -> !pred.test(c)));
 	}
 
@@ -344,7 +344,7 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrTest, Chr
 		return ChrPuller.of(array);
 	}
 
-	public Puller<ChrPuller> split(ChrTest fun) {
+	public Puller<ChrPuller> split(ChrPred fun) {
 		return Puller.of(FunUtil.map(ChrPuller::new, ChrFunUtil.split(fun, source)));
 	}
 

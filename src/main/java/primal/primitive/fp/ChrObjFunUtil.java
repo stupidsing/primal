@@ -17,7 +17,7 @@ import primal.primitive.ChrObj_Chr;
 import primal.primitive.ChrPrim.ChrObjPredicate;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.ChrObj_Obj;
-import primal.primitive.ChrPrim.ChrTest;
+import primal.primitive.ChrPrim.ChrPred;
 import primal.primitive.adt.pair.ChrObjPair;
 import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
@@ -87,7 +87,7 @@ public class ChrObjFunUtil {
 		};
 	}
 
-	public static <V> ChrObjSource<V> filterKey(ChrTest fun0, ChrObjSource<V> source2) {
+	public static <V> ChrObjSource<V> filterKey(ChrPred fun0, ChrObjSource<V> source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;

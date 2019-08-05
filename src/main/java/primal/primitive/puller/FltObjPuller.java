@@ -31,7 +31,7 @@ import primal.primitive.FltPrim.FltObjPredicate;
 import primal.primitive.FltPrim.FltObjSink;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.FltObj_Obj;
-import primal.primitive.FltPrim.FltTest;
+import primal.primitive.FltPrim.FltPred;
 import primal.primitive.adt.pair.FltObjPair;
 import primal.primitive.fp.FltObjFunUtil;
 import primal.puller.Puller;
@@ -190,7 +190,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 		return of(FltObjFunUtil.filter(fun, source));
 	}
 
-	public FltObjPuller<V> filterKey(FltTest fun) {
+	public FltObjPuller<V> filterKey(FltPred fun) {
 		return of(FltObjFunUtil.filterKey(fun, source));
 	}
 

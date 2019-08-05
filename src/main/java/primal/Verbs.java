@@ -171,6 +171,22 @@ public class Verbs {
 		}
 	}
 
+	public static class DeleteFile {
+		public static void ifExists(Path path) {
+			ex(() -> {
+				Files.deleteIfExists(path);
+				return path;
+			});
+		}
+
+		public static void on(Path path) {
+			ex(() -> {
+				Files.delete(path);
+				return path;
+			});
+		}
+	}
+
 	public static class Equals {
 		public static boolean ab(Object a, Object b) {
 			return Objects.equals(a, b);
@@ -564,6 +580,26 @@ public class Verbs {
 		public static <T> Source<T> from(Iterable<T> iterable) {
 			var iterator = iterable.iterator();
 			return () -> iterator.hasNext() ? iterator.next() : null;
+		}
+	}
+
+	public static class Trim {
+		public static String left(String s) {
+			var length = s.length();
+			var pos = 0;
+			do
+				if (!Is.whitespace(s.charAt(pos)))
+					break;
+			while (++pos < length);
+			return s.substring(pos);
+		}
+
+		public static String right(String s) {
+			var pos = s.length();
+			while (0 <= --pos)
+				if (!Is.whitespace(s.charAt(pos)))
+					break;
+			return s.substring(0, pos + 1);
 		}
 	}
 

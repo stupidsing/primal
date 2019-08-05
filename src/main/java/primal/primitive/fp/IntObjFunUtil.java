@@ -17,7 +17,7 @@ import primal.primitive.IntObj_Int;
 import primal.primitive.IntPrim.IntObjPredicate;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.IntObj_Obj;
-import primal.primitive.IntPrim.IntTest;
+import primal.primitive.IntPrim.IntPred;
 import primal.primitive.adt.pair.IntObjPair;
 import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
@@ -87,7 +87,7 @@ public class IntObjFunUtil {
 		};
 	}
 
-	public static <V> IntObjSource<V> filterKey(IntTest fun0, IntObjSource<V> source2) {
+	public static <V> IntObjSource<V> filterKey(IntPred fun0, IntObjSource<V> source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;

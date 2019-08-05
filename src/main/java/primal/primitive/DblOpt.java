@@ -2,12 +2,10 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import java.util.Objects;
-
-import primal.Verbs.Equals;
 import primal.Verbs.Get;
 import primal.adt.Opt;
-import primal.primitive.DblPrim.DblTest;
+import primal.primitive.DblPrim.DblPred;
+import primal.primitive.DblPrim.Dbl_Obj;
 
 public class DblOpt {
 
@@ -16,10 +14,6 @@ public class DblOpt {
 
 	private double value;
 
-	public interface Map<T> {
-		public T apply(double c);
-	}
-	
 	public static DblOpt none() {
 		return none_;
 	}
@@ -34,11 +28,15 @@ public class DblOpt {
 		return value == empty;
 	}
 
-	public DblOpt filter(DblTest pred) {
+	public <T> DblOpt concatMap(Dbl_Obj<DblOpt> fun) {
+		return !isEmpty() ? fun.apply(value) : none_;
+	}
+
+	public DblOpt filter(DblPred pred) {
 		return isEmpty() || pred.test(value) ? this : none();
 	}
 
-	public <T> Opt<T> map(Map<T> fun) {
+	public <T> Opt<T> map(Dbl_Obj<T> fun) {
 		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
@@ -48,12 +46,12 @@ public class DblOpt {
 
 	@Override
 	public boolean equals(Object object) {
-		return Get.clazz(object) == DblOpt.class && Equals.ab(value, ((DblOpt) object).value);
+		return Get.clazz(object) == DblOpt.class && value == ((DblOpt) object).value;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(value);
+		return Double.hashCode(value);
 	}
 
 	@Override

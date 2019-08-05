@@ -72,10 +72,10 @@ public class FltPrim {
 		public boolean source2(FltObjPair<T> pair);
 	}
 
-	public interface FltTest {
+	public interface FltPred {
 		public boolean test(float c);
 
-		public default FltTest rethrow() {
+		public default FltPred rethrow() {
 			return c -> {
 				try {
 					return test(c);

@@ -30,9 +30,9 @@ import primal.primitive.DblOpt;
 import primal.primitive.DblPrim;
 import primal.primitive.DblPrim.DblComparator;
 import primal.primitive.DblPrim.DblObj_Obj;
+import primal.primitive.DblPrim.DblPred;
 import primal.primitive.DblPrim.DblSink;
 import primal.primitive.DblPrim.DblSource;
-import primal.primitive.DblPrim.DblTest;
 import primal.primitive.DblPrim.Dbl_Obj;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.fp.DblFunUtil;
@@ -40,7 +40,7 @@ import primal.puller.Puller;
 import primal.puller.Puller2;
 import primal.puller.PullerDefaults;
 
-public class DblPuller implements PullerDefaults<Double, DblOpt, DblTest, DblSink, DblSource> {
+public class DblPuller implements PullerDefaults<Double, DblOpt, DblPred, DblSink, DblSource> {
 
 	private static double empty = DblPrim.EMPTYVALUE;
 
@@ -195,7 +195,7 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblTest, DblSin
 			return false;
 	}
 
-	public DblPuller filter(DblTest fun) {
+	public DblPuller filter(DblPred fun) {
 		return of(DblFunUtil.filter(fun, source));
 	}
 
@@ -223,11 +223,11 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblTest, DblSin
 		return h;
 	}
 
-	public boolean isAll(DblTest pred) {
+	public boolean isAll(DblPred pred) {
 		return DblFunUtil.isAll(pred, source);
 	}
 
-	public boolean isAny(DblTest pred) {
+	public boolean isAny(DblPred pred) {
 		return DblFunUtil.isAny(pred, source);
 	}
 
@@ -303,7 +303,7 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblTest, DblSin
 			return DblOpt.none();
 	}
 
-	public Pair<DblPuller, DblPuller> partition(DblTest pred) {
+	public Pair<DblPuller, DblPuller> partition(DblPred pred) {
 		return Pair.of(filter(pred), filter(c -> !pred.test(c)));
 	}
 
@@ -344,7 +344,7 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblTest, DblSin
 		return DblPuller.of(array);
 	}
 
-	public Puller<DblPuller> split(DblTest fun) {
+	public Puller<DblPuller> split(DblPred fun) {
 		return Puller.of(FunUtil.map(DblPuller::new, DblFunUtil.split(fun, source)));
 	}
 

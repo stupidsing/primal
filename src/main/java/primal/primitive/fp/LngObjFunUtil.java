@@ -17,7 +17,7 @@ import primal.primitive.LngObj_Lng;
 import primal.primitive.LngPrim.LngObjPredicate;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.LngObj_Obj;
-import primal.primitive.LngPrim.LngTest;
+import primal.primitive.LngPrim.LngPred;
 import primal.primitive.adt.pair.LngObjPair;
 import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
@@ -87,7 +87,7 @@ public class LngObjFunUtil {
 		};
 	}
 
-	public static <V> LngObjSource<V> filterKey(LngTest fun0, LngObjSource<V> source2) {
+	public static <V> LngObjSource<V> filterKey(LngPred fun0, LngObjSource<V> source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;

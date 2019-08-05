@@ -30,9 +30,9 @@ import primal.primitive.IntOpt;
 import primal.primitive.IntPrim;
 import primal.primitive.IntPrim.IntComparator;
 import primal.primitive.IntPrim.IntObj_Obj;
+import primal.primitive.IntPrim.IntPred;
 import primal.primitive.IntPrim.IntSink;
 import primal.primitive.IntPrim.IntSource;
-import primal.primitive.IntPrim.IntTest;
 import primal.primitive.IntPrim.Int_Obj;
 import primal.primitive.Int_Int;
 import primal.primitive.fp.IntFunUtil;
@@ -40,7 +40,7 @@ import primal.puller.Puller;
 import primal.puller.Puller2;
 import primal.puller.PullerDefaults;
 
-public class IntPuller implements PullerDefaults<Integer, IntOpt, IntTest, IntSink, IntSource> {
+public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSink, IntSource> {
 
 	private static int empty = IntPrim.EMPTYVALUE;
 
@@ -195,7 +195,7 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntTest, IntSi
 			return false;
 	}
 
-	public IntPuller filter(IntTest fun) {
+	public IntPuller filter(IntPred fun) {
 		return of(IntFunUtil.filter(fun, source));
 	}
 
@@ -223,11 +223,11 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntTest, IntSi
 		return h;
 	}
 
-	public boolean isAll(IntTest pred) {
+	public boolean isAll(IntPred pred) {
 		return IntFunUtil.isAll(pred, source);
 	}
 
-	public boolean isAny(IntTest pred) {
+	public boolean isAny(IntPred pred) {
 		return IntFunUtil.isAny(pred, source);
 	}
 
@@ -303,7 +303,7 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntTest, IntSi
 			return IntOpt.none();
 	}
 
-	public Pair<IntPuller, IntPuller> partition(IntTest pred) {
+	public Pair<IntPuller, IntPuller> partition(IntPred pred) {
 		return Pair.of(filter(pred), filter(c -> !pred.test(c)));
 	}
 
@@ -344,7 +344,7 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntTest, IntSi
 		return IntPuller.of(array);
 	}
 
-	public Puller<IntPuller> split(IntTest fun) {
+	public Puller<IntPuller> split(IntPred fun) {
 		return Puller.of(FunUtil.map(IntPuller::new, IntFunUtil.split(fun, source)));
 	}
 

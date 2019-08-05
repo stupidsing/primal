@@ -2,12 +2,10 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import java.util.Objects;
-
-import primal.Verbs.Equals;
 import primal.Verbs.Get;
 import primal.adt.Opt;
-import primal.primitive.LngPrim.LngTest;
+import primal.primitive.LngPrim.LngPred;
+import primal.primitive.LngPrim.Lng_Obj;
 
 public class LngOpt {
 
@@ -16,10 +14,6 @@ public class LngOpt {
 
 	private long value;
 
-	public interface Map<T> {
-		public T apply(long c);
-	}
-	
 	public static LngOpt none() {
 		return none_;
 	}
@@ -34,11 +28,15 @@ public class LngOpt {
 		return value == empty;
 	}
 
-	public LngOpt filter(LngTest pred) {
+	public <T> LngOpt concatMap(Lng_Obj<LngOpt> fun) {
+		return !isEmpty() ? fun.apply(value) : none_;
+	}
+
+	public LngOpt filter(LngPred pred) {
 		return isEmpty() || pred.test(value) ? this : none();
 	}
 
-	public <T> Opt<T> map(Map<T> fun) {
+	public <T> Opt<T> map(Lng_Obj<T> fun) {
 		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
@@ -48,12 +46,12 @@ public class LngOpt {
 
 	@Override
 	public boolean equals(Object object) {
-		return Get.clazz(object) == LngOpt.class && Equals.ab(value, ((LngOpt) object).value);
+		return Get.clazz(object) == LngOpt.class && value == ((LngOpt) object).value;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(value);
+		return Long.hashCode(value);
 	}
 
 	@Override

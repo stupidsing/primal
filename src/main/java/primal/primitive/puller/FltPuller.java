@@ -30,9 +30,9 @@ import primal.primitive.FltOpt;
 import primal.primitive.FltPrim;
 import primal.primitive.FltPrim.FltComparator;
 import primal.primitive.FltPrim.FltObj_Obj;
+import primal.primitive.FltPrim.FltPred;
 import primal.primitive.FltPrim.FltSink;
 import primal.primitive.FltPrim.FltSource;
-import primal.primitive.FltPrim.FltTest;
 import primal.primitive.FltPrim.Flt_Obj;
 import primal.primitive.Flt_Flt;
 import primal.primitive.fp.FltFunUtil;
@@ -40,7 +40,7 @@ import primal.puller.Puller;
 import primal.puller.Puller2;
 import primal.puller.PullerDefaults;
 
-public class FltPuller implements PullerDefaults<Float, FltOpt, FltTest, FltSink, FltSource> {
+public class FltPuller implements PullerDefaults<Float, FltOpt, FltPred, FltSink, FltSource> {
 
 	private static float empty = FltPrim.EMPTYVALUE;
 
@@ -195,7 +195,7 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltTest, FltSink
 			return false;
 	}
 
-	public FltPuller filter(FltTest fun) {
+	public FltPuller filter(FltPred fun) {
 		return of(FltFunUtil.filter(fun, source));
 	}
 
@@ -223,11 +223,11 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltTest, FltSink
 		return h;
 	}
 
-	public boolean isAll(FltTest pred) {
+	public boolean isAll(FltPred pred) {
 		return FltFunUtil.isAll(pred, source);
 	}
 
-	public boolean isAny(FltTest pred) {
+	public boolean isAny(FltPred pred) {
 		return FltFunUtil.isAny(pred, source);
 	}
 
@@ -303,7 +303,7 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltTest, FltSink
 			return FltOpt.none();
 	}
 
-	public Pair<FltPuller, FltPuller> partition(FltTest pred) {
+	public Pair<FltPuller, FltPuller> partition(FltPred pred) {
 		return Pair.of(filter(pred), filter(c -> !pred.test(c)));
 	}
 
@@ -344,7 +344,7 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltTest, FltSink
 		return FltPuller.of(array);
 	}
 
-	public Puller<FltPuller> split(FltTest fun) {
+	public Puller<FltPuller> split(FltPred fun) {
 		return Puller.of(FunUtil.map(FltPuller::new, FltFunUtil.split(fun, source)));
 	}
 

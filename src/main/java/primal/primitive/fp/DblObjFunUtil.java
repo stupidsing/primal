@@ -17,7 +17,7 @@ import primal.primitive.DblObj_Dbl;
 import primal.primitive.DblPrim.DblObjPredicate;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.DblObj_Obj;
-import primal.primitive.DblPrim.DblTest;
+import primal.primitive.DblPrim.DblPred;
 import primal.primitive.adt.pair.DblObjPair;
 import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
@@ -87,7 +87,7 @@ public class DblObjFunUtil {
 		};
 	}
 
-	public static <V> DblObjSource<V> filterKey(DblTest fun0, DblObjSource<V> source2) {
+	public static <V> DblObjSource<V> filterKey(DblPred fun0, DblObjSource<V> source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;

@@ -31,7 +31,7 @@ import primal.primitive.DblPrim.DblObjPredicate;
 import primal.primitive.DblPrim.DblObjSink;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.DblObj_Obj;
-import primal.primitive.DblPrim.DblTest;
+import primal.primitive.DblPrim.DblPred;
 import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.fp.DblObjFunUtil;
 import primal.puller.Puller;
@@ -190,7 +190,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 		return of(DblObjFunUtil.filter(fun, source));
 	}
 
-	public DblObjPuller<V> filterKey(DblTest fun) {
+	public DblObjPuller<V> filterKey(DblPred fun) {
 		return of(DblObjFunUtil.filterKey(fun, source));
 	}
 

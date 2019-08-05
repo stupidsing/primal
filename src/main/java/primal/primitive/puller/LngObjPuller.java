@@ -31,7 +31,7 @@ import primal.primitive.LngPrim.LngObjPredicate;
 import primal.primitive.LngPrim.LngObjSink;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.LngObj_Obj;
-import primal.primitive.LngPrim.LngTest;
+import primal.primitive.LngPrim.LngPred;
 import primal.primitive.adt.pair.LngObjPair;
 import primal.primitive.fp.LngObjFunUtil;
 import primal.puller.Puller;
@@ -190,7 +190,7 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 		return of(LngObjFunUtil.filter(fun, source));
 	}
 
-	public LngObjPuller<V> filterKey(LngTest fun) {
+	public LngObjPuller<V> filterKey(LngPred fun) {
 		return of(LngObjFunUtil.filterKey(fun, source));
 	}
 

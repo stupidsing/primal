@@ -14,9 +14,9 @@ import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.FltPrim;
 import primal.primitive.FltPrim.FltObjSource;
+import primal.primitive.FltPrim.FltPred;
 import primal.primitive.FltPrim.FltSink;
 import primal.primitive.FltPrim.FltSource;
-import primal.primitive.FltPrim.FltTest;
 import primal.primitive.FltPrim.Flt_Obj;
 import primal.primitive.Flt_Flt;
 import primal.primitive.adt.pair.FltObjPair;
@@ -72,7 +72,7 @@ public class FltFunUtil {
 		};
 	}
 
-	public static FltSource filter(FltTest fun0, FltSource source) {
+	public static FltSource filter(FltPred fun0, FltSource source) {
 		var fun1 = fun0.rethrow();
 		return () -> {
 			var c = FltPrim.EMPTYVALUE;
@@ -106,7 +106,7 @@ public class FltFunUtil {
 		return init;
 	}
 
-	public static boolean isAll(FltTest pred0, FltSource source) {
+	public static boolean isAll(FltPred pred0, FltSource source) {
 		var pred1 = pred0.rethrow();
 		float c;
 		while ((c = source.g()) != FltPrim.EMPTYVALUE)
@@ -115,7 +115,7 @@ public class FltFunUtil {
 		return true;
 	}
 
-	public static boolean isAny(FltTest pred0, FltSource source) {
+	public static boolean isAny(FltPred pred0, FltSource source) {
 		var pred1 = pred0.rethrow();
 		float c;
 		while ((c = source.g()) != FltPrim.EMPTYVALUE)
@@ -220,7 +220,7 @@ public class FltFunUtil {
 	 * Problematic split: all data must be read, i.e. the children lists must not be
 	 * skipped.
 	 */
-	public static Source<FltSource> split(FltTest fun0, FltSource source) {
+	public static Source<FltSource> split(FltPred fun0, FltSource source) {
 		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private float c = source.g();

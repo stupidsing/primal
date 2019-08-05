@@ -14,9 +14,9 @@ import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.ChrPrim;
 import primal.primitive.ChrPrim.ChrObjSource;
+import primal.primitive.ChrPrim.ChrPred;
 import primal.primitive.ChrPrim.ChrSink;
 import primal.primitive.ChrPrim.ChrSource;
-import primal.primitive.ChrPrim.ChrTest;
 import primal.primitive.ChrPrim.Chr_Obj;
 import primal.primitive.Chr_Chr;
 import primal.primitive.adt.pair.ChrObjPair;
@@ -72,7 +72,7 @@ public class ChrFunUtil {
 		};
 	}
 
-	public static ChrSource filter(ChrTest fun0, ChrSource source) {
+	public static ChrSource filter(ChrPred fun0, ChrSource source) {
 		var fun1 = fun0.rethrow();
 		return () -> {
 			var c = ChrPrim.EMPTYVALUE;
@@ -106,7 +106,7 @@ public class ChrFunUtil {
 		return init;
 	}
 
-	public static boolean isAll(ChrTest pred0, ChrSource source) {
+	public static boolean isAll(ChrPred pred0, ChrSource source) {
 		var pred1 = pred0.rethrow();
 		char c;
 		while ((c = source.g()) != ChrPrim.EMPTYVALUE)
@@ -115,7 +115,7 @@ public class ChrFunUtil {
 		return true;
 	}
 
-	public static boolean isAny(ChrTest pred0, ChrSource source) {
+	public static boolean isAny(ChrPred pred0, ChrSource source) {
 		var pred1 = pred0.rethrow();
 		char c;
 		while ((c = source.g()) != ChrPrim.EMPTYVALUE)
@@ -220,7 +220,7 @@ public class ChrFunUtil {
 	 * Problematic split: all data must be read, i.e. the children lists must not be
 	 * skipped.
 	 */
-	public static Source<ChrSource> split(ChrTest fun0, ChrSource source) {
+	public static Source<ChrSource> split(ChrPred fun0, ChrSource source) {
 		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private char c = source.g();

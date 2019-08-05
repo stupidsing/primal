@@ -31,7 +31,7 @@ import primal.primitive.ChrPrim.ChrObjPredicate;
 import primal.primitive.ChrPrim.ChrObjSink;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.ChrObj_Obj;
-import primal.primitive.ChrPrim.ChrTest;
+import primal.primitive.ChrPrim.ChrPred;
 import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.fp.ChrObjFunUtil;
 import primal.puller.Puller;
@@ -190,7 +190,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 		return of(ChrObjFunUtil.filter(fun, source));
 	}
 
-	public ChrObjPuller<V> filterKey(ChrTest fun) {
+	public ChrObjPuller<V> filterKey(ChrPred fun) {
 		return of(ChrObjFunUtil.filterKey(fun, source));
 	}
 

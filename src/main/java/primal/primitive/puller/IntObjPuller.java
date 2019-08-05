@@ -31,7 +31,7 @@ import primal.primitive.IntPrim.IntObjPredicate;
 import primal.primitive.IntPrim.IntObjSink;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.IntObj_Obj;
-import primal.primitive.IntPrim.IntTest;
+import primal.primitive.IntPrim.IntPred;
 import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.fp.IntObjFunUtil;
 import primal.puller.Puller;
@@ -190,7 +190,7 @@ public class IntObjPuller<V> implements PullerDefaults<IntObjPair<V>, IntObjPair
 		return of(IntObjFunUtil.filter(fun, source));
 	}
 
-	public IntObjPuller<V> filterKey(IntTest fun) {
+	public IntObjPuller<V> filterKey(IntPred fun) {
 		return of(IntObjFunUtil.filterKey(fun, source));
 	}
 

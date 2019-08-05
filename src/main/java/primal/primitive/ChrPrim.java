@@ -72,10 +72,10 @@ public class ChrPrim {
 		public boolean source2(ChrObjPair<T> pair);
 	}
 
-	public interface ChrTest {
+	public interface ChrPred {
 		public boolean test(char c);
 
-		public default ChrTest rethrow() {
+		public default ChrPred rethrow() {
 			return c -> {
 				try {
 					return test(c);

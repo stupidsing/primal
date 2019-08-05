@@ -72,10 +72,10 @@ public class DblPrim {
 		public boolean source2(DblObjPair<T> pair);
 	}
 
-	public interface DblTest {
+	public interface DblPred {
 		public boolean test(double c);
 
-		public default DblTest rethrow() {
+		public default DblPred rethrow() {
 			return c -> {
 				try {
 					return test(c);

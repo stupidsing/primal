@@ -17,8 +17,8 @@ import primal.primitive.ChrDblSource;
 import primal.primitive.ChrDbl_Chr;
 import primal.primitive.ChrDbl_Dbl;
 import primal.primitive.ChrDbl_Obj;
-import primal.primitive.ChrPrim.ChrTest;
-import primal.primitive.DblPrim.DblTest;
+import primal.primitive.ChrPrim.ChrPred;
+import primal.primitive.DblPrim.DblPred;
 import primal.primitive.adt.pair.ChrDblPair;
 import primal.statics.Fail.InterruptedRuntimeException;
 
@@ -102,7 +102,7 @@ public class ChrDblFunUtil {
 		};
 	}
 
-	public static <V> ChrDblSource filterKey(ChrTest fun0, ChrDblSource source2) {
+	public static <V> ChrDblSource filterKey(ChrPred fun0, ChrDblSource source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;
@@ -112,7 +112,7 @@ public class ChrDblFunUtil {
 		};
 	}
 
-	public static ChrDblSource filterValue(DblTest fun0, ChrDblSource source2) {
+	public static ChrDblSource filterValue(DblPred fun0, ChrDblSource source2) {
 		var fun1 = fun0.rethrow();
 		return pair -> {
 			boolean b;
