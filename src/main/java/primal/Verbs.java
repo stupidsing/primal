@@ -420,7 +420,7 @@ public class Verbs {
 	}
 
 	public static class ReadLine {
-		private static int bufferLimit = 65536;
+		private static int limit = 65536;
 
 		/**
 		 * Reads a line from a stream with a maximum line length limit. Removes carriage
@@ -433,7 +433,7 @@ public class Verbs {
 				int c;
 				while (0 <= (c = is.read()) && c != 10) {
 					sb.append((char) c);
-					if (bufferLimit <= sb.length())
+					if (limit <= sb.length())
 						fail("line too long");
 				}
 				return 0 <= c ? Strip.string(sb) : null;
@@ -446,7 +446,7 @@ public class Verbs {
 				int c;
 				while (0 <= (c = reader.read()) && c != 10) {
 					sb.append((char) c);
-					if (bufferLimit <= sb.length())
+					if (limit <= sb.length())
 						fail("line too long");
 				}
 				return 0 <= c ? Strip.string(sb) : null;
