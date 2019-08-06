@@ -42,7 +42,9 @@ replace() {
 
 replace src/main/java/primal/primitive/adt/pair/ChrDblPair.java
 replace src/main/java/primal/primitive/adt/pair/ChrObjPair.java
+replace src/main/java/primal/primitive/adt/Chars.java
 replace src/main/java/primal/primitive/adt/ChrMutable.java
+replace src/main/java/primal/primitive/fp/AsChr.java
 replace src/main/java/primal/primitive/fp/ChrFunUtil.java
 replace src/main/java/primal/primitive/fp/ChrObjFunUtil.java
 replace src/main/java/primal/primitive/Chr_Dbl.java
