@@ -204,6 +204,26 @@ public class Verbs {
 
 	}
 
+	public static class Format {
+		private static String hexDigits = "0123456789ABCDEF";
+
+		public static String hex(long i) {
+			return Character.toString(hexDigits.charAt((int) (i & 0x0F)));
+		}
+
+		public static String hex2(long i) {
+			return hex(i >>> 4) + hex(i);
+		}
+
+		public static String hex4(long i) {
+			return hex2(i >>> 8 & 0xFF) + hex2(i & 0xFF);
+		}
+
+		public static String hex8(long i) {
+			return hex4(i >>> 16 & 0xFFFF) + hex4(i & 0xFFFF);
+		}
+	}
+
 	public static class Get {
 		private static AtomicInteger counter = new AtomicInteger();
 
