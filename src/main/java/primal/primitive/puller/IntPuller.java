@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntPredicate;
 
+import primal.Nouns.Buffer;
 import primal.NullableSyncQueue;
 import primal.Verbs.Close;
 import primal.Verbs.Equals;
@@ -415,7 +416,7 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSi
 			if (capacity0 < capacity1) {
 				int capacity = max(capacity0, 4);
 				while (capacity < capacity1)
-					capacity = capacity < 4096 ? capacity << 1 : capacity * 3 / 2;
+					capacity = capacity < Buffer.size ? capacity << 1 : capacity * 3 / 2;
 
 				cs = Arrays.copyOf(cs, capacity);
 			}

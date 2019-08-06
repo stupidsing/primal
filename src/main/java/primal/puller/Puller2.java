@@ -55,7 +55,7 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 		return of(pair -> {
 			var b = iter.hasNext();
 			if (b) {
-				Entry<K, V> pair1 = iter.next();
+				var pair1 = iter.next();
 				pair.update(pair1.getKey(), pair1.getValue());
 			}
 			return b;

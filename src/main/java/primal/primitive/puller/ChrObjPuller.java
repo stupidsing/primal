@@ -64,7 +64,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 			public boolean source2(ChrObjPair<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
-					ChrObjPair<V> kv = kvs[i];
+					var kv = kvs[i];
 					pair.update(kv.k, kv.v);
 				}
 				return b;
@@ -79,7 +79,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 			public boolean source2(ChrObjPair<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
-					ChrObjPair<V> pair1 = iter.next();
+					var pair1 = iter.next();
 					pair.update(pair1.k, pair1.v);
 				}
 				return b;

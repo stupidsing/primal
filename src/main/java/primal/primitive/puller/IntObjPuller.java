@@ -64,7 +64,7 @@ public class IntObjPuller<V> implements PullerDefaults<IntObjPair<V>, IntObjPair
 			public boolean source2(IntObjPair<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
-					IntObjPair<V> kv = kvs[i];
+					var kv = kvs[i];
 					pair.update(kv.k, kv.v);
 				}
 				return b;
@@ -79,7 +79,7 @@ public class IntObjPuller<V> implements PullerDefaults<IntObjPair<V>, IntObjPair
 			public boolean source2(IntObjPair<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
-					IntObjPair<V> pair1 = iter.next();
+					var pair1 = iter.next();
 					pair.update(pair1.k, pair1.v);
 				}
 				return b;

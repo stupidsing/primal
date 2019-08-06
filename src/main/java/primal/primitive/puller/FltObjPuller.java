@@ -64,7 +64,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 			public boolean source2(FltObjPair<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
-					FltObjPair<V> kv = kvs[i];
+					var kv = kvs[i];
 					pair.update(kv.k, kv.v);
 				}
 				return b;
@@ -79,7 +79,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 			public boolean source2(FltObjPair<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
-					FltObjPair<V> pair1 = iter.next();
+					var pair1 = iter.next();
 					pair.update(pair1.k, pair1.v);
 				}
 				return b;

@@ -64,7 +64,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 			public boolean source2(DblObjPair<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
-					DblObjPair<V> kv = kvs[i];
+					var kv = kvs[i];
 					pair.update(kv.k, kv.v);
 				}
 				return b;
@@ -79,7 +79,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 			public boolean source2(DblObjPair<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
-					DblObjPair<V> pair1 = iter.next();
+					var pair1 = iter.next();
 					pair.update(pair1.k, pair1.v);
 				}
 				return b;
