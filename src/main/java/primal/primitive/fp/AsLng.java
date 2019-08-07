@@ -63,7 +63,7 @@ public class AsLng {
 	}
 
 	public static <K, V> Obj_Lng<Puller2<K, V>> sum(ObjObj_Lng<K, V> fun0) {
-		ObjObj_Lng<K, V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return puller -> {
 			var pair = Pair.<K, V> of(null, null);
 			var source = puller.source();

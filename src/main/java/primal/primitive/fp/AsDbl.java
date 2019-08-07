@@ -63,7 +63,7 @@ public class AsDbl {
 	}
 
 	public static <K, V> Obj_Dbl<Puller2<K, V>> sum(ObjObj_Dbl<K, V> fun0) {
-		ObjObj_Dbl<K, V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return puller -> {
 			var pair = Pair.<K, V> of(null, null);
 			var source = puller.source();

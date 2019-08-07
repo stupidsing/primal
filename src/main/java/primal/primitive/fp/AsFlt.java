@@ -63,7 +63,7 @@ public class AsFlt {
 	}
 
 	public static <K, V> Obj_Flt<Puller2<K, V>> sum(ObjObj_Flt<K, V> fun0) {
-		ObjObj_Flt<K, V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return puller -> {
 			var pair = Pair.<K, V> of(null, null);
 			var source = puller.source();

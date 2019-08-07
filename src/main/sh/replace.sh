@@ -40,10 +40,14 @@ replace() {
   "
 }
 
+replace src/main/java/primal/primitive/adt/map/ChrDblMap.java
+replace src/main/java/primal/primitive/adt/map/ChrObjMap.java
+replace src/main/java/primal/primitive/adt/map/ObjChrMap.java
 replace src/main/java/primal/primitive/adt/pair/ChrDblPair.java
 replace src/main/java/primal/primitive/adt/pair/ChrObjPair.java
 replace src/main/java/primal/primitive/adt/Chars.java
 replace src/main/java/primal/primitive/adt/ChrMutable.java
+replace src/main/java/primal/primitive/adt/ChrRange.java
 replace src/main/java/primal/primitive/fp/AsChr.java
 replace src/main/java/primal/primitive/fp/ChrFunUtil.java
 replace src/main/java/primal/primitive/fp/ChrObjFunUtil.java

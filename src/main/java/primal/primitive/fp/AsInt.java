@@ -63,7 +63,7 @@ public class AsInt {
 	}
 
 	public static <K, V> Obj_Int<Puller2<K, V>> sum(ObjObj_Int<K, V> fun0) {
-		ObjObj_Int<K, V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return puller -> {
 			var pair = Pair.<K, V> of(null, null);
 			var source = puller.source();

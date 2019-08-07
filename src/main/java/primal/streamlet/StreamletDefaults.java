@@ -46,4 +46,16 @@ public interface StreamletDefaults<T, Opt, Pred, Puller_ extends PullerDefaults<
 		return fun.apply(puller());
 	}
 
+	public default String toJoinedString() {
+		return puller().toJoinedString();
+	}
+
+	public default String toJoinedString(String delimiter) {
+		return puller().toJoinedString(delimiter);
+	}
+
+	public default String toJoinedString(String before, String delimiter, String after) {
+		return puller().toJoinedString(before, delimiter, after);
+	}
+
 }
