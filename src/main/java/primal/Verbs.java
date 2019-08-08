@@ -6,6 +6,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static primal.statics.Fail.fail;
 import static primal.statics.Rethrow.ex;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,12 +36,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 
+import primal.Nouns.Buffer;
+import primal.Nouns.Utf8;
 import primal.adt.Pair;
 import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
 import primal.io.ReadStream;
 import primal.io.WriteStream;
 import primal.os.Log_;
+import primal.primitive.adt.Bytes;
+import primal.puller.Puller;
 
 public class Verbs {
 
@@ -408,6 +414,21 @@ public class Verbs {
 		private static ThreadPoolExecutor newExecutor(int corePoolSize, int maxPoolSize) {
 			var queue = new ArrayBlockingQueue<Runnable>(256);
 			return new ThreadPoolExecutor(corePoolSize, maxPoolSize, 10, TimeUnit.SECONDS, queue);
+		}
+	}
+
+	public static class Pull {
+		public static Puller<Bytes> from(String data) {
+			return from(new ByteArrayInputStream(data.getBytes(Utf8.charset)));
+		}
+
+		public static Puller<Bytes> from(InputStream is) {
+			var bis = new BufferedInputStream(is);
+			return Puller.of(() -> {
+				var bs = new byte[Buffer.size];
+				var nBytesRead = ex(() -> bis.read(bs));
+				return 0 <= nBytesRead ? Bytes.of(bs, 0, nBytesRead) : null;
+			}).closeAtEnd(bis).closeAtEnd(is);
 		}
 	}
 

@@ -1,4 +1,6 @@
-package primal.adt; import static primal.statics.Fail.fail;
+package primal.adt;
+
+import static primal.statics.Fail.fail;
 
 import java.util.List;
 
