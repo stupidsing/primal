@@ -3,4 +3,3 @@ mvn eclipse:clean eclipse:eclipse install assembly:single && java -jar target/pr
 
 ### How to rename this?
 find -type f | xargs sed s/primal/newname/g
-
