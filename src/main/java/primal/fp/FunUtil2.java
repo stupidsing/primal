@@ -13,6 +13,7 @@ import primal.fp.Funs.Fun;
 import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
 import primal.fp.Funs2.Fun2;
+import primal.fp.Funs2.Pair_;
 import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.statics.Fail.InterruptedRuntimeException;
@@ -48,7 +49,7 @@ public class FunUtil2 {
 		return new Source2<>() {
 			private Source2<K, V> source2 = nullSource();
 
-			public boolean source2(Pair<K, V> pair) {
+			public boolean source2(Pair_<K, V> pair) {
 				var b = false;
 				while (source2 != null && !(b = source2.source2(pair)))
 					source2 = source.g();
@@ -61,7 +62,7 @@ public class FunUtil2 {
 		return new Source2<>() {
 			private boolean isFirst = true;
 
-			public boolean source2(Pair<K, V> pair) {
+			public boolean source2(Pair_<K, V> pair) {
 				if (!isFirst)
 					return source2.source2(pair);
 				else {
@@ -187,7 +188,7 @@ public class FunUtil2 {
 		return new Source2<>() {
 			private boolean isAppended = false;
 
-			public boolean source2(Pair<K, V> pair) {
+			public boolean source2(Pair_<K, V> pair) {
 				if (!isAppended) {
 					var b = source.source2(pair);
 					if (!b) {

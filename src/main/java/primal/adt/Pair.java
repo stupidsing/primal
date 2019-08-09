@@ -8,13 +8,11 @@ import primal.Verbs.Equals;
 import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs2.Fun2;
+import primal.fp.Funs2.Pair_;
 
-public class Pair<K, V> {
+public class Pair<K, V> extends Pair_<K, V> {
 
 	private static Pair<?, ?> none_ = Pair.of(null, null);
-
-	public K k;
-	public V v;
 
 	public static <K0, K1, V> Fun<Pair<K0, V>, Pair<K1, V>> mapFst(Fun<K0, K1> fun) {
 		return pair -> of(fun.apply(pair.k), pair.v);
@@ -29,12 +27,12 @@ public class Pair<K, V> {
 		return (Pair<K, V>) none_;
 	}
 
-	public static <K, V> Pair<K, V> of(K K, V v) {
-		return new Pair<>(K, v);
+	public static <K, V> Pair<K, V> of(K k, V v) {
+		return new Pair<>(k, v);
 	}
 
-	protected Pair(K K, V v) {
-		update(K, v);
+	protected Pair(K k, V v) {
+		super(k, v);
 	}
 
 	public static <K extends Comparable<? super K>, V extends Comparable<? super V>> Comparator<Pair<K, V>> comparator() {
@@ -60,11 +58,6 @@ public class Pair<K, V> {
 
 	public <O> O map(Fun2<K, V, O> fun) {
 		return fun.apply(k, v);
-	}
-
-	public void update(K k_, V v_) {
-		k = k_;
-		v = v_;
 	}
 
 	@Override

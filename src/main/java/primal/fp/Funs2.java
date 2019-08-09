@@ -4,8 +4,6 @@ import static primal.statics.Fail.fail;
 
 import java.util.function.BiFunction;
 
-import primal.adt.Pair;
-
 public class Funs2 {
 
 	public interface BinOp<T> extends BiFun<T, T> {
@@ -17,8 +15,22 @@ public class Funs2 {
 	public interface BiFun<I, O> extends Fun2<I, I, O> {
 	}
 
+	public static class Pair_<K, V> {
+		public K k;
+		public V v;
+
+		protected Pair_(K k, V v) {
+			update(k, v);
+		}
+
+		public void update(K k_, V v_) {
+			k = k_;
+			v = v_;
+		}
+	}
+
 	public interface Source2<K, V> {
-		public boolean source2(Pair<K, V> pair);
+		public boolean source2(Pair_<K, V> pair);
 	}
 
 	public interface Sink2<K, V> {

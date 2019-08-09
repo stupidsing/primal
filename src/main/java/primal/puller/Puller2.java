@@ -31,6 +31,7 @@ import primal.fp.FunUtil;
 import primal.fp.FunUtil2;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs2.Fun2;
+import primal.fp.Funs2.Pair_;
 import primal.fp.Funs2.Sink2;
 import primal.fp.Funs2.Source2;
 
@@ -63,11 +64,11 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 	}
 
 	@SafeVarargs
-	public static <K, V> Puller2<K, V> of(Pair<K, V>... kvs) {
+	public static <K, V> Puller2<K, V> of(Pair_<K, V>... kvs) {
 		return of(new Source2<>() {
 			private int i;
 
-			public boolean source2(Pair<K, V> pair) {
+			public boolean source2(Pair_<K, V> pair) {
 				var b = i < kvs.length;
 				if (b) {
 					var kv = kvs[i];
@@ -81,7 +82,7 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 	public static <K, V> Puller2<K, V> of(Iterable<Pair<K, V>> col) {
 		var iter = col.iterator();
 		return of(new Source2<>() {
-			public boolean source2(Pair<K, V> pair) {
+			public boolean source2(Pair_<K, V> pair) {
 				var b = iter.hasNext();
 				if (b) {
 					var pair1 = iter.next();
@@ -389,7 +390,7 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 		return of(new Source2<>() {
 			private int count = n;
 
-			public boolean source2(Pair<K, V> pair) {
+			public boolean source2(Pair_<K, V> pair) {
 				return 0 < count-- ? pull(pair) : false;
 			}
 		});
@@ -448,7 +449,7 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 		return of(FunUtil2.map2(kf, vf, source2));
 	}
 
-	private boolean pull(Pair<K, V> pair) {
+	private boolean pull(Pair_<K, V> pair) {
 		return source2.source2(pair);
 	}
 
