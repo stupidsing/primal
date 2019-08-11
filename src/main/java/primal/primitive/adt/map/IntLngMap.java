@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.IntLngSink;
 import primal.primitive.IntLngSource;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Lng;
@@ -15,7 +16,6 @@ import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.IntLngPair;
-import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class IntLngMap {
 			private IntLngSource source0 = source_();
 			private IntLngPair pair0 = IntLngPair.of((int) 0, (long) 0);
 
-			public boolean source2(IntObjPair<Long> pair) {
+			public boolean source2(IntObjPair_<Long> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

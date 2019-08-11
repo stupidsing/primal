@@ -5,6 +5,7 @@ import static primal.statics.Fail.fail;
 import java.util.Objects;
 
 import primal.fp.Funs.Iterate;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjSink;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Chr_Obj;
@@ -157,7 +158,7 @@ public class ChrObjMap<V> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(ChrObjPair<V> pair) {
+			public boolean source2(ChrObjPair_<V> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

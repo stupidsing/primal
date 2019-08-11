@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import primal.Verbs.Equals;
 import primal.primitive.ChrPrim;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjSink;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Obj_Chr;
@@ -160,7 +161,7 @@ public class ObjChrMap<K> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(ChrObjPair<K> pair) {
+			public boolean source2(ChrObjPair_<K> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

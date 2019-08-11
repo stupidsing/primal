@@ -11,11 +11,11 @@ import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Chr;
 import primal.primitive.IntChrSink;
 import primal.primitive.IntChrSource;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Chr;
 import primal.primitive.adt.pair.IntChrPair;
-import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class IntChrMap {
 			private IntChrSource source0 = source_();
 			private IntChrPair pair0 = IntChrPair.of((int) 0, (char) 0);
 
-			public boolean source2(IntObjPair<Character> pair) {
+			public boolean source2(IntObjPair_<Character> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.ChrDblSink;
 import primal.primitive.ChrDblSource;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Dbl;
@@ -15,7 +16,6 @@ import primal.primitive.DblPrim;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.adt.pair.ChrDblPair;
-import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class ChrDblMap {
 			private ChrDblSource source0 = source_();
 			private ChrDblPair pair0 = ChrDblPair.of((char) 0, (double) 0);
 
-			public boolean source2(ChrObjPair<Double> pair) {
+			public boolean source2(ChrObjPair_<Double> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

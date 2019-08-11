@@ -27,6 +27,7 @@ import primal.fp.FunUtil2;
 import primal.fp.Funs.Fun;
 import primal.primitive.ChrObj_Chr;
 import primal.primitive.ChrPrim;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjPredicate;
 import primal.primitive.ChrPrim.ChrObjSink;
 import primal.primitive.ChrPrim.ChrObjSource;
@@ -61,7 +62,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 		return of(new ChrObjSource<>() {
 			private int i;
 
-			public boolean source2(ChrObjPair<V> pair) {
+			public boolean source2(ChrObjPair_<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
 					var kv = kvs[i];
@@ -76,7 +77,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 	public static <V> ChrObjPuller<V> of(Iterable<ChrObjPair<V>> col) {
 		var iter = col.iterator();
 		return of(new ChrObjSource<>() {
-			public boolean source2(ChrObjPair<V> pair) {
+			public boolean source2(ChrObjPair_<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
 					var pair1 = iter.next();
@@ -383,7 +384,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 		return of(new ChrObjSource<>() {
 			private int count = n;
 
-			public boolean source2(ChrObjPair<V> pair) {
+			public boolean source2(ChrObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
 			}
 		});
@@ -425,7 +426,7 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 		return of(ChrObjFunUtil.mapChrObj(kf, vf, source));
 	}
 
-	private boolean pull(ChrObjPair<V> pair) {
+	private boolean pull(ChrObjPair_<V> pair) {
 		return source.source2(pair);
 	}
 

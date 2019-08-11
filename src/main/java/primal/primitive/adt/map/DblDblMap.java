@@ -9,11 +9,11 @@ import primal.fp.Funs.Fun;
 import primal.primitive.DblDblSink;
 import primal.primitive.DblDblSource;
 import primal.primitive.DblPrim;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.adt.pair.DblDblPair;
-import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.puller.DblObjPuller;
 import primal.puller.Puller;
 
@@ -98,7 +98,7 @@ public class DblDblMap {
 			private DblDblSource source0 = source_();
 			private DblDblPair pair0 = DblDblPair.of((double) 0, (double) 0);
 
-			public boolean source2(DblObjPair<Double> pair) {
+			public boolean source2(DblObjPair_<Double> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

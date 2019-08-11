@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.ChrFltSink;
 import primal.primitive.ChrFltSource;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Flt;
@@ -15,7 +16,6 @@ import primal.primitive.FltPrim;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Flt;
 import primal.primitive.adt.pair.ChrFltPair;
-import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class ChrFltMap {
 			private ChrFltSource source0 = source_();
 			private ChrFltPair pair0 = ChrFltPair.of((char) 0, (float) 0);
 
-			public boolean source2(ChrObjPair<Float> pair) {
+			public boolean source2(ChrObjPair_<Float> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

@@ -27,6 +27,7 @@ import primal.fp.FunUtil2;
 import primal.fp.Funs.Fun;
 import primal.primitive.LngObj_Lng;
 import primal.primitive.LngPrim;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjPredicate;
 import primal.primitive.LngPrim.LngObjSink;
 import primal.primitive.LngPrim.LngObjSource;
@@ -61,7 +62,7 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 		return of(new LngObjSource<>() {
 			private int i;
 
-			public boolean source2(LngObjPair<V> pair) {
+			public boolean source2(LngObjPair_<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
 					var kv = kvs[i];
@@ -76,7 +77,7 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 	public static <V> LngObjPuller<V> of(Iterable<LngObjPair<V>> col) {
 		var iter = col.iterator();
 		return of(new LngObjSource<>() {
-			public boolean source2(LngObjPair<V> pair) {
+			public boolean source2(LngObjPair_<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
 					var pair1 = iter.next();
@@ -383,7 +384,7 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 		return of(new LngObjSource<>() {
 			private int count = n;
 
-			public boolean source2(LngObjPair<V> pair) {
+			public boolean source2(LngObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
 			}
 		});
@@ -425,7 +426,7 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 		return of(LngObjFunUtil.mapLngObj(kf, vf, source));
 	}
 
-	private boolean pull(LngObjPair<V> pair) {
+	private boolean pull(LngObjPair_<V> pair) {
 		return source.source2(pair);
 	}
 

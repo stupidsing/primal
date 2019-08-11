@@ -9,13 +9,11 @@ import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Iterate;
 import primal.primitive.FltPrim;
+import primal.primitive.FltPrim.FltObjPair_;
 
-public class FltObjPair<V> {
+public class FltObjPair<V> extends FltObjPair_<V> {
 
 	private static FltObjPair<?> none_ = FltObjPair.of(FltPrim.EMPTYVALUE, null);
-
-	public float k;
-	public V v;
 
 	public interface MapFst {
 		public float apply(float c);
@@ -43,8 +41,7 @@ public class FltObjPair<V> {
 	}
 
 	protected FltObjPair(float k, V v) {
-		this.k = k;
-		this.v = v;
+		super(k, v);
 	}
 
 	public static <V extends Comparable<? super V>> Comparator<FltObjPair<V>> comparator() {
@@ -74,11 +71,6 @@ public class FltObjPair<V> {
 
 	public <O> O map(Map<V, O> fun) {
 		return fun.apply(k, v);
-	}
-
-	public void update(float k_, V v_) {
-		k = k_;
-		v = v_;
 	}
 
 	@Override

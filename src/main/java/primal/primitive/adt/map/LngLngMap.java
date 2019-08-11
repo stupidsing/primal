@@ -9,11 +9,11 @@ import primal.fp.Funs.Fun;
 import primal.primitive.LngLngSink;
 import primal.primitive.LngLngSource;
 import primal.primitive.LngPrim;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.LngLngPair;
-import primal.primitive.adt.pair.LngObjPair;
 import primal.primitive.puller.LngObjPuller;
 import primal.puller.Puller;
 
@@ -98,7 +98,7 @@ public class LngLngMap {
 			private LngLngSource source0 = source_();
 			private LngLngPair pair0 = LngLngPair.of((long) 0, (long) 0);
 
-			public boolean source2(LngObjPair<Long> pair) {
+			public boolean source2(LngObjPair_<Long> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

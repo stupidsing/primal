@@ -6,6 +6,7 @@ find -type f | xargs sed s/primal/newname/g
 
 ### Package dependencies
 
+```
 primal.statics.*
 primal.Nouns
 primal.io.*
@@ -18,10 +19,31 @@ primal.adt.Mutable
 primal.NullableSyncQueue
 primal.fp.Funs
 primal.fp.Funs2
+primal.adt.Opt
 primal.adt.Pair
 primal.fp.FunUtil
 primal.fp.FunUtil2
 	:
 	:
 	:
+primal.primitive.ChrVerbs
+primal.primitive.ChrPrim
+primal.primitive.ChrOpt
+primal.primitive.adt.pair.ChrObjPair
+primal.primitive.adt.set.ChrSet
+primal.primitive.puller.ChrPuller
+primal.primitive.adt.Chars
+primal.streamlet.Streamlet2
+primal.primitive.streamlet.ChrObjStreamlet
+primal.streamlet.Streamlet
+primal.primitive.streamlet.ChrStreamlet
+	:
+	:
+	:
+primal.primitive.ChrMoreVerbs
+primal.MoreVerbs
+	:
+	:
+	:
 primal.Main
+```

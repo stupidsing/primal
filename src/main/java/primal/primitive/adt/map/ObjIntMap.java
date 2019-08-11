@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import primal.Verbs.Equals;
 import primal.primitive.IntPrim;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSink;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
@@ -160,7 +161,7 @@ public class ObjIntMap<K> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(IntObjPair<K> pair) {
+			public boolean source2(IntObjPair_<K> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

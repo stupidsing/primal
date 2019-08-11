@@ -9,13 +9,11 @@ import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Iterate;
 import primal.primitive.ChrPrim;
+import primal.primitive.ChrPrim.ChrObjPair_;
 
-public class ChrObjPair<V> {
+public class ChrObjPair<V> extends ChrObjPair_<V> {
 
 	private static ChrObjPair<?> none_ = ChrObjPair.of(ChrPrim.EMPTYVALUE, null);
-
-	public char k;
-	public V v;
 
 	public interface MapFst {
 		public char apply(char c);
@@ -43,8 +41,7 @@ public class ChrObjPair<V> {
 	}
 
 	protected ChrObjPair(char k, V v) {
-		this.k = k;
-		this.v = v;
+		super(k, v);
 	}
 
 	public static <V extends Comparable<? super V>> Comparator<ChrObjPair<V>> comparator() {
@@ -74,11 +71,6 @@ public class ChrObjPair<V> {
 
 	public <O> O map(Map<V, O> fun) {
 		return fun.apply(k, v);
-	}
-
-	public void update(char k_, V v_) {
-		k = k_;
-		v = v_;
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import primal.fp.Funs.Source;
 import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.LngObj_Lng;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjPredicate;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.LngObj_Obj;
@@ -52,7 +53,7 @@ public class LngObjFunUtil {
 		return new LngObjSource<>() {
 			private LngObjSource<V> source2 = nullSource();
 
-			public boolean source2(LngObjPair<V> pair) {
+			public boolean source2(LngObjPair_<V> pair) {
 				var b = false;
 				while (source2 != null && !(b = source2.source2(pair)))
 					source2 = source.g();
@@ -65,7 +66,7 @@ public class LngObjFunUtil {
 		return new LngObjSource<>() {
 			private boolean isFirst = true;
 
-			public boolean source2(LngObjPair<V> pair) {
+			public boolean source2(LngObjPair_<V> pair) {
 				if (!isFirst)
 					return source2.source2(pair);
 				else {
@@ -222,7 +223,7 @@ public class LngObjFunUtil {
 		return new LngObjSource<>() {
 			private boolean isAppended = false;
 
-			public boolean source2(LngObjPair<V> pair) {
+			public boolean source2(LngObjPair_<V> pair) {
 				var b = !isAppended;
 				if (b && !source.source2(pair)) {
 					pair.update(key, value);

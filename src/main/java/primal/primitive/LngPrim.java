@@ -2,8 +2,6 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import primal.primitive.adt.pair.LngObjPair;
-
 public class LngPrim {
 
 	public static long EMPTYVALUE = Long.MIN_VALUE;
@@ -40,6 +38,20 @@ public class LngPrim {
 		}
 	}
 
+	public static class LngObjPair_<V> {
+		public long k;
+		public V v;
+
+		protected LngObjPair_(long k, V v) {
+			update(k, v);
+		}
+
+		public void update(long k_, V v_) {
+			k = k_;
+			v = v_;
+		}
+	}
+
 	public interface LngObjPredicate<T> {
 		public boolean test(long c, T t);
 
@@ -69,7 +81,7 @@ public class LngPrim {
 	}
 
 	public interface LngObjSource<T> {
-		public boolean source2(LngObjPair<T> pair);
+		public boolean source2(LngObjPair_<T> pair);
 	}
 
 	public interface LngPred {

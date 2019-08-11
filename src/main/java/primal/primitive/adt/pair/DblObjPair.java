@@ -9,13 +9,11 @@ import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Iterate;
 import primal.primitive.DblPrim;
+import primal.primitive.DblPrim.DblObjPair_;
 
-public class DblObjPair<V> {
+public class DblObjPair<V> extends DblObjPair_<V> {
 
 	private static DblObjPair<?> none_ = DblObjPair.of(DblPrim.EMPTYVALUE, null);
-
-	public double k;
-	public V v;
 
 	public interface MapFst {
 		public double apply(double c);
@@ -43,8 +41,7 @@ public class DblObjPair<V> {
 	}
 
 	protected DblObjPair(double k, V v) {
-		this.k = k;
-		this.v = v;
+		super(k, v);
 	}
 
 	public static <V extends Comparable<? super V>> Comparator<DblObjPair<V>> comparator() {
@@ -74,11 +71,6 @@ public class DblObjPair<V> {
 
 	public <O> O map(Map<V, O> fun) {
 		return fun.apply(k, v);
-	}
-
-	public void update(double k_, V v_) {
-		k = k_;
-		v = v_;
 	}
 
 	@Override

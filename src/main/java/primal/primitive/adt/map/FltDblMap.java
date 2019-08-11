@@ -11,11 +11,11 @@ import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.FltDblSink;
 import primal.primitive.FltDblSource;
+import primal.primitive.FltPrim.FltObjPair_;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Dbl;
 import primal.primitive.adt.pair.FltDblPair;
-import primal.primitive.adt.pair.FltObjPair;
 import primal.primitive.puller.FltObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class FltDblMap {
 			private FltDblSource source0 = source_();
 			private FltDblPair pair0 = FltDblPair.of((float) 0, (double) 0);
 
-			public boolean source2(FltObjPair<Double> pair) {
+			public boolean source2(FltObjPair_<Double> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

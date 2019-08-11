@@ -11,11 +11,11 @@ import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Flt;
 import primal.primitive.IntFltSink;
 import primal.primitive.IntFltSource;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Flt;
 import primal.primitive.adt.pair.IntFltPair;
-import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class IntFltMap {
 			private IntFltSource source0 = source_();
 			private IntFltPair pair0 = IntFltPair.of((int) 0, (float) 0);
 
-			public boolean source2(IntObjPair<Float> pair) {
+			public boolean source2(IntObjPair_<Float> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

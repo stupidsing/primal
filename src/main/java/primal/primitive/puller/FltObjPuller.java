@@ -27,6 +27,7 @@ import primal.fp.FunUtil2;
 import primal.fp.Funs.Fun;
 import primal.primitive.FltObj_Flt;
 import primal.primitive.FltPrim;
+import primal.primitive.FltPrim.FltObjPair_;
 import primal.primitive.FltPrim.FltObjPredicate;
 import primal.primitive.FltPrim.FltObjSink;
 import primal.primitive.FltPrim.FltObjSource;
@@ -61,7 +62,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 		return of(new FltObjSource<>() {
 			private int i;
 
-			public boolean source2(FltObjPair<V> pair) {
+			public boolean source2(FltObjPair_<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
 					var kv = kvs[i];
@@ -76,7 +77,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 	public static <V> FltObjPuller<V> of(Iterable<FltObjPair<V>> col) {
 		var iter = col.iterator();
 		return of(new FltObjSource<>() {
-			public boolean source2(FltObjPair<V> pair) {
+			public boolean source2(FltObjPair_<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
 					var pair1 = iter.next();
@@ -383,7 +384,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 		return of(new FltObjSource<>() {
 			private int count = n;
 
-			public boolean source2(FltObjPair<V> pair) {
+			public boolean source2(FltObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
 			}
 		});
@@ -425,7 +426,7 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 		return of(FltObjFunUtil.mapFltObj(kf, vf, source));
 	}
 
-	private boolean pull(FltObjPair<V> pair) {
+	private boolean pull(FltObjPair_<V> pair) {
 		return source.source2(pair);
 	}
 

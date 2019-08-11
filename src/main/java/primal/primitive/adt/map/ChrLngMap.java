@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.ChrLngSink;
 import primal.primitive.ChrLngSource;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Lng;
@@ -15,7 +16,6 @@ import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.ChrLngPair;
-import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class ChrLngMap {
 			private ChrLngSource source0 = source_();
 			private ChrLngPair pair0 = ChrLngPair.of((char) 0, (long) 0);
 
-			public boolean source2(ChrObjPair<Long> pair) {
+			public boolean source2(ChrObjPair_<Long> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

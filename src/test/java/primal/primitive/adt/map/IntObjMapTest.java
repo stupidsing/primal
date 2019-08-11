@@ -21,7 +21,7 @@ public class IntObjMapTest {
 		assertEquals(Integer.valueOf(4), map.get(3));
 		assertEquals(Integer.valueOf(6), map.get(5));
 
-		var expected = Set.of("1:2", "3:4", "5:6");
+		var expect = Set.of("1:2", "3:4", "5:6");
 		var actual = new HashSet<>();
 
 		var source = map.source();
@@ -30,7 +30,7 @@ public class IntObjMapTest {
 		while (source.source2(pair))
 			actual.add(pair.k + ":" + pair.v);
 
-		assertEquals(expected, actual);
+		assertEquals(expect, actual);
 	}
 
 }

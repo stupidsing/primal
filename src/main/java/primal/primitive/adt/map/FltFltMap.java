@@ -9,11 +9,11 @@ import primal.fp.Funs.Fun;
 import primal.primitive.FltFltSink;
 import primal.primitive.FltFltSource;
 import primal.primitive.FltPrim;
+import primal.primitive.FltPrim.FltObjPair_;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Flt;
 import primal.primitive.adt.pair.FltFltPair;
-import primal.primitive.adt.pair.FltObjPair;
 import primal.primitive.puller.FltObjPuller;
 import primal.puller.Puller;
 
@@ -98,7 +98,7 @@ public class FltFltMap {
 			private FltFltSource source0 = source_();
 			private FltFltPair pair0 = FltFltPair.of((float) 0, (float) 0);
 
-			public boolean source2(FltObjPair<Float> pair) {
+			public boolean source2(FltObjPair_<Float> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

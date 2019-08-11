@@ -9,13 +9,11 @@ import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Iterate;
 import primal.primitive.IntPrim;
+import primal.primitive.IntPrim.IntObjPair_;
 
-public class IntObjPair<V> {
+public class IntObjPair<V> extends IntObjPair_<V> {
 
 	private static IntObjPair<?> none_ = IntObjPair.of(IntPrim.EMPTYVALUE, null);
-
-	public int k;
-	public V v;
 
 	public interface MapFst {
 		public int apply(int c);
@@ -43,8 +41,7 @@ public class IntObjPair<V> {
 	}
 
 	protected IntObjPair(int k, V v) {
-		this.k = k;
-		this.v = v;
+		super(k, v);
 	}
 
 	public static <V extends Comparable<? super V>> Comparator<IntObjPair<V>> comparator() {
@@ -74,11 +71,6 @@ public class IntObjPair<V> {
 
 	public <O> O map(Map<V, O> fun) {
 		return fun.apply(k, v);
-	}
-
-	public void update(int k_, V v_) {
-		k = k_;
-		v = v_;
 	}
 
 	@Override

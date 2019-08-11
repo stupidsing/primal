@@ -2,8 +2,6 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import primal.primitive.adt.pair.FltObjPair;
-
 public class FltPrim {
 
 	public static float EMPTYVALUE = Float.MIN_VALUE;
@@ -40,6 +38,20 @@ public class FltPrim {
 		}
 	}
 
+	public static class FltObjPair_<V> {
+		public float k;
+		public V v;
+
+		protected FltObjPair_(float k, V v) {
+			update(k, v);
+		}
+
+		public void update(float k_, V v_) {
+			k = k_;
+			v = v_;
+		}
+	}
+
 	public interface FltObjPredicate<T> {
 		public boolean test(float c, T t);
 
@@ -69,7 +81,7 @@ public class FltPrim {
 	}
 
 	public interface FltObjSource<T> {
-		public boolean source2(FltObjPair<T> pair);
+		public boolean source2(FltObjPair_<T> pair);
 	}
 
 	public interface FltPred {

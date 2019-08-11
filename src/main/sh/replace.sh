@@ -45,12 +45,15 @@ replace src/main/java/primal/primitive/adt/map/ChrObjMap.java
 replace src/main/java/primal/primitive/adt/map/ObjChrMap.java
 replace src/main/java/primal/primitive/adt/pair/ChrDblPair.java
 replace src/main/java/primal/primitive/adt/pair/ChrObjPair.java
+replace src/main/java/primal/primitive/adt/set/ChrSet.java
 replace src/main/java/primal/primitive/adt/Chars.java
 replace src/main/java/primal/primitive/adt/ChrMutable.java
 replace src/main/java/primal/primitive/adt/ChrRange.java
 replace src/main/java/primal/primitive/fp/AsChr.java
 replace src/main/java/primal/primitive/fp/ChrFunUtil.java
 replace src/main/java/primal/primitive/fp/ChrObjFunUtil.java
+replace src/main/java/primal/primitive/streamlet/ChrObjStreamlet.java
+replace src/main/java/primal/primitive/streamlet/ChrStreamlet.java
 replace src/main/java/primal/primitive/Chr_Dbl.java
 replace src/main/java/primal/primitive/ChrDblPredicate.java
 replace src/main/java/primal/primitive/ChrDblSink.java
@@ -58,6 +61,7 @@ replace src/main/java/primal/primitive/ChrDblSource.java
 replace src/main/java/primal/primitive/ChrDbl_Flt.java
 replace src/main/java/primal/primitive/ChrDbl_Obj.java
 #replace src/main/java/primal/primitive/ChrDblFunUtil.java
+replace src/main/java/primal/primitive/ChrMoreVerbs.java
 replace src/main/java/primal/primitive/ChrObj_Dbl.java
 replace src/main/java/primal/primitive/ChrOpt.java
 replace src/main/java/primal/primitive/ChrPrim.java

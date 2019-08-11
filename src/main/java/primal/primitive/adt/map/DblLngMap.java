@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.DblLngSink;
 import primal.primitive.DblLngSource;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Lng;
@@ -15,7 +16,6 @@ import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.DblLngPair;
-import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.puller.DblObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class DblLngMap {
 			private DblLngSource source0 = source_();
 			private DblLngPair pair0 = DblLngPair.of((double) 0, (long) 0);
 
-			public boolean source2(DblObjPair<Long> pair) {
+			public boolean source2(DblObjPair_<Long> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

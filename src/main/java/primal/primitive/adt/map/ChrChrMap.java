@@ -9,11 +9,11 @@ import primal.fp.Funs.Fun;
 import primal.primitive.ChrChrSink;
 import primal.primitive.ChrChrSource;
 import primal.primitive.ChrPrim;
+import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Chr;
 import primal.primitive.adt.pair.ChrChrPair;
-import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
 
@@ -98,7 +98,7 @@ public class ChrChrMap {
 			private ChrChrSource source0 = source_();
 			private ChrChrPair pair0 = ChrChrPair.of((char) 0, (char) 0);
 
-			public boolean source2(ChrObjPair<Character> pair) {
+			public boolean source2(ChrObjPair_<Character> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

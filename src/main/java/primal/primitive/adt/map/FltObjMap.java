@@ -5,6 +5,7 @@ import static primal.statics.Fail.fail;
 import java.util.Objects;
 
 import primal.fp.Funs.Iterate;
+import primal.primitive.FltPrim.FltObjPair_;
 import primal.primitive.FltPrim.FltObjSink;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.Flt_Obj;
@@ -157,7 +158,7 @@ public class FltObjMap<V> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(FltObjPair<V> pair) {
+			public boolean source2(FltObjPair_<V> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

@@ -11,11 +11,11 @@ import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Flt;
 import primal.primitive.LngFltSink;
 import primal.primitive.LngFltSource;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Flt;
 import primal.primitive.adt.pair.LngFltPair;
-import primal.primitive.adt.pair.LngObjPair;
 import primal.primitive.puller.LngObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class LngFltMap {
 			private LngFltSource source0 = source_();
 			private LngFltPair pair0 = LngFltPair.of((long) 0, (float) 0);
 
-			public boolean source2(LngObjPair<Float> pair) {
+			public boolean source2(LngObjPair_<Float> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

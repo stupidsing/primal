@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.DblIntSink;
 import primal.primitive.DblIntSource;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Int;
@@ -15,7 +16,6 @@ import primal.primitive.IntPrim;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Int;
 import primal.primitive.adt.pair.DblIntPair;
-import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.puller.DblObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class DblIntMap {
 			private DblIntSource source0 = source_();
 			private DblIntPair pair0 = DblIntPair.of((double) 0, (int) 0);
 
-			public boolean source2(DblObjPair<Integer> pair) {
+			public boolean source2(DblObjPair_<Integer> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

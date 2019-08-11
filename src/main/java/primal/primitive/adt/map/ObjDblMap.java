@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import primal.Verbs.Equals;
 import primal.primitive.DblPrim;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjSink;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Obj_Dbl;
@@ -160,7 +161,7 @@ public class ObjDblMap<K> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(DblObjPair<K> pair) {
+			public boolean source2(DblObjPair_<K> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

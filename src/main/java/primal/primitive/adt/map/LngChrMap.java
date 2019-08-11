@@ -11,11 +11,11 @@ import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Chr;
 import primal.primitive.LngChrSink;
 import primal.primitive.LngChrSource;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Chr;
 import primal.primitive.adt.pair.LngChrPair;
-import primal.primitive.adt.pair.LngObjPair;
 import primal.primitive.puller.LngObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class LngChrMap {
 			private LngChrSource source0 = source_();
 			private LngChrPair pair0 = LngChrPair.of((long) 0, (char) 0);
 
-			public boolean source2(LngObjPair<Character> pair) {
+			public boolean source2(LngObjPair_<Character> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

@@ -14,6 +14,7 @@ import primal.fp.Funs.Source;
 import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.IntObj_Int;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjPredicate;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.IntObj_Obj;
@@ -52,7 +53,7 @@ public class IntObjFunUtil {
 		return new IntObjSource<>() {
 			private IntObjSource<V> source2 = nullSource();
 
-			public boolean source2(IntObjPair<V> pair) {
+			public boolean source2(IntObjPair_<V> pair) {
 				var b = false;
 				while (source2 != null && !(b = source2.source2(pair)))
 					source2 = source.g();
@@ -65,7 +66,7 @@ public class IntObjFunUtil {
 		return new IntObjSource<>() {
 			private boolean isFirst = true;
 
-			public boolean source2(IntObjPair<V> pair) {
+			public boolean source2(IntObjPair_<V> pair) {
 				if (!isFirst)
 					return source2.source2(pair);
 				else {
@@ -222,7 +223,7 @@ public class IntObjFunUtil {
 		return new IntObjSource<>() {
 			private boolean isAppended = false;
 
-			public boolean source2(IntObjPair<V> pair) {
+			public boolean source2(IntObjPair_<V> pair) {
 				var b = !isAppended;
 				if (b && !source.source2(pair)) {
 					pair.update(key, value);

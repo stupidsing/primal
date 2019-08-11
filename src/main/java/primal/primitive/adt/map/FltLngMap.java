@@ -8,6 +8,7 @@ import java.util.Objects;
 import primal.fp.Funs.Fun;
 import primal.primitive.FltLngSink;
 import primal.primitive.FltLngSource;
+import primal.primitive.FltPrim.FltObjPair_;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Lng;
@@ -15,7 +16,6 @@ import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.FltLngPair;
-import primal.primitive.adt.pair.FltObjPair;
 import primal.primitive.puller.FltObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class FltLngMap {
 			private FltLngSource source0 = source_();
 			private FltLngPair pair0 = FltLngPair.of((float) 0, (long) 0);
 
-			public boolean source2(FltObjPair<Long> pair) {
+			public boolean source2(FltObjPair_<Long> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

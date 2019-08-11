@@ -14,6 +14,7 @@ import primal.fp.Funs.Source;
 import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.DblObj_Dbl;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjPredicate;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.DblObj_Obj;
@@ -52,7 +53,7 @@ public class DblObjFunUtil {
 		return new DblObjSource<>() {
 			private DblObjSource<V> source2 = nullSource();
 
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				var b = false;
 				while (source2 != null && !(b = source2.source2(pair)))
 					source2 = source.g();
@@ -65,7 +66,7 @@ public class DblObjFunUtil {
 		return new DblObjSource<>() {
 			private boolean isFirst = true;
 
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				if (!isFirst)
 					return source2.source2(pair);
 				else {
@@ -222,7 +223,7 @@ public class DblObjFunUtil {
 		return new DblObjSource<>() {
 			private boolean isAppended = false;
 
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				var b = !isAppended;
 				if (b && !source.source2(pair)) {
 					pair.update(key, value);

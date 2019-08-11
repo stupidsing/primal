@@ -11,11 +11,11 @@ import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.LngDblSink;
 import primal.primitive.LngDblSource;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Dbl;
 import primal.primitive.adt.pair.LngDblPair;
-import primal.primitive.adt.pair.LngObjPair;
 import primal.primitive.puller.LngObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class LngDblMap {
 			private LngDblSource source0 = source_();
 			private LngDblPair pair0 = LngDblPair.of((long) 0, (double) 0);
 
-			public boolean source2(LngObjPair<Double> pair) {
+			public boolean source2(LngObjPair_<Double> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

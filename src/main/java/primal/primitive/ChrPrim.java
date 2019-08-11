@@ -2,8 +2,6 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import primal.primitive.adt.pair.ChrObjPair;
-
 public class ChrPrim {
 
 	public static char EMPTYVALUE = Character.MIN_VALUE;
@@ -40,6 +38,20 @@ public class ChrPrim {
 		}
 	}
 
+	public static class ChrObjPair_<V> {
+		public char k;
+		public V v;
+
+		protected ChrObjPair_(char k, V v) {
+			update(k, v);
+		}
+
+		public void update(char k_, V v_) {
+			k = k_;
+			v = v_;
+		}
+	}
+
 	public interface ChrObjPredicate<T> {
 		public boolean test(char c, T t);
 
@@ -69,7 +81,7 @@ public class ChrPrim {
 	}
 
 	public interface ChrObjSource<T> {
-		public boolean source2(ChrObjPair<T> pair);
+		public boolean source2(ChrObjPair_<T> pair);
 	}
 
 	public interface ChrPred {

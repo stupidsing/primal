@@ -27,6 +27,7 @@ import primal.fp.FunUtil2;
 import primal.fp.Funs.Fun;
 import primal.primitive.DblObj_Dbl;
 import primal.primitive.DblPrim;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjPredicate;
 import primal.primitive.DblPrim.DblObjSink;
 import primal.primitive.DblPrim.DblObjSource;
@@ -61,7 +62,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 		return of(new DblObjSource<>() {
 			private int i;
 
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				var b = i < kvs.length;
 				if (b) {
 					var kv = kvs[i];
@@ -76,7 +77,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 	public static <V> DblObjPuller<V> of(Iterable<DblObjPair<V>> col) {
 		var iter = col.iterator();
 		return of(new DblObjSource<>() {
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				var b = iter.hasNext();
 				if (b) {
 					var pair1 = iter.next();
@@ -383,7 +384,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 		return of(new DblObjSource<>() {
 			private int count = n;
 
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
 			}
 		});
@@ -425,7 +426,7 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 		return of(DblObjFunUtil.mapDblObj(kf, vf, source));
 	}
 
-	private boolean pull(DblObjPair<V> pair) {
+	private boolean pull(DblObjPair_<V> pair) {
 		return source.source2(pair);
 	}
 

@@ -9,13 +9,11 @@ import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Iterate;
 import primal.primitive.LngPrim;
+import primal.primitive.LngPrim.LngObjPair_;
 
-public class LngObjPair<V> {
+public class LngObjPair<V> extends LngObjPair_<V> {
 
 	private static LngObjPair<?> none_ = LngObjPair.of(LngPrim.EMPTYVALUE, null);
-
-	public long k;
-	public V v;
 
 	public interface MapFst {
 		public long apply(long c);
@@ -43,8 +41,7 @@ public class LngObjPair<V> {
 	}
 
 	protected LngObjPair(long k, V v) {
-		this.k = k;
-		this.v = v;
+		super(k, v);
 	}
 
 	public static <V extends Comparable<? super V>> Comparator<LngObjPair<V>> comparator() {
@@ -74,11 +71,6 @@ public class LngObjPair<V> {
 
 	public <O> O map(Map<V, O> fun) {
 		return fun.apply(k, v);
-	}
-
-	public void update(long k_, V v_) {
-		k = k_;
-		v = v_;
 	}
 
 	@Override

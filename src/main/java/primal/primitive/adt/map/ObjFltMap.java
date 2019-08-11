@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import primal.Verbs.Equals;
 import primal.primitive.FltPrim;
+import primal.primitive.FltPrim.FltObjPair_;
 import primal.primitive.FltPrim.FltObjSink;
 import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.Obj_Flt;
@@ -160,7 +161,7 @@ public class ObjFltMap<K> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(FltObjPair<K> pair) {
+			public boolean source2(FltObjPair_<K> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

@@ -2,8 +2,6 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import primal.primitive.adt.pair.IntObjPair;
-
 public class IntPrim {
 
 	public static int EMPTYVALUE = Integer.MIN_VALUE;
@@ -40,6 +38,20 @@ public class IntPrim {
 		}
 	}
 
+	public static class IntObjPair_<V> {
+		public int k;
+		public V v;
+
+		protected IntObjPair_(int k, V v) {
+			update(k, v);
+		}
+
+		public void update(int k_, V v_) {
+			k = k_;
+			v = v_;
+		}
+	}
+
 	public interface IntObjPredicate<T> {
 		public boolean test(int c, T t);
 
@@ -69,7 +81,7 @@ public class IntPrim {
 	}
 
 	public interface IntObjSource<T> {
-		public boolean source2(IntObjPair<T> pair);
+		public boolean source2(IntObjPair_<T> pair);
 	}
 
 	public interface IntPred {

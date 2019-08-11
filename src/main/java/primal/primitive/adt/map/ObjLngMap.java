@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import primal.Verbs.Equals;
 import primal.primitive.LngPrim;
+import primal.primitive.LngPrim.LngObjPair_;
 import primal.primitive.LngPrim.LngObjSink;
 import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Obj_Lng;
@@ -160,7 +161,7 @@ public class ObjLngMap<K> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(LngObjPair<K> pair) {
+			public boolean source2(LngObjPair_<K> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

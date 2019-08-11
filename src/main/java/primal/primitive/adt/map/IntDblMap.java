@@ -11,11 +11,11 @@ import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.IntDblSink;
 import primal.primitive.IntDblSource;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Dbl;
 import primal.primitive.adt.pair.IntDblPair;
-import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class IntDblMap {
 			private IntDblSource source0 = source_();
 			private IntDblPair pair0 = IntDblPair.of((int) 0, (double) 0);
 
-			public boolean source2(IntObjPair<Double> pair) {
+			public boolean source2(IntObjPair_<Double> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

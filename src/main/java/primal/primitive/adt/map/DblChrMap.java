@@ -11,11 +11,11 @@ import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Chr;
 import primal.primitive.DblChrSink;
 import primal.primitive.DblChrSource;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Chr;
 import primal.primitive.adt.pair.DblChrPair;
-import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.puller.DblObjPuller;
 import primal.puller.Puller;
 
@@ -100,7 +100,7 @@ public class DblChrMap {
 			private DblChrSource source0 = source_();
 			private DblChrPair pair0 = DblChrPair.of((double) 0, (char) 0);
 
-			public boolean source2(DblObjPair<Character> pair) {
+			public boolean source2(DblObjPair_<Character> pair) {
 				var b = source0.source2(pair0);
 				pair.update(pair0.t0, pair0.t1);
 				return b;

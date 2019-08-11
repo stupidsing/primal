@@ -5,6 +5,7 @@ import static primal.statics.Fail.fail;
 import java.util.Objects;
 
 import primal.fp.Funs.Iterate;
+import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSink;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Int_Obj;
@@ -157,7 +158,7 @@ public class IntObjMap<V> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(IntObjPair<V> pair) {
+			public boolean source2(IntObjPair_<V> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

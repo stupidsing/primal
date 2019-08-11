@@ -5,6 +5,7 @@ import static primal.statics.Fail.fail;
 import java.util.Objects;
 
 import primal.fp.Funs.Iterate;
+import primal.primitive.DblPrim.DblObjPair_;
 import primal.primitive.DblPrim.DblObjSink;
 import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Dbl_Obj;
@@ -157,7 +158,7 @@ public class DblObjMap<V> {
 			private int capacity = vs.length;
 			private int index = 0;
 
-			public boolean source2(DblObjPair<V> pair) {
+			public boolean source2(DblObjPair_<V> pair) {
 				while (index < capacity) {
 					var k = ks[index];
 					var v = vs[index++];

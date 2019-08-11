@@ -2,8 +2,6 @@ package primal.primitive;
 
 import static primal.statics.Fail.fail;
 
-import primal.primitive.adt.pair.DblObjPair;
-
 public class DblPrim {
 
 	public static double EMPTYVALUE = Double.MIN_VALUE;
@@ -40,6 +38,20 @@ public class DblPrim {
 		}
 	}
 
+	public static class DblObjPair_<V> {
+		public double k;
+		public V v;
+
+		protected DblObjPair_(double k, V v) {
+			update(k, v);
+		}
+
+		public void update(double k_, V v_) {
+			k = k_;
+			v = v_;
+		}
+	}
+
 	public interface DblObjPredicate<T> {
 		public boolean test(double c, T t);
 
@@ -69,7 +81,7 @@ public class DblPrim {
 	}
 
 	public interface DblObjSource<T> {
-		public boolean source2(DblObjPair<T> pair);
+		public boolean source2(DblObjPair_<T> pair);
 	}
 
 	public interface DblPred {
