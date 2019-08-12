@@ -52,6 +52,10 @@ public class Opt<T> {
 		return !isEmpty() ? value : fail("no result");
 	}
 
+	public T get(Source<T> or) {
+		return !isEmpty() ? value : or.g();
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(value);
@@ -61,8 +65,8 @@ public class Opt<T> {
 		return !isEmpty() ? of(fun.apply(value)) : none();
 	}
 
-	public T or(Source<T> or) {
-		return !isEmpty() ? value : or.g();
+	public Opt<T> or(Source<T> or) {
+		return !isEmpty() ? this : Opt.of(or.g());
 	}
 
 	@Override
