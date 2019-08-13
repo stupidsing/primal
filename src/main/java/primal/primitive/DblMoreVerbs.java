@@ -8,7 +8,6 @@ import primal.fp.FunUtil;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Source;
 import primal.primitive.DblPrim.Obj_Dbl;
-import primal.primitive.adt.DblMutable;
 import primal.primitive.adt.Doubles.DoublesBuilder;
 import primal.primitive.adt.map.DblObjMap;
 import primal.primitive.adt.map.ObjDblMap;
@@ -59,12 +58,15 @@ public class DblMoreVerbs {
 
 	public static class ReadDbl {
 		public static DblStreamlet for_(double s, double e) {
-			return new DblStreamlet(() -> {
-				var m = DblMutable.of(s);
-				return DblPuller.of(() -> {
-					var c = m.increment();
-					return c < e ? c : DblPrim.EMPTYVALUE;
-				});
+			return new DblStreamlet(new Source<>() {
+				private double m = s;
+
+				public DblPuller g() {
+					return DblPuller.of(() -> {
+						var c = m++;
+						return c < e ? c : DblPrim.EMPTYVALUE;
+					});
+				}
 			});
 		}
 

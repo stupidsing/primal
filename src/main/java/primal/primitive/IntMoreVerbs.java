@@ -8,7 +8,6 @@ import primal.fp.FunUtil;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Source;
 import primal.primitive.IntPrim.Obj_Int;
-import primal.primitive.adt.IntMutable;
 import primal.primitive.adt.Ints.IntsBuilder;
 import primal.primitive.adt.map.IntObjMap;
 import primal.primitive.adt.map.ObjIntMap;
@@ -59,12 +58,15 @@ public class IntMoreVerbs {
 
 	public static class ReadInt {
 		public static IntStreamlet for_(int s, int e) {
-			return new IntStreamlet(() -> {
-				var m = IntMutable.of(s);
-				return IntPuller.of(() -> {
-					var c = m.increment();
-					return c < e ? c : IntPrim.EMPTYVALUE;
-				});
+			return new IntStreamlet(new Source<>() {
+				private int m = s;
+
+				public IntPuller g() {
+					return IntPuller.of(() -> {
+						var c = m++;
+						return c < e ? c : IntPrim.EMPTYVALUE;
+					});
+				}
 			});
 		}
 

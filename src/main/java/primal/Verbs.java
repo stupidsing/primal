@@ -15,6 +15,11 @@ import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,6 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 
+import primal.Nouns.Dt;
 import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
 import primal.io.ReadStream;
@@ -200,7 +206,6 @@ public class Verbs {
 		public static <T> T of(Collection<T> c) {
 			return !c.isEmpty() ? c.iterator().next() : null;
 		}
-
 	}
 
 	public static class Format {
@@ -220,6 +225,26 @@ public class Verbs {
 
 		public static String hex8(long i) {
 			return hex4(i >>> 16 & 0xFFFF) + hex4(i & 0xFFFF);
+		}
+
+		public static String ymd(LocalDate date) {
+			return Dt.ymd.format(date);
+		}
+
+		public static String ymdHms(Instant instant) {
+			return ymdHms_(instant);
+		}
+
+		public static String ymdHms(LocalDateTime time) {
+			return ymdHms_(time);
+		}
+
+		public static String ymdHms(long time) {
+			return ymdHms(LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault()));
+		}
+
+		private static String ymdHms_(TemporalAccessor ta) {
+			return Dt.ymdhms.format(ta);
 		}
 	}
 
@@ -407,6 +432,16 @@ public class Verbs {
 		private static ThreadPoolExecutor newExecutor(int corePoolSize, int maxPoolSize) {
 			var queue = new ArrayBlockingQueue<Runnable>(256);
 			return new ThreadPoolExecutor(corePoolSize, maxPoolSize, 10, TimeUnit.SECONDS, queue);
+		}
+	}
+
+	public static class Parse {
+		public static LocalDate ymd(String s) {
+			return LocalDate.parse(s, Dt.ymd);
+		}
+
+		public static LocalDateTime ymdhms(String s) {
+			return LocalDateTime.parse(s, Dt.ymdhms);
 		}
 	}
 

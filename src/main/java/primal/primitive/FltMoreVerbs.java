@@ -9,7 +9,6 @@ import primal.fp.Funs.Fun;
 import primal.fp.Funs.Source;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.adt.Floats.FloatsBuilder;
-import primal.primitive.adt.FltMutable;
 import primal.primitive.adt.map.FltObjMap;
 import primal.primitive.adt.map.ObjFltMap;
 import primal.primitive.adt.set.FltSet;
@@ -59,12 +58,15 @@ public class FltMoreVerbs {
 
 	public static class ReadFlt {
 		public static FltStreamlet for_(float s, float e) {
-			return new FltStreamlet(() -> {
-				var m = FltMutable.of(s);
-				return FltPuller.of(() -> {
-					var c = m.increment();
-					return c < e ? c : FltPrim.EMPTYVALUE;
-				});
+			return new FltStreamlet(new Source<>() {
+				private float m = s;
+
+				public FltPuller g() {
+					return FltPuller.of(() -> {
+						var c = m++;
+						return c < e ? c : FltPrim.EMPTYVALUE;
+					});
+				}
 			});
 		}
 

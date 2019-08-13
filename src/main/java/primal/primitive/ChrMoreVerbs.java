@@ -9,7 +9,6 @@ import primal.fp.Funs.Fun;
 import primal.fp.Funs.Source;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.adt.Chars.CharsBuilder;
-import primal.primitive.adt.ChrMutable;
 import primal.primitive.adt.map.ChrObjMap;
 import primal.primitive.adt.map.ObjChrMap;
 import primal.primitive.adt.set.ChrSet;
@@ -59,12 +58,15 @@ public class ChrMoreVerbs {
 
 	public static class ReadChr {
 		public static ChrStreamlet for_(char s, char e) {
-			return new ChrStreamlet(() -> {
-				var m = ChrMutable.of(s);
-				return ChrPuller.of(() -> {
-					var c = m.increment();
-					return c < e ? c : ChrPrim.EMPTYVALUE;
-				});
+			return new ChrStreamlet(new Source<>() {
+				private char m = s;
+
+				public ChrPuller g() {
+					return ChrPuller.of(() -> {
+						var c = m++;
+						return c < e ? c : ChrPrim.EMPTYVALUE;
+					});
+				}
 			});
 		}
 

@@ -8,17 +8,28 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 import primal.Nouns.Buffer;
 import primal.Nouns.Utf8;
 import primal.adt.Pair;
+import primal.adt.map.ListMultimap;
+import primal.fp.FunUtil;
+import primal.fp.FunUtil2;
 import primal.fp.Funs.Source;
+import primal.fp.Funs2.Source2;
 import primal.primitive.adt.Bytes;
 import primal.primitive.adt.Bytes.BytesBuilder;
 import primal.primitive.adt.Chars;
 import primal.primitive.fp.AsChr;
 import primal.puller.Puller;
+import primal.puller.Puller2;
+import primal.streamlet.Streamlet;
+import primal.streamlet.Streamlet2;
 
 public class MoreVerbs {
 
@@ -140,6 +151,73 @@ public class MoreVerbs {
 				var nBytesRead = ex(() -> bis.read(bs));
 				return 0 <= nBytesRead ? Bytes.of(bs, 0, nBytesRead) : null;
 			}).closeAtEnd(bis).closeAtEnd(is);
+		}
+	}
+
+	public static class Read {
+		private static Streamlet<?> empty = from(() -> FunUtil.nullSource());
+		private static Streamlet2<?, ?> empty2 = from2(() -> FunUtil2.nullSource());
+
+		public static <T> Streamlet<T> empty() {
+			@SuppressWarnings("unchecked")
+			var st = (Streamlet<T>) empty;
+			return st;
+		}
+
+		public static <K, V> Streamlet2<K, V> empty2() {
+			@SuppressWarnings("unchecked")
+			var st = (Streamlet2<K, V>) empty2;
+			return st;
+		}
+
+		@SafeVarargs
+		public static <T> Streamlet<T> each(T... ts) {
+			return from(ts);
+		}
+
+		@SafeVarargs
+		public static <K, V> Streamlet2<K, V> each2(Pair<K, V>... pairs) {
+			return from2(Arrays.asList(pairs));
+		}
+
+		public static <T> Streamlet<T> from(T[] ts) {
+			return new Streamlet<>(() -> Puller.of(ts));
+		}
+
+		public static <T> Streamlet<T> from(Enumeration<T> en) {
+			return new Streamlet<>(() -> Puller.of(en));
+		}
+
+		public static <T> Streamlet<T> from(Iterable<T> col) {
+			return new Streamlet<>(() -> Puller.of(col));
+		}
+
+		public static <T> Streamlet<T> from(Source<Source<T>> source) {
+			return new Streamlet<>(() -> Puller.of(source.g()));
+		}
+
+		public static <K, V> Streamlet2<K, V> from2(Map<K, V> map) {
+			return new Streamlet2<>(() -> Puller2.of(map));
+		}
+
+		public static <K, V> Streamlet2<K, V> from2(Iterable<Pair<K, V>> col) {
+			return new Streamlet2<>(() -> Puller2.of(col));
+		}
+
+		public static <K, V> Streamlet2<K, V> from2(ListMultimap<K, V> multimap) {
+			return fromMultimap(multimap).concatMapValue(Read::from);
+		}
+
+		public static <K, V> Streamlet2<K, V> from2(Source<Source2<K, V>> source) {
+			return new Streamlet2<>(() -> Puller2.of(source.g()));
+		}
+
+		public static <K, V, C extends Collection<V>> Streamlet2<K, V> fromListMap(Map<K, C> map) {
+			return from2(map).concatMap2((k, l) -> from(l).map2(v -> k, v -> v));
+		}
+
+		public static <K, V> Streamlet2<K, List<V>> fromMultimap(ListMultimap<K, V> multimap) {
+			return from2(multimap.map);
 		}
 	}
 

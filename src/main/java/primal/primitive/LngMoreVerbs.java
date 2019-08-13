@@ -8,7 +8,6 @@ import primal.fp.FunUtil;
 import primal.fp.Funs.Fun;
 import primal.fp.Funs.Source;
 import primal.primitive.LngPrim.Obj_Lng;
-import primal.primitive.adt.LngMutable;
 import primal.primitive.adt.Longs.LongsBuilder;
 import primal.primitive.adt.map.LngObjMap;
 import primal.primitive.adt.map.ObjLngMap;
@@ -59,12 +58,15 @@ public class LngMoreVerbs {
 
 	public static class ReadLng {
 		public static LngStreamlet for_(long s, long e) {
-			return new LngStreamlet(() -> {
-				var m = LngMutable.of(s);
-				return LngPuller.of(() -> {
-					var c = m.increment();
-					return c < e ? c : LngPrim.EMPTYVALUE;
-				});
+			return new LngStreamlet(new Source<>() {
+				private long m = s;
+
+				public LngPuller g() {
+					return LngPuller.of(() -> {
+						var c = m++;
+						return c < e ? c : LngPrim.EMPTYVALUE;
+					});
+				}
 			});
 		}
 
