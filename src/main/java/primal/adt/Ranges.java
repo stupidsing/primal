@@ -1,4 +1,4 @@
-package primal.primitive.adt;
+package primal.adt;
 
 import java.util.ArrayList;
 import java.util.List;

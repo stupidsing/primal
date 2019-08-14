@@ -16,10 +16,12 @@ import java.util.Map;
 
 import primal.Nouns.Buffer;
 import primal.Nouns.Utf8;
+import primal.adt.FixieArray;
 import primal.adt.Pair;
 import primal.adt.map.ListMultimap;
 import primal.fp.FunUtil;
 import primal.fp.FunUtil2;
+import primal.fp.Funs.Iterate;
 import primal.fp.Funs.Source;
 import primal.fp.Funs2.Source2;
 import primal.primitive.adt.Bytes;
@@ -136,6 +138,32 @@ public class MoreVerbs {
 						return null;
 				}
 			});
+		}
+	}
+
+	public static class Fit {
+		public static FixieArray<String> parts(String in, String... parts) {
+			return fit(in, parts, s -> s);
+		}
+
+		public static FixieArray<String> partsCaseInsensitive(String in, String... parts) {
+			return fit(in, parts, String::toLowerCase);
+		}
+
+		private static FixieArray<String> fit(String in, String[] parts, Iterate<String> lower) {
+			var outs = new ArrayList<String>();
+			var inl = lower.apply(in);
+			var p = 0;
+			for (var part : parts) {
+				var p1 = inl.indexOf(lower.apply(part), p);
+				if (0 <= p1) {
+					outs.add(in.substring(p, p1));
+					p = p1 + part.length();
+				} else
+					return null;
+			}
+			outs.add(in.substring(p));
+			return FixieArray.of(outs);
 		}
 	}
 

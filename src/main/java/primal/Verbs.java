@@ -1,5 +1,6 @@
 package primal;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.min;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -155,27 +156,6 @@ public class Verbs {
 		}
 	}
 
-	public static class Current {
-		public static Class<?> clazz() {
-			try {
-				return Class.forName(Get.stackTrace(3).getClassName());
-			} catch (ClassNotFoundException ex) {
-				ex.printStackTrace();
-				return null;
-			}
-		}
-
-		public static String method() {
-			return Get.stackTrace(3).getMethodName();
-		}
-
-		public static String package_() {
-			var cls = Get.stackTrace(3).getClassName();
-			var pos = cls.lastIndexOf(".");
-			return cls.substring(0, pos);
-		}
-	}
-
 	public static class DeleteFile {
 		public static void ifExists(Path path) {
 			ex(() -> {
@@ -225,6 +205,20 @@ public class Verbs {
 
 		public static String hex8(long i) {
 			return hex4(i >>> 16 & 0xFFFF) + hex4(i & 0xFFFF);
+		}
+
+		public static String value(double d) {
+			var abs = abs(d);
+			String fmt;
+			if (abs < 1d)
+				fmt = "%.4f";
+			else if (abs < 10d)
+				fmt = "%.3f";
+			else if (abs < 100d)
+				fmt = "%.2f";
+			else
+				fmt = "%.1f";
+			return String.format(fmt, d);
 		}
 
 		public static String ymd(LocalDate date) {

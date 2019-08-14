@@ -8,17 +8,20 @@ find -type f | xargs sed s/primal/newname/g
 
 ```
 primal.statics.*
+primal.fp.Funs
+primal.fp.Funs2
 primal.Nouns
 primal.io.*
 primal.Verbs
+primal.Adjectives
 primal.os.*
 primal.adt.Fixie_
 primal.adt.Fixie
 primal.adt.FixieArray
 primal.adt.Mutable
+primal.adt.Range
+primal.adt.Ranges
 primal.NullableSyncQueue
-primal.fp.Funs
-primal.fp.Funs2
 primal.adt.Opt
 primal.adt.Pair
 primal.fp.FunUtil
