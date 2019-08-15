@@ -119,7 +119,7 @@ class Matcher {
 
 					public State g() {
 						if (end <= state.input.length()) {
-							String m = state.input.substring(start, end);
+							var m = state.input.substring(start, end);
 							return new State(state.input, end++, PerList.cons(m, state.matches));
 						} else
 							return null;
