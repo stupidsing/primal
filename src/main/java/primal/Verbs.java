@@ -7,9 +7,11 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static primal.statics.Fail.fail;
 import static primal.statics.Rethrow.ex;
 
+import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Array;
@@ -40,7 +42,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 
+import primal.Nouns.Buffer;
 import primal.Nouns.Dt;
+import primal.Nouns.Utf8;
 import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
 import primal.io.ReadStream;
@@ -439,18 +443,6 @@ public class Verbs {
 		}
 	}
 
-	public static class Range {
-		public static String of(String s, int start, int end) {
-			var length = s.length();
-			if (start < 0)
-				start += length;
-			if (end < 0)
-				end += length;
-			end = min(length, end);
-			return s.substring(start, end);
-		}
-	}
-
 	public static class ReadFile {
 		public static ReadStream from(String filename) {
 			return in_(Paths.get(filename));
@@ -502,6 +494,41 @@ public class Verbs {
 		}
 	}
 
+	public static class ReadString {
+		public static String from(String filename) {
+			return from(Paths.get(filename));
+		}
+
+		public static String from(InputStream in) {
+			return Build.string(sb -> {
+				try (var is = in; var isr = new InputStreamReader(is, Utf8.charset); var br = new BufferedReader(isr)) {
+					var buffer = new char[Buffer.size];
+
+					while (br.ready()) {
+						var n = br.read(buffer);
+						sb.append(new String(buffer, 0, n));
+					}
+				} catch (IOException ex) {
+					fail(ex);
+				}
+			});
+		}
+
+		public static String from(Path path) {
+			var bs = ReadFile.from(path).readBytes();
+
+			var isBomExist = 3 <= bs.length //
+					&& bs[0] == (byte) 0xEF //
+					&& bs[1] == (byte) 0xBB //
+					&& bs[2] == (byte) 0xBF;
+
+			if (!isBomExist)
+				return new String(bs, Utf8.charset);
+			else
+				return new String(bs, 3, bs.length - 3, Utf8.charset);
+		}
+	}
+
 	public static class Reverse {
 		public static <T> List<T> of(List<T> list0) {
 			var list1 = new ArrayList<T>();
@@ -538,6 +565,20 @@ public class Verbs {
 		}
 	}
 
+	public static class Sort {
+		public static <T extends Comparable<? super T>> List<T> list(Collection<T> list) {
+			var list1 = new ArrayList<>(list);
+			Collections.sort(list1);
+			return list1;
+		}
+
+		public static <T> List<T> list(Collection<T> list, Comparator<? super T> comparator) {
+			var list1 = new ArrayList<>(list);
+			Collections.sort(list1, comparator);
+			return list1;
+		}
+	}
+
 	public static class Start {
 		public static void thenJoin(RunnableEx... rs) {
 			Arrays.stream(rs).map(Start::thread).collect(Collectors.toList()).forEach(Th::join_);
@@ -567,17 +608,15 @@ public class Verbs {
 		}
 	}
 
-	public static class Sort {
-		public static <T extends Comparable<? super T>> List<T> list(Collection<T> list) {
-			var list1 = new ArrayList<>(list);
-			Collections.sort(list1);
-			return list1;
-		}
-
-		public static <T> List<T> list(Collection<T> list, Comparator<? super T> comparator) {
-			var list1 = new ArrayList<>(list);
-			Collections.sort(list1, comparator);
-			return list1;
+	public static class Substring {
+		public static String of(String s, int start, int end) {
+			var length = s.length();
+			if (start < 0)
+				start += length;
+			if (end < 0)
+				end += length;
+			end = min(length, end);
+			return s.substring(start, end);
 		}
 	}
 
