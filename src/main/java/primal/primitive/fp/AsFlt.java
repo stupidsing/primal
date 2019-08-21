@@ -5,12 +5,20 @@ import primal.fp.Funs.Sink;
 import primal.primitive.FltPrim.ObjObj_Flt;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.FltVerbs.CopyFlt;
+import primal.primitive.Int_Flt;
 import primal.primitive.adt.Floats;
 import primal.primitive.adt.Floats.FloatsBuilder;
 import primal.puller.Puller;
 import primal.puller.Puller2;
 
 public class AsFlt {
+
+	public static float[] array(int length, Int_Flt f) {
+		var cs = new float[length];
+		for (var i = 0; i < length; i++)
+			cs[i] = f.apply(i);
+		return cs;
+	}
 
 	public static Floats build(Sink<FloatsBuilder> sink) {
 		var sb = new FloatsBuilder();

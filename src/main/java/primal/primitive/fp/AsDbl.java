@@ -5,12 +5,20 @@ import primal.fp.Funs.Sink;
 import primal.primitive.DblPrim.ObjObj_Dbl;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.DblVerbs.CopyDbl;
+import primal.primitive.Int_Dbl;
 import primal.primitive.adt.Doubles;
 import primal.primitive.adt.Doubles.DoublesBuilder;
 import primal.puller.Puller;
 import primal.puller.Puller2;
 
 public class AsDbl {
+
+	public static double[] array(int length, Int_Dbl f) {
+		var cs = new double[length];
+		for (var i = 0; i < length; i++)
+			cs[i] = f.apply(i);
+		return cs;
+	}
 
 	public static Doubles build(Sink<DoublesBuilder> sink) {
 		var sb = new DoublesBuilder();

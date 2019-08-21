@@ -5,12 +5,20 @@ import primal.fp.Funs.Sink;
 import primal.primitive.IntPrim.ObjObj_Int;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.IntVerbs.CopyInt;
+import primal.primitive.Int_Int;
 import primal.primitive.adt.Ints;
 import primal.primitive.adt.Ints.IntsBuilder;
 import primal.puller.Puller;
 import primal.puller.Puller2;
 
 public class AsInt {
+
+	public static int[] array(int length, Int_Int f) {
+		var cs = new int[length];
+		for (var i = 0; i < length; i++)
+			cs[i] = f.apply(i);
+		return cs;
+	}
 
 	public static Ints build(Sink<IntsBuilder> sink) {
 		var sb = new IntsBuilder();

@@ -5,12 +5,20 @@ import primal.fp.Funs.Sink;
 import primal.primitive.ChrPrim.ObjObj_Chr;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.ChrVerbs.CopyChr;
+import primal.primitive.Int_Chr;
 import primal.primitive.adt.Chars;
 import primal.primitive.adt.Chars.CharsBuilder;
 import primal.puller.Puller;
 import primal.puller.Puller2;
 
 public class AsChr {
+
+	public static char[] array(int length, Int_Chr f) {
+		var cs = new char[length];
+		for (var i = 0; i < length; i++)
+			cs[i] = f.apply(i);
+		return cs;
+	}
 
 	public static Chars build(Sink<CharsBuilder> sink) {
 		var sb = new CharsBuilder();

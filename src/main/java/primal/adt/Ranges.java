@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import primal.Verbs.Min;
 import primal.Verbs.Take;
-import primal.adt.Range;
 
 public class Ranges<T extends Comparable<? super T>> {
 

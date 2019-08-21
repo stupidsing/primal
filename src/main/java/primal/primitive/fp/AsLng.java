@@ -2,6 +2,7 @@ package primal.primitive.fp;
 
 import primal.adt.Pair;
 import primal.fp.Funs.Sink;
+import primal.primitive.Int_Lng;
 import primal.primitive.LngPrim.ObjObj_Lng;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.LngVerbs.CopyLng;
@@ -11,6 +12,13 @@ import primal.puller.Puller;
 import primal.puller.Puller2;
 
 public class AsLng {
+
+	public static long[] array(int length, Int_Lng f) {
+		var cs = new long[length];
+		for (var i = 0; i < length; i++)
+			cs[i] = f.apply(i);
+		return cs;
+	}
 
 	public static Longs build(Sink<LongsBuilder> sink) {
 		var sb = new LongsBuilder();
