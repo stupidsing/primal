@@ -5,8 +5,14 @@ import static primal.statics.Fail.fail;
 import static primal.statics.Rethrow.ex;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,6 +22,7 @@ import java.util.Map;
 
 import primal.Nouns.Buffer;
 import primal.Nouns.Utf8;
+import primal.Verbs.ReadLine;
 import primal.adt.FixieArray;
 import primal.adt.Pair;
 import primal.adt.map.ListMultimap;
@@ -246,6 +253,28 @@ public class MoreVerbs {
 
 		public static <K, V> Streamlet2<K, List<V>> fromMultimap(ListMultimap<K, V> multimap) {
 			return from2(multimap.map);
+		}
+	}
+
+	public static class ReadLines {
+		public static Streamlet<String> from(Path path) {
+			return from(path.toFile());
+		}
+
+		public static Streamlet<String> from(File file) {
+			return from(ex(() -> new FileInputStream(file)));
+		}
+
+		public static Streamlet<String> from(InputStream is) {
+			return from(new InputStreamReader(is, Utf8.charset)).closeAtEnd(is);
+		}
+
+		public static Streamlet<String> from(Reader reader) {
+			var br = new BufferedReader(reader);
+			return new Streamlet<>(() -> Puller //
+					.of(() -> ex(() -> ReadLine.from(br))) //
+					.closeAtEnd(br) //
+					.closeAtEnd(reader));
 		}
 	}
 
