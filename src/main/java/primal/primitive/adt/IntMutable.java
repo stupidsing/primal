@@ -31,6 +31,10 @@ public class IntMutable {
 		return value++;
 	}
 
+	public boolean isEmpty() {
+		return value == empty;
+	}
+
 	public void set(int c) {
 		if (value == empty)
 			update(c);

@@ -21,6 +21,10 @@ public class Mutable<T> {
 		return p;
 	}
 
+	public boolean isEmpty() {
+		return value == null;
+	}
+
 	public void set(T t) {
 		if (value == null)
 			update(t);

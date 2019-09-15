@@ -31,6 +31,10 @@ public class ChrMutable {
 		return value++;
 	}
 
+	public boolean isEmpty() {
+		return value == empty;
+	}
+
 	public void set(char c) {
 		if (value == empty)
 			update(c);

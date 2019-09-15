@@ -31,6 +31,10 @@ public class LngMutable {
 		return value++;
 	}
 
+	public boolean isEmpty() {
+		return value == empty;
+	}
+
 	public void set(long c) {
 		if (value == empty)
 			update(c);

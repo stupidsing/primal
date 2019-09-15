@@ -31,6 +31,10 @@ public class FltMutable {
 		return value++;
 	}
 
+	public boolean isEmpty() {
+		return value == empty;
+	}
+
 	public void set(float c) {
 		if (value == empty)
 			update(c);
