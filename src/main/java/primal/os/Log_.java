@@ -48,7 +48,7 @@ public class Log_ {
 		}
 
 		public void log(String type, String message) {
-			System.out.println(current() + " " + type + " " + prefix.get() + message);
+			System.err.println(current() + " " + type + " " + prefix.get() + message);
 		}
 
 		private String current() {
