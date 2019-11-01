@@ -11,7 +11,7 @@
     <dependency><groupId>javax.mail</groupId><artifactId>mail</artifactId><version>LATEST</version></dependency>
     <dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>LATEST</version></dependency>
     <dependency><groupId>log4j</groupId><artifactId>log4j</artifactId><version>LATEST</version></dependency>
-    <dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId><version>LATEST</version></dependency>
+    <dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId><version>4.3.6</version></dependency>
   </dependencies>
   <build>
     <resources>
