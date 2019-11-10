@@ -176,7 +176,11 @@ public class MoreVerbs {
 
 	public static class Pull {
 		public static Puller<Bytes> from(String data) {
-			return from(new ByteArrayInputStream(data.getBytes(Utf8.charset)));
+			return from(data.getBytes(Utf8.charset));
+		}
+
+		public static Puller<Bytes> from(byte[] bs) {
+			return from(new ByteArrayInputStream(bs));
 		}
 
 		public static Puller<Bytes> from(InputStream is) {
