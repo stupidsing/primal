@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import primal.Verbs.Equals;
 import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
+import primal.fp.Funs.Sink;
 import primal.fp.Funs.Source;
 import primal.fp.Funs2.Fun2;
 
@@ -40,8 +41,12 @@ public class Opt<T> {
 		return isEmpty() || pred.test(value) ? this : none();
 	}
 
+	public boolean hasValue() {
+		return hasValue_();
+	}
+
 	public boolean isEmpty() {
-		return value == null;
+		return !hasValue_();
 	}
 
 	public <U, V> Opt<V> join(Opt<U> opt1, Fun2<T, U, V> fun) {
@@ -49,11 +54,11 @@ public class Opt<T> {
 	}
 
 	public T get() {
-		return !isEmpty() ? value : fail("no result");
+		return hasValue_() ? value : fail("no result");
 	}
 
 	public T get(Source<T> or) {
-		return !isEmpty() ? value : or.g();
+		return hasValue_() ? value : or.g();
 	}
 
 	@Override
@@ -62,11 +67,20 @@ public class Opt<T> {
 	}
 
 	public <U> Opt<U> map(Fun<T, U> fun) {
-		return !isEmpty() ? of(fun.apply(value)) : none();
+		return hasValue_() ? of(fun.apply(value)) : none();
 	}
 
-	public Opt<T> or(Source<T> or) {
-		return !isEmpty() ? this : Opt.of(or.g());
+	public T or(T or) {
+		return hasValue_() ? value : or;
+	}
+
+	public Opt<T> orOpt(Opt<T> or) {
+		return hasValue_() ? this : or;
+	}
+
+	public void sink(Sink<T> sink) {
+		if (hasValue_())
+			sink.f(value);
 	}
 
 	@Override
@@ -75,7 +89,11 @@ public class Opt<T> {
 	}
 
 	private <U> Opt<U> concatMap_(Fun<T, Opt<U>> fun) {
-		return !isEmpty() ? fun.apply(value) : Opt.none();
+		return hasValue_() ? fun.apply(value) : Opt.none();
+	}
+
+	private boolean hasValue_() {
+		return value != null;
 	}
 
 }

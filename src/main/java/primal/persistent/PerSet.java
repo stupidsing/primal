@@ -6,6 +6,7 @@ import primal.Verbs.Build;
 import primal.Verbs.Compare;
 import primal.Verbs.Equals;
 import primal.Verbs.Get;
+import primal.adt.Opt;
 import primal.streamlet.Streamlet;
 
 public class PerSet<V extends Comparable<V>> implements Iterable<V> {
@@ -36,11 +37,11 @@ public class PerSet<V extends Comparable<V>> implements Iterable<V> {
 	}
 
 	public boolean contains(V v) {
-		return tree.find(v) != null;
+		return tree.findOpt(v).hasValue();
 	}
 
-	public V get(V v) {
-		return tree.find(v);
+	public Opt<V> getOpt(V v) {
+		return tree.findOpt(v);
 	}
 
 	public PerSet<V> add(V v) {

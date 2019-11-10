@@ -13,6 +13,7 @@ import primal.Verbs.First;
 import primal.Verbs.Last;
 import primal.Verbs.Left;
 import primal.Verbs.Right;
+import primal.adt.Opt;
 import primal.fp.Funs.Iterate;
 import primal.puller.Puller;
 import primal.streamlet.Streamlet;
@@ -136,14 +137,14 @@ public class PbTree<T> implements PerTree<T> {
 			return Puller.of();
 	}
 
-	public T find(T t) {
+	public Opt<T> findOpt(T t) {
 		var node = root;
 		FindSlot fs = null;
 		while (node != null) {
 			fs = new FindSlot(node, t);
 			node = fs.slot.slots;
 		}
-		return fs != null && fs.c == 0 ? fs.slot.pivot : null;
+		return fs != null && fs.c == 0 ? Opt.of(fs.slot.pivot) : Opt.none();
 	}
 
 	public PbTree<T> add(T t) {

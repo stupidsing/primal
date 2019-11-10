@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import primal.Verbs.Equals;
 import primal.Verbs.Get;
+import primal.adt.Opt;
 import primal.adt.Pair;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
@@ -39,8 +40,16 @@ public class PerMap<K extends Comparable<K>, V> implements Iterable<Pair<K, V>> 
 		return tree.streamlet().map2(Pair::fst, Pair::snd);
 	}
 
-	public V get(K k) {
-		return Pair.snd(tree.find(Pair.of(k, (V) null)));
+	public Opt<V> getOpt(K k) {
+		return tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd);
+	}
+
+	public V getOrFail(K k) {
+		return tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd).get();
+	}
+
+	public V getOrNull(K k) {
+		return tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd).or(null);
 	}
 
 	public PerMap<K, V> put(K k, V v) {
