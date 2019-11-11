@@ -57,13 +57,17 @@ public class Opt<T> {
 		return hasValue_() ? value : fail("no result");
 	}
 
-	public T get(Source<T> or) {
-		return hasValue_() ? value : or.g();
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(value);
+	}
+
+	public Opt<T> ifNone(Opt<T> or) {
+		return hasValue_() ? this : or;
+	}
+
+	public Opt<T> ifNone(Source<T> or) {
+		return hasValue_() ? this : Opt.of(or.g());
 	}
 
 	public <U> Opt<U> map(Fun<T, U> fun) {
@@ -72,10 +76,6 @@ public class Opt<T> {
 
 	public T or(T or) {
 		return hasValue_() ? value : or;
-	}
-
-	public Opt<T> orOpt(Opt<T> or) {
-		return hasValue_() ? this : or;
 	}
 
 	public void sink(Sink<T> sink) {
