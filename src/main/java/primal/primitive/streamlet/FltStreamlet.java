@@ -267,7 +267,7 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public float uniqueResult() {
-		return spawn().opt().get();
+		return spawn().opt().g();
 	}
 
 	public <U, V> Streamlet<V> zip(Iterable<U> list1, FltObj_Obj<U, V> fun) {

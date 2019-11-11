@@ -2,10 +2,10 @@ package primal.primitive.fp;
 
 import primal.adt.Pair;
 import primal.fp.Funs.Sink;
-import primal.primitive.Int_Lng;
 import primal.primitive.LngPrim.ObjObj_Lng;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.LngVerbs.CopyLng;
+import primal.primitive.Int_Lng;
 import primal.primitive.adt.Longs;
 import primal.primitive.adt.Longs.LongsBuilder;
 import primal.puller.Puller;

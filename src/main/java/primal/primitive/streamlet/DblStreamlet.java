@@ -267,7 +267,7 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public double uniqueResult() {
-		return spawn().opt().get();
+		return spawn().opt().g();
 	}
 
 	public <U, V> Streamlet<V> zip(Iterable<U> list1, DblObj_Obj<U, V> fun) {

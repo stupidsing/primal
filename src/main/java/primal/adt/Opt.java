@@ -53,7 +53,7 @@ public class Opt<T> {
 		return concatMap_(t -> opt1.map(u -> fun.apply(t, u)));
 	}
 
-	public T get() {
+	public T g() {
 		return hasValue_() ? value : fail("no result");
 	}
 

@@ -24,12 +24,16 @@ public class ChrOpt {
 		return p;
 	}
 
+	public boolean hasValue() {
+		return hasValue_();
+	}
+
 	public boolean isEmpty() {
-		return value == empty;
+		return !hasValue_();
 	}
 
 	public <T> ChrOpt concatMap(Chr_Obj<ChrOpt> fun) {
-		return !isEmpty() ? fun.apply(value) : none_;
+		return hasValue_() ? fun.apply(value) : none_;
 	}
 
 	public ChrOpt filter(ChrPred pred) {
@@ -37,11 +41,11 @@ public class ChrOpt {
 	}
 
 	public <T> Opt<T> map(Chr_Obj<T> fun) {
-		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
+		return hasValue_() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
-	public char get() {
-		return !isEmpty() ? value : fail("no result");
+	public char g() {
+		return hasValue_() ? value : fail("no result");
 	}
 
 	@Override
@@ -56,7 +60,11 @@ public class ChrOpt {
 
 	@Override
 	public String toString() {
-		return value != empty ? Character.toString(value) : "null";
+		return hasValue_() ? Character.toString(value) : "null";
+	}
+
+	private boolean hasValue_() {
+		return value != empty;
 	}
 
 }

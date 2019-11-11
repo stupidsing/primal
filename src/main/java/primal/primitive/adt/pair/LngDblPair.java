@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 import primal.Verbs.Get;
 import primal.fp.Funs.Iterate;
-import primal.primitive.DblPrim;
 import primal.primitive.LngPrim;
+import primal.primitive.DblPrim;
 
 public class LngDblPair {
 

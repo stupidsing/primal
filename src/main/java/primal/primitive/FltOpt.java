@@ -24,12 +24,16 @@ public class FltOpt {
 		return p;
 	}
 
+	public boolean hasValue() {
+		return hasValue_();
+	}
+
 	public boolean isEmpty() {
-		return value == empty;
+		return !hasValue_();
 	}
 
 	public <T> FltOpt concatMap(Flt_Obj<FltOpt> fun) {
-		return !isEmpty() ? fun.apply(value) : none_;
+		return hasValue_() ? fun.apply(value) : none_;
 	}
 
 	public FltOpt filter(FltPred pred) {
@@ -37,11 +41,11 @@ public class FltOpt {
 	}
 
 	public <T> Opt<T> map(Flt_Obj<T> fun) {
-		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
+		return hasValue_() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
-	public float get() {
-		return !isEmpty() ? value : fail("no result");
+	public float g() {
+		return hasValue_() ? value : fail("no result");
 	}
 
 	@Override
@@ -56,7 +60,11 @@ public class FltOpt {
 
 	@Override
 	public String toString() {
-		return value != empty ? Float.toString(value) : "null";
+		return hasValue_() ? Float.toString(value) : "null";
+	}
+
+	private boolean hasValue_() {
+		return value != empty;
 	}
 
 }

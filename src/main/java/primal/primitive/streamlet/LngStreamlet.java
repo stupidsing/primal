@@ -267,7 +267,7 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public long uniqueResult() {
-		return spawn().opt().get();
+		return spawn().opt().g();
 	}
 
 	public <U, V> Streamlet<V> zip(Iterable<U> list1, LngObj_Obj<U, V> fun) {

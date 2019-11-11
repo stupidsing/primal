@@ -45,7 +45,7 @@ public class PerMap<K extends Comparable<K>, V> implements Iterable<Pair<K, V>> 
 	}
 
 	public V getOrFail(K k) {
-		return tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd).get();
+		return tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd).g();
 	}
 
 	public V getOrNull(K k) {

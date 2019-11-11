@@ -267,7 +267,7 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public char uniqueResult() {
-		return spawn().opt().get();
+		return spawn().opt().g();
 	}
 
 	public <U, V> Streamlet<V> zip(Iterable<U> list1, ChrObj_Obj<U, V> fun) {

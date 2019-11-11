@@ -24,12 +24,16 @@ public class DblOpt {
 		return p;
 	}
 
+	public boolean hasValue() {
+		return hasValue_();
+	}
+
 	public boolean isEmpty() {
-		return value == empty;
+		return !hasValue_();
 	}
 
 	public <T> DblOpt concatMap(Dbl_Obj<DblOpt> fun) {
-		return !isEmpty() ? fun.apply(value) : none_;
+		return hasValue_() ? fun.apply(value) : none_;
 	}
 
 	public DblOpt filter(DblPred pred) {
@@ -37,11 +41,11 @@ public class DblOpt {
 	}
 
 	public <T> Opt<T> map(Dbl_Obj<T> fun) {
-		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
+		return hasValue_() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
-	public double get() {
-		return !isEmpty() ? value : fail("no result");
+	public double g() {
+		return hasValue_() ? value : fail("no result");
 	}
 
 	@Override
@@ -56,7 +60,11 @@ public class DblOpt {
 
 	@Override
 	public String toString() {
-		return value != empty ? Double.toString(value) : "null";
+		return hasValue_() ? Double.toString(value) : "null";
+	}
+
+	private boolean hasValue_() {
+		return value != empty;
 	}
 
 }

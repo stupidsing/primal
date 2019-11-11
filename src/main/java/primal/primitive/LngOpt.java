@@ -24,12 +24,16 @@ public class LngOpt {
 		return p;
 	}
 
+	public boolean hasValue() {
+		return hasValue_();
+	}
+
 	public boolean isEmpty() {
-		return value == empty;
+		return !hasValue_();
 	}
 
 	public <T> LngOpt concatMap(Lng_Obj<LngOpt> fun) {
-		return !isEmpty() ? fun.apply(value) : none_;
+		return hasValue_() ? fun.apply(value) : none_;
 	}
 
 	public LngOpt filter(LngPred pred) {
@@ -37,11 +41,11 @@ public class LngOpt {
 	}
 
 	public <T> Opt<T> map(Lng_Obj<T> fun) {
-		return !isEmpty() ? Opt.of(fun.apply(value)) : Opt.none();
+		return hasValue_() ? Opt.of(fun.apply(value)) : Opt.none();
 	}
 
-	public long get() {
-		return !isEmpty() ? value : fail("no result");
+	public long g() {
+		return hasValue_() ? value : fail("no result");
 	}
 
 	@Override
@@ -56,7 +60,11 @@ public class LngOpt {
 
 	@Override
 	public String toString() {
-		return value != empty ? Long.toString(value) : "null";
+		return hasValue_() ? Long.toString(value) : "null";
+	}
+
+	private boolean hasValue_() {
+		return value != empty;
 	}
 
 }

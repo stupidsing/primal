@@ -267,7 +267,7 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public int uniqueResult() {
-		return spawn().opt().get();
+		return spawn().opt().g();
 	}
 
 	public <U, V> Streamlet<V> zip(Iterable<U> list1, IntObj_Obj<U, V> fun) {

@@ -264,7 +264,7 @@ public class Streamlet<T> implements StreamletDefaults<T, Opt<T>, Predicate<T>, 
 	}
 
 	public T uniqueResult() {
-		return spawn().opt().get();
+		return spawn().opt().g();
 	}
 
 	public <U, V> Streamlet<V> zip(Iterable<U> list1, Fun2<T, U, V> fun) {
