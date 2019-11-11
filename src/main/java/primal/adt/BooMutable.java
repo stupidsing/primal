@@ -52,7 +52,7 @@ public class BooMutable {
 		value = t;
 	}
 
-	public int get() {
+	public int g() {
 		return value;
 	}
 
