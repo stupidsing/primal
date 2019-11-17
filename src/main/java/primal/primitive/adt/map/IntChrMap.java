@@ -6,15 +6,15 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import primal.fp.Funs.Fun;
+import primal.primitive.ChrPrim;
+import primal.primitive.ChrPrim.Obj_Chr;
+import primal.primitive.Chr_Chr;
 import primal.primitive.IntChrSink;
 import primal.primitive.IntChrSource;
 import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Chr;
-import primal.primitive.ChrPrim;
-import primal.primitive.ChrPrim.Obj_Chr;
-import primal.primitive.Chr_Chr;
 import primal.primitive.adt.pair.IntChrPair;
 import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
