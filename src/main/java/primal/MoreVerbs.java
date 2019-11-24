@@ -190,9 +190,9 @@ public class MoreVerbs {
 
 		public static Puller<Bytes> from_(InputStream is) {
 			return Puller.of(() -> {
-				var bs = new byte[Buffer.size];
-				var nBytesRead = ex(() -> is.read(bs));
-				return 0 <= nBytesRead ? Bytes.of(bs, 0, nBytesRead) : null;
+				var buffer = new byte[Buffer.size];
+				var n = ex(() -> is.read(buffer, 0, buffer.length));
+				return 0 <= n ? Bytes.of(buffer, 0, n) : null;
 			});
 		}
 	}
