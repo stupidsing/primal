@@ -185,11 +185,15 @@ public class MoreVerbs {
 
 		public static Puller<Bytes> from(InputStream is) {
 			var bis = new BufferedInputStream(is);
+			return from_(bis).closeAtEnd(bis).closeAtEnd(is);
+		}
+
+		public static Puller<Bytes> from_(InputStream is) {
 			return Puller.of(() -> {
 				var bs = new byte[Buffer.size];
-				var nBytesRead = ex(() -> bis.read(bs));
+				var nBytesRead = ex(() -> is.read(bs));
 				return 0 <= nBytesRead ? Bytes.of(bs, 0, nBytesRead) : null;
-			}).closeAtEnd(bis).closeAtEnd(is);
+			});
 		}
 	}
 
