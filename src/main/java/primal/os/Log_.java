@@ -12,11 +12,11 @@ public class Log_ {
 	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
 	public static void info(String message) {
-		out.log("[I]", message);
+		out.log("🧐", message); // [I]
 	}
 
 	public static void warn(String message) {
-		out.log("[W]", message);
+		out.log("😰", message); // [W]
 	}
 
 	public static void error(Throwable th) {
@@ -24,7 +24,7 @@ public class Log_ {
 	}
 
 	public static void error(String message, Throwable th) {
-		out.logException("[E]", message, th);
+		out.logException("😱", message, th); // [E]
 	}
 
 	public static void fatal(Throwable th) {
@@ -32,7 +32,7 @@ public class Log_ {
 	}
 
 	public static void fatal(String message, Throwable th) {
-		out.logException("[F]", message, th);
+		out.logException("💀", message, th); // [F]
 	}
 
 	private static Out out = new Out() {
