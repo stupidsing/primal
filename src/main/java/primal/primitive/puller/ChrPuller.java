@@ -183,6 +183,17 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrPred, Chr
 		return isAvailable ? this : empty();
 	}
 
+	public ChrPuller dropWhile(ChrPred fun) {
+		return of(new ChrSource() {
+			private boolean b = false;
+
+			public char g() {
+				char t;
+				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == ChrPuller.class) {
@@ -362,6 +373,17 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrPred, Chr
 
 			public char g() {
 				return 0 < count-- ? pull() : null;
+			}
+		});
+	}
+
+	public ChrPuller takeWhile(ChrPred fun) {
+		return of(new ChrSource() {
+			private boolean b = true;
+
+			public char g() {
+				char t;
+				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		});
 	}

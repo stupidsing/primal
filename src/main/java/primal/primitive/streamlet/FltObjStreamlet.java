@@ -98,6 +98,10 @@ public class FltObjStreamlet<V> implements StreamletDefaults<FltObjPair<V>, FltO
 		return chrObjStreamlet(() -> spawn().drop(n));
 	}
 
+	public FltObjStreamlet<V> dropWhile(FltObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == FltObjStreamlet.class ? Equals.ab(spawn(), ((FltObjStreamlet<?>) object).spawn())
@@ -220,6 +224,10 @@ public class FltObjStreamlet<V> implements StreamletDefaults<FltObjPair<V>, FltO
 
 	public FltObjStreamlet<V> take(int n) {
 		return chrObjStreamlet(() -> spawn().take(n));
+	}
+
+	public FltObjStreamlet<V> takeWhile(FltObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public FltObjPair<V>[] toArray() {

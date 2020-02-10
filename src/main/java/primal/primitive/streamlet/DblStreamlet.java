@@ -92,6 +92,10 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 		return chrStreamlet(() -> spawn().drop(n));
 	}
 
+	public DblStreamlet dropWhile(DblPred fun) {
+		return chrStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == DblStreamlet.class ? Equals.ab(spawn(), ((DblStreamlet) object).spawn()) : false;
@@ -221,6 +225,10 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 
 	public DblStreamlet take(int n) {
 		return chrStreamlet(() -> spawn().take(n));
+	}
+
+	public DblStreamlet takeWhile(DblPred fun) {
+		return chrStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public double[] toArray() {

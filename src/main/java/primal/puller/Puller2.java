@@ -169,6 +169,16 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 		return isAvailable ? this : empty();
 	}
 
+	public Puller2<K, V> dropWhile(BiPredicate<K, V> fun) {
+		return of(new Source2<>() {
+			private boolean b = false;
+
+			public boolean source2(Pair_<K, V> pair) {
+				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == Puller2.class) {
@@ -392,6 +402,16 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 
 			public boolean source2(Pair_<K, V> pair) {
 				return 0 < count-- ? pull(pair) : false;
+			}
+		});
+	}
+
+	public Puller2<K, V> takeWhile(BiPredicate<K, V> fun) {
+		return of(new Source2<>() {
+			private boolean b = true;
+
+			public boolean source2(Pair_<K, V> pair) {
+				return pull(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		});
 	}

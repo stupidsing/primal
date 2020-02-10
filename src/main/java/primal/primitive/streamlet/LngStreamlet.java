@@ -92,6 +92,10 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 		return chrStreamlet(() -> spawn().drop(n));
 	}
 
+	public LngStreamlet dropWhile(LngPred fun) {
+		return chrStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == LngStreamlet.class ? Equals.ab(spawn(), ((LngStreamlet) object).spawn()) : false;
@@ -221,6 +225,10 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 
 	public LngStreamlet take(int n) {
 		return chrStreamlet(() -> spawn().take(n));
+	}
+
+	public LngStreamlet takeWhile(LngPred fun) {
+		return chrStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public long[] toArray() {

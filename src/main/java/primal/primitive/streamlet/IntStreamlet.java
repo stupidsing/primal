@@ -92,6 +92,10 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 		return chrStreamlet(() -> spawn().drop(n));
 	}
 
+	public IntStreamlet dropWhile(IntPred fun) {
+		return chrStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == IntStreamlet.class ? Equals.ab(spawn(), ((IntStreamlet) object).spawn()) : false;
@@ -221,6 +225,10 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 
 	public IntStreamlet take(int n) {
 		return chrStreamlet(() -> spawn().take(n));
+	}
+
+	public IntStreamlet takeWhile(IntPred fun) {
+		return chrStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public int[] toArray() {

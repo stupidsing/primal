@@ -147,6 +147,17 @@ public class Puller<T> implements PullerDefaults<T, Opt<T>, Predicate<T>, Sink<T
 		return isAvailable ? this : empty();
 	}
 
+	public Puller<T> dropWhile(Predicate<T> fun) {
+		return of(new Source<>() {
+			private boolean b = false;
+
+			public T g() {
+				T t;
+				return (t = pull()) != null && (b |= !fun.test(t)) ? t : null;
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == Puller.class) {
@@ -314,6 +325,17 @@ public class Puller<T> implements PullerDefaults<T, Opt<T>, Predicate<T>, Sink<T
 
 			public T g() {
 				return 0 < count-- ? pull() : null;
+			}
+		});
+	}
+
+	public Puller<T> takeWhile(Predicate<T> fun) {
+		return of(new Source<>() {
+			private boolean b = true;
+
+			public T g() {
+				T t;
+				return (t = pull()) != null && (b &= fun.test(t)) ? t : null;
 			}
 		});
 	}

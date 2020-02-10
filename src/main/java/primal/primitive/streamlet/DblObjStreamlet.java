@@ -98,6 +98,10 @@ public class DblObjStreamlet<V> implements StreamletDefaults<DblObjPair<V>, DblO
 		return chrObjStreamlet(() -> spawn().drop(n));
 	}
 
+	public DblObjStreamlet<V> dropWhile(DblObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == DblObjStreamlet.class ? Equals.ab(spawn(), ((DblObjStreamlet<?>) object).spawn())
@@ -220,6 +224,10 @@ public class DblObjStreamlet<V> implements StreamletDefaults<DblObjPair<V>, DblO
 
 	public DblObjStreamlet<V> take(int n) {
 		return chrObjStreamlet(() -> spawn().take(n));
+	}
+
+	public DblObjStreamlet<V> takeWhile(DblObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public DblObjPair<V>[] toArray() {

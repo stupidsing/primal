@@ -168,6 +168,16 @@ public class IntObjPuller<V> implements PullerDefaults<IntObjPair<V>, IntObjPair
 		return isAvailable ? this : empty();
 	}
 
+	public IntObjPuller<V> dropWhile(IntObjPredicate<V> fun) {
+		return of(new IntObjSource<>() {
+			private boolean b = false;
+
+			public boolean source2(IntObjPair_<V> pair) {
+				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == IntObjPuller.class) {
@@ -386,6 +396,16 @@ public class IntObjPuller<V> implements PullerDefaults<IntObjPair<V>, IntObjPair
 
 			public boolean source2(IntObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
+			}
+		});
+	}
+
+	public IntObjPuller<V> takeWhile(IntObjPredicate<V> fun) {
+		return of(new IntObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(IntObjPair_<V> pair) {
+				return pull(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		});
 	}

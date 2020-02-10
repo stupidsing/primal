@@ -168,6 +168,16 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 		return isAvailable ? this : empty();
 	}
 
+	public ChrObjPuller<V> dropWhile(ChrObjPredicate<V> fun) {
+		return of(new ChrObjSource<>() {
+			private boolean b = false;
+
+			public boolean source2(ChrObjPair_<V> pair) {
+				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == ChrObjPuller.class) {
@@ -386,6 +396,16 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 
 			public boolean source2(ChrObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
+			}
+		});
+	}
+
+	public ChrObjPuller<V> takeWhile(ChrObjPredicate<V> fun) {
+		return of(new ChrObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(ChrObjPair_<V> pair) {
+				return pull(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		});
 	}

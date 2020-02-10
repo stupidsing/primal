@@ -168,6 +168,16 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 		return isAvailable ? this : empty();
 	}
 
+	public FltObjPuller<V> dropWhile(FltObjPredicate<V> fun) {
+		return of(new FltObjSource<>() {
+			private boolean b = false;
+
+			public boolean source2(FltObjPair_<V> pair) {
+				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == FltObjPuller.class) {
@@ -386,6 +396,16 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 
 			public boolean source2(FltObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
+			}
+		});
+	}
+
+	public FltObjPuller<V> takeWhile(FltObjPredicate<V> fun) {
+		return of(new FltObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(FltObjPair_<V> pair) {
+				return pull(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		});
 	}

@@ -183,6 +183,17 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngPred, LngSink,
 		return isAvailable ? this : empty();
 	}
 
+	public LngPuller dropWhile(LngPred fun) {
+		return of(new LngSource() {
+			private boolean b = false;
+
+			public long g() {
+				long t;
+				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == LngPuller.class) {
@@ -362,6 +373,17 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngPred, LngSink,
 
 			public long g() {
 				return 0 < count-- ? pull() : null;
+			}
+		});
+	}
+
+	public LngPuller takeWhile(LngPred fun) {
+		return of(new LngSource() {
+			private boolean b = true;
+
+			public long g() {
+				long t;
+				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		});
 	}

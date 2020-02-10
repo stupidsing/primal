@@ -92,6 +92,10 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 		return chrStreamlet(() -> spawn().drop(n));
 	}
 
+	public FltStreamlet dropWhile(FltPred fun) {
+		return chrStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == FltStreamlet.class ? Equals.ab(spawn(), ((FltStreamlet) object).spawn()) : false;
@@ -221,6 +225,10 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 
 	public FltStreamlet take(int n) {
 		return chrStreamlet(() -> spawn().take(n));
+	}
+
+	public FltStreamlet takeWhile(FltPred fun) {
+		return chrStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public float[] toArray() {

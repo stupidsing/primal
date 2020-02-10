@@ -168,6 +168,16 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 		return isAvailable ? this : empty();
 	}
 
+	public DblObjPuller<V> dropWhile(DblObjPredicate<V> fun) {
+		return of(new DblObjSource<>() {
+			private boolean b = false;
+
+			public boolean source2(DblObjPair_<V> pair) {
+				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == DblObjPuller.class) {
@@ -386,6 +396,16 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 
 			public boolean source2(DblObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
+			}
+		});
+	}
+
+	public DblObjPuller<V> takeWhile(DblObjPredicate<V> fun) {
+		return of(new DblObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(DblObjPair_<V> pair) {
+				return pull(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		});
 	}

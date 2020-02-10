@@ -98,6 +98,10 @@ public class LngObjStreamlet<V> implements StreamletDefaults<LngObjPair<V>, LngO
 		return chrObjStreamlet(() -> spawn().drop(n));
 	}
 
+	public LngObjStreamlet<V> dropWhile(LngObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == LngObjStreamlet.class ? Equals.ab(spawn(), ((LngObjStreamlet<?>) object).spawn())
@@ -220,6 +224,10 @@ public class LngObjStreamlet<V> implements StreamletDefaults<LngObjPair<V>, LngO
 
 	public LngObjStreamlet<V> take(int n) {
 		return chrObjStreamlet(() -> spawn().take(n));
+	}
+
+	public LngObjStreamlet<V> takeWhile(LngObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public LngObjPair<V>[] toArray() {

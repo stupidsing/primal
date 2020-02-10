@@ -89,6 +89,10 @@ public class Streamlet<T> implements StreamletDefaults<T, Opt<T>, Predicate<T>, 
 		return streamlet(() -> spawn().drop(n));
 	}
 
+	public Streamlet<T> dropWhile(Predicate<T> fun) {
+		return streamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == Streamlet.class ? Equals.ab(spawn(), ((Streamlet<?>) object).spawn()) : false;
@@ -209,6 +213,10 @@ public class Streamlet<T> implements StreamletDefaults<T, Opt<T>, Predicate<T>, 
 
 	public Streamlet<T> take(int n) {
 		return streamlet(() -> spawn().take(n));
+	}
+
+	public Streamlet<T> takeWhile(Predicate<T> fun) {
+		return streamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public T[] toArray(Class<T> clazz) {

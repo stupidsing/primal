@@ -183,6 +183,17 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSi
 		return isAvailable ? this : empty();
 	}
 
+	public IntPuller dropWhile(IntPred fun) {
+		return of(new IntSource() {
+			private boolean b = false;
+
+			public int g() {
+				int t;
+				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == IntPuller.class) {
@@ -362,6 +373,17 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSi
 
 			public int g() {
 				return 0 < count-- ? pull() : null;
+			}
+		});
+	}
+
+	public IntPuller takeWhile(IntPred fun) {
+		return of(new IntSource() {
+			private boolean b = true;
+
+			public int g() {
+				int t;
+				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		});
 	}

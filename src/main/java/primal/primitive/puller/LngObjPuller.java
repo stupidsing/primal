@@ -168,6 +168,16 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 		return isAvailable ? this : empty();
 	}
 
+	public LngObjPuller<V> dropWhile(LngObjPredicate<V> fun) {
+		return of(new LngObjSource<>() {
+			private boolean b = false;
+
+			public boolean source2(LngObjPair_<V> pair) {
+				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == LngObjPuller.class) {
@@ -386,6 +396,16 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 
 			public boolean source2(LngObjPair_<V> pair) {
 				return 0 < count-- ? pull(pair) : false;
+			}
+		});
+	}
+
+	public LngObjPuller<V> takeWhile(LngObjPredicate<V> fun) {
+		return of(new LngObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(LngObjPair_<V> pair) {
+				return pull(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		});
 	}

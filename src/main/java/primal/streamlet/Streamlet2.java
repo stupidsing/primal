@@ -92,6 +92,10 @@ public class Streamlet2<K, V> implements StreamletDefaults<Pair<K, V>, Pair<K, V
 		return streamlet2(() -> spawn().drop(n));
 	}
 
+	public Streamlet2<K, V> dropWhile(BiPredicate<K, V> fun) {
+		return streamlet2(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == Streamlet2.class ? Equals.ab(spawn(), ((Streamlet2<?, ?>) object).spawn()) : false;
@@ -213,6 +217,10 @@ public class Streamlet2<K, V> implements StreamletDefaults<Pair<K, V>, Pair<K, V
 
 	public Streamlet2<K, V> take(int n) {
 		return streamlet2(() -> spawn().take(n));
+	}
+
+	public Streamlet2<K, V> takeWhile(BiPredicate<K, V> fun) {
+		return streamlet2(() -> spawn().takeWhile(fun));
 	}
 
 	public Pair<K, V>[] toArray() {

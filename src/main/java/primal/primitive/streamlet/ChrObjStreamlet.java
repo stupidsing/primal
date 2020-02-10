@@ -98,6 +98,10 @@ public class ChrObjStreamlet<V> implements StreamletDefaults<ChrObjPair<V>, ChrO
 		return chrObjStreamlet(() -> spawn().drop(n));
 	}
 
+	public ChrObjStreamlet<V> dropWhile(ChrObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == ChrObjStreamlet.class ? Equals.ab(spawn(), ((ChrObjStreamlet<?>) object).spawn())
@@ -220,6 +224,10 @@ public class ChrObjStreamlet<V> implements StreamletDefaults<ChrObjPair<V>, ChrO
 
 	public ChrObjStreamlet<V> take(int n) {
 		return chrObjStreamlet(() -> spawn().take(n));
+	}
+
+	public ChrObjStreamlet<V> takeWhile(ChrObjPredicate<V> fun) {
+		return chrObjStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public ChrObjPair<V>[] toArray() {

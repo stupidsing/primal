@@ -92,6 +92,10 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 		return chrStreamlet(() -> spawn().drop(n));
 	}
 
+	public ChrStreamlet dropWhile(ChrPred fun) {
+		return chrStreamlet(() -> spawn().dropWhile(fun));
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		return Get.clazz(object) == ChrStreamlet.class ? Equals.ab(spawn(), ((ChrStreamlet) object).spawn()) : false;
@@ -221,6 +225,10 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 
 	public ChrStreamlet take(int n) {
 		return chrStreamlet(() -> spawn().take(n));
+	}
+
+	public ChrStreamlet takeWhile(ChrPred fun) {
+		return chrStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public char[] toArray() {

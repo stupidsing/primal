@@ -183,6 +183,17 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltPred, FltSink
 		return isAvailable ? this : empty();
 	}
 
+	public FltPuller dropWhile(FltPred fun) {
+		return of(new FltSource() {
+			private boolean b = false;
+
+			public float g() {
+				float t;
+				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == FltPuller.class) {
@@ -362,6 +373,17 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltPred, FltSink
 
 			public float g() {
 				return 0 < count-- ? pull() : null;
+			}
+		});
+	}
+
+	public FltPuller takeWhile(FltPred fun) {
+		return of(new FltSource() {
+			private boolean b = true;
+
+			public float g() {
+				float t;
+				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		});
 	}

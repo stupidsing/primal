@@ -183,6 +183,17 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblPred, DblSin
 		return isAvailable ? this : empty();
 	}
 
+	public DblPuller dropWhile(DblPred fun) {
+		return of(new DblSource() {
+			private boolean b = false;
+
+			public double g() {
+				double t;
+				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+			}
+		});
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (Get.clazz(object) == DblPuller.class) {
@@ -362,6 +373,17 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblPred, DblSin
 
 			public double g() {
 				return 0 < count-- ? pull() : null;
+			}
+		});
+	}
+
+	public DblPuller takeWhile(DblPred fun) {
+		return of(new DblSource() {
+			private boolean b = true;
+
+			public double g() {
+				double t;
+				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		});
 	}
