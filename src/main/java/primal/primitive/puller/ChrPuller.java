@@ -185,11 +185,13 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrPred, Chr
 
 	public ChrPuller dropWhile(ChrPred fun) {
 		return of(new ChrSource() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public char g() {
 				char t;
-				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+				while ((t = pull()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		});
 	}

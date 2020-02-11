@@ -170,10 +170,13 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 
 	public ChrObjPuller<V> dropWhile(ChrObjPredicate<V> fun) {
 		return of(new ChrObjSource<>() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public boolean source2(ChrObjPair_<V> pair) {
-				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+				boolean p;
+				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		});
 	}

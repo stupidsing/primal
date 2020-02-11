@@ -170,10 +170,13 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 
 	public FltObjPuller<V> dropWhile(FltObjPredicate<V> fun) {
 		return of(new FltObjSource<>() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public boolean source2(FltObjPair_<V> pair) {
-				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+				boolean p;
+				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		});
 	}

@@ -149,11 +149,13 @@ public class Puller<T> implements PullerDefaults<T, Opt<T>, Predicate<T>, Sink<T
 
 	public Puller<T> dropWhile(Predicate<T> fun) {
 		return of(new Source<>() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public T g() {
 				T t;
-				return (t = pull()) != null && (b |= !fun.test(t)) ? t : null;
+				while ((t = pull()) != null && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		});
 	}

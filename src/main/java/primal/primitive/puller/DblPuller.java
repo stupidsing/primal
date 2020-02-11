@@ -185,11 +185,13 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblPred, DblSin
 
 	public DblPuller dropWhile(DblPred fun) {
 		return of(new DblSource() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public double g() {
 				double t;
-				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+				while ((t = pull()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		});
 	}

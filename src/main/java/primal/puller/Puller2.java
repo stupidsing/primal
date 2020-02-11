@@ -35,7 +35,8 @@ import primal.fp.Funs2.Pair_;
 import primal.fp.Funs2.Sink2;
 import primal.fp.Funs2.Source2;
 
-public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiPredicate<K, V>, Sink2<K, V>, Source2<K, V>> {
+public class Puller2<K, V>
+		implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiPredicate<K, V>, Sink2<K, V>, Source2<K, V>> {
 
 	private Source2<K, V> source2;
 
@@ -171,10 +172,13 @@ public class Puller2<K, V> implements PullerDefaults<Pair<K, V>, Pair<K, V>, BiP
 
 	public Puller2<K, V> dropWhile(BiPredicate<K, V> fun) {
 		return of(new Source2<>() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public boolean source2(Pair_<K, V> pair) {
-				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+				boolean p;
+				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		});
 	}

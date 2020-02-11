@@ -185,11 +185,13 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltPred, FltSink
 
 	public FltPuller dropWhile(FltPred fun) {
 		return of(new FltSource() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public float g() {
 				float t;
-				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+				while ((t = pull()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		});
 	}

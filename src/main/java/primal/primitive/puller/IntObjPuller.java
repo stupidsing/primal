@@ -170,10 +170,13 @@ public class IntObjPuller<V> implements PullerDefaults<IntObjPair<V>, IntObjPair
 
 	public IntObjPuller<V> dropWhile(IntObjPredicate<V> fun) {
 		return of(new IntObjSource<>() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public boolean source2(IntObjPair_<V> pair) {
-				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+				boolean p;
+				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		});
 	}

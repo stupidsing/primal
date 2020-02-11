@@ -185,11 +185,13 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngPred, LngSink,
 
 	public LngPuller dropWhile(LngPred fun) {
 		return of(new LngSource() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public long g() {
 				long t;
-				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+				while ((t = pull()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		});
 	}

@@ -185,11 +185,13 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSi
 
 	public IntPuller dropWhile(IntPred fun) {
 		return of(new IntSource() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public int g() {
 				int t;
-				return (t = pull()) != empty && (b |= !fun.test(t)) ? t : empty;
+				while ((t = pull()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		});
 	}

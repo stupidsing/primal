@@ -170,10 +170,13 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 
 	public DblObjPuller<V> dropWhile(DblObjPredicate<V> fun) {
 		return of(new DblObjSource<>() {
-			private boolean b = false;
+			private boolean b = true;
 
 			public boolean source2(DblObjPair_<V> pair) {
-				return pull(pair) && (b |= !fun.test(pair.k, pair.v));
+				boolean p;
+				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		});
 	}
