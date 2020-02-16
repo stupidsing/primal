@@ -1,11 +1,11 @@
 package primal.primitive.adt.map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import primal.primitive.adt.pair.IntIntPair;
 

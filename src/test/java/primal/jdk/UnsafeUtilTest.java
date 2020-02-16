@@ -1,6 +1,6 @@
 package primal.jdk;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import primal.Main;
 import primal.Verbs.New;
