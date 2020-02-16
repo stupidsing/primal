@@ -203,7 +203,7 @@ public class FltObjFunUtil {
 	 * skipped.
 	 */
 	public static <V> Source<FltObjSource<V>> split(FltObjPredicate<V> fun0, FltObjSource<V> source2) {
-		FltObjPredicate<V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private FltObjPair<V> pair = FltObjPair.of((float) 0, null);
 			private boolean isAvailable;

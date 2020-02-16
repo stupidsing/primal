@@ -203,7 +203,7 @@ public class ChrObjFunUtil {
 	 * skipped.
 	 */
 	public static <V> Source<ChrObjSource<V>> split(ChrObjPredicate<V> fun0, ChrObjSource<V> source2) {
-		ChrObjPredicate<V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private ChrObjPair<V> pair = ChrObjPair.of((char) 0, null);
 			private boolean isAvailable;

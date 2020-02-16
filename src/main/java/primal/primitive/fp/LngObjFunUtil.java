@@ -203,7 +203,7 @@ public class LngObjFunUtil {
 	 * skipped.
 	 */
 	public static <V> Source<LngObjSource<V>> split(LngObjPredicate<V> fun0, LngObjSource<V> source2) {
-		LngObjPredicate<V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private LngObjPair<V> pair = LngObjPair.of((long) 0, null);
 			private boolean isAvailable;

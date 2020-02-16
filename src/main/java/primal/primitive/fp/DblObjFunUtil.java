@@ -203,7 +203,7 @@ public class DblObjFunUtil {
 	 * skipped.
 	 */
 	public static <V> Source<DblObjSource<V>> split(DblObjPredicate<V> fun0, DblObjSource<V> source2) {
-		DblObjPredicate<V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private DblObjPair<V> pair = DblObjPair.of((double) 0, null);
 			private boolean isAvailable;

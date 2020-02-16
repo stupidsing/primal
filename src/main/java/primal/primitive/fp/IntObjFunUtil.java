@@ -203,7 +203,7 @@ public class IntObjFunUtil {
 	 * skipped.
 	 */
 	public static <V> Source<IntObjSource<V>> split(IntObjPredicate<V> fun0, IntObjSource<V> source2) {
-		IntObjPredicate<V> fun1 = fun0.rethrow();
+		var fun1 = fun0.rethrow();
 		return new Source<>() {
 			private IntObjPair<V> pair = IntObjPair.of((int) 0, null);
 			private boolean isAvailable;
