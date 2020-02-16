@@ -74,6 +74,27 @@ public class FunUtil2 {
 		};
 	}
 
+	public static <K, V> Source2<K, V> drop(int n, Source2<K, V> source) {
+		var pair = Pair.<K, V> of(null, null);
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.source2(pair)))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static <K, V> Source2<K, V> dropWhile(BiPredicate<K, V> fun, Source2<K, V> source) {
+		return new Source2<>() {
+			private boolean b = true;
+
+			public boolean source2(Pair_<K, V> pair) {
+				boolean p;
+				while ((p = source.source2(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
+			}
+		};
+	}
+
 	public static <K, V> Source2<K, V> filter(BiPredicate<K, V> fun0, Source2<K, V> source2) {
 		var fun1 = Rethrow.biPredicate(fun0);
 		return pair -> {
@@ -249,6 +270,26 @@ public class FunUtil2 {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static <K, V> Source2<K, V> take(int n, Source2<K, V> source) {
+		return new Source2<>() {
+			private int count = n;
+
+			public boolean source2(Pair_<K, V> pair) {
+				return 0 < count-- ? source.source2(pair) : false;
+			}
+		};
+	}
+
+	public static <K, V> Source2<K, V> takeWhile(BiPredicate<K, V> fun, Source2<K, V> source) {
+		return new Source2<>() {
+			private boolean b = true;
+
+			public boolean source2(Pair_<K, V> pair) {
+				return source.source2(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		};
 	}

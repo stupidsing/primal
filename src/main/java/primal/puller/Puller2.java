@@ -163,24 +163,11 @@ public class Puller2<K, V>
 	}
 
 	public Puller2<K, V> drop(int n) {
-		var pair = Pair.<K, V> of(null, null);
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull(pair)))
-			n--;
-		return isAvailable ? this : empty();
+		return of(FunUtil2.drop(n, source2));
 	}
 
 	public Puller2<K, V> dropWhile(BiPredicate<K, V> fun) {
-		return of(new Source2<>() {
-			private boolean b = true;
-
-			public boolean source2(Pair_<K, V> pair) {
-				boolean p;
-				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
-					;
-				return p;
-			}
-		});
+		return of(FunUtil2.dropWhile(fun, source2));
 	}
 
 	@Override
@@ -401,23 +388,11 @@ public class Puller2<K, V>
 	}
 
 	public Puller2<K, V> take(int n) {
-		return of(new Source2<>() {
-			private int count = n;
-
-			public boolean source2(Pair_<K, V> pair) {
-				return 0 < count-- ? pull(pair) : false;
-			}
-		});
+		return of(FunUtil2.take(n, source2));
 	}
 
 	public Puller2<K, V> takeWhile(BiPredicate<K, V> fun) {
-		return of(new Source2<>() {
-			private boolean b = true;
-
-			public boolean source2(Pair_<K, V> pair) {
-				return pull(pair) && (b &= fun.test(pair.k, pair.v));
-			}
-		});
+		return of(FunUtil2.takeWhile(fun, source2));
 	}
 
 	public Pair<K, V>[] toArray() {

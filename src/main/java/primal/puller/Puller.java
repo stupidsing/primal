@@ -141,23 +141,11 @@ public class Puller<T> implements PullerDefaults<T, Opt<T>, Predicate<T>, Sink<T
 	}
 
 	public Puller<T> drop(int n) {
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull() != null))
-			n--;
-		return isAvailable ? this : empty();
+		return of(FunUtil.drop(n, source));
 	}
 
 	public Puller<T> dropWhile(Predicate<T> fun) {
-		return of(new Source<>() {
-			private boolean b = true;
-
-			public T g() {
-				T t;
-				while ((t = pull()) != null && (b &= fun.test(t)))
-					;
-				return t;
-			}
-		});
+		return of(FunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -322,24 +310,11 @@ public class Puller<T> implements PullerDefaults<T, Opt<T>, Predicate<T>, Sink<T
 	}
 
 	public Puller<T> take(int n) {
-		return of(new Source<>() {
-			private int count = n;
-
-			public T g() {
-				return 0 < count-- ? pull() : null;
-			}
-		});
+		return of(FunUtil.take(n, source));
 	}
 
 	public Puller<T> takeWhile(Predicate<T> fun) {
-		return of(new Source<>() {
-			private boolean b = true;
-
-			public T g() {
-				T t;
-				return (t = pull()) != null && (b &= fun.test(t)) ? t : null;
-			}
-		});
+		return of(FunUtil.takeWhile(fun, source));
 	}
 
 	public T[] toArray(Class<T> clazz) {

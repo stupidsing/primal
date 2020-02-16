@@ -67,6 +67,26 @@ public class FunUtil {
 		};
 	}
 
+	public static <T> Source<T> drop(int n, Source<T> source) {
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.g() != null))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static <T> Source<T> dropWhile(Predicate<T> fun, Source<T> source) {
+		return new Source<>() {
+			private boolean b = true;
+
+			public T g() {
+				T t;
+				while ((t = source.g()) != null && (b &= fun.test(t)))
+					;
+				return t;
+			}
+		};
+	}
+
 	public static <T> Source<T> filter(Predicate<T> fun0, Source<T> source) {
 		var fun1 = Rethrow.predicate(fun0);
 		return () -> {
@@ -227,6 +247,27 @@ public class FunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static <T> Source<T> take(int n, Source<T> source) {
+		return new Source<>() {
+			private int count = n;
+
+			public T g() {
+				return 0 < count-- ? source.g() : null;
+			}
+		};
+	}
+
+	public static <T> Source<T> takeWhile(Predicate<T> fun, Source<T> source) {
+		return new Source<>() {
+			private boolean b = true;
+
+			public T g() {
+				T t;
+				return (t = source.g()) != null && (b &= fun.test(t)) ? t : null;
 			}
 		};
 	}

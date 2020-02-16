@@ -161,24 +161,11 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 	}
 
 	public ChrObjPuller<V> drop(int n) {
-		var pair = ChrObjPair.of(empty, (V) null);
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull(pair)))
-			n--;
-		return isAvailable ? this : empty();
+		return of(ChrObjFunUtil.drop(n, source));
 	}
 
 	public ChrObjPuller<V> dropWhile(ChrObjPredicate<V> fun) {
-		return of(new ChrObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(ChrObjPair_<V> pair) {
-				boolean p;
-				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
-					;
-				return p;
-			}
-		});
+		return of(ChrObjFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -394,23 +381,11 @@ public class ChrObjPuller<V> implements PullerDefaults<ChrObjPair<V>, ChrObjPair
 	}
 
 	public ChrObjPuller<V> take(int n) {
-		return of(new ChrObjSource<>() {
-			private int count = n;
-
-			public boolean source2(ChrObjPair_<V> pair) {
-				return 0 < count-- ? pull(pair) : false;
-			}
-		});
+		return of(ChrObjFunUtil.take(n, source));
 	}
 
 	public ChrObjPuller<V> takeWhile(ChrObjPredicate<V> fun) {
-		return of(new ChrObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(ChrObjPair_<V> pair) {
-				return pull(pair) && (b &= fun.test(pair.k, pair.v));
-			}
-		});
+		return of(ChrObjFunUtil.takeWhile(fun, source));
 	}
 
 	public ChrObjPair<V>[] toArray() {

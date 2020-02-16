@@ -177,23 +177,11 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrPred, Chr
 	}
 
 	public ChrPuller drop(int n) {
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull() != empty))
-			n--;
-		return isAvailable ? this : empty();
+		return of(ChrFunUtil.drop(n, source));
 	}
 
 	public ChrPuller dropWhile(ChrPred fun) {
-		return of(new ChrSource() {
-			private boolean b = true;
-
-			public char g() {
-				char t;
-				while ((t = pull()) != empty && (b &= fun.test(t)))
-					;
-				return t;
-			}
-		});
+		return of(ChrFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -370,24 +358,11 @@ public class ChrPuller implements PullerDefaults<Character, ChrOpt, ChrPred, Chr
 	}
 
 	public ChrPuller take(int n) {
-		return of(new ChrSource() {
-			private int count = n;
-
-			public char g() {
-				return 0 < count-- ? pull() : null;
-			}
-		});
+		return of(ChrFunUtil.take(n, source));
 	}
 
 	public ChrPuller takeWhile(ChrPred fun) {
-		return of(new ChrSource() {
-			private boolean b = true;
-
-			public char g() {
-				char t;
-				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
-			}
-		});
+		return of(ChrFunUtil.takeWhile(fun, source));
 	}
 
 	public char[] toArray() {

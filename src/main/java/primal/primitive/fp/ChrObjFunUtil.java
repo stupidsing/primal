@@ -14,6 +14,7 @@ import primal.fp.Funs.Source;
 import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.ChrObj_Chr;
+import primal.primitive.ChrPrim;
 import primal.primitive.ChrPrim.ChrObjPair_;
 import primal.primitive.ChrPrim.ChrObjPredicate;
 import primal.primitive.ChrPrim.ChrObjSource;
@@ -24,6 +25,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
 
 public class ChrObjFunUtil {
+
+	private static char empty = ChrPrim.EMPTYVALUE;
 
 	public static <V> Source<ChrObjSource<V>> chunk(int n, ChrObjSource<V> source) {
 		return new Source<>() {
@@ -74,6 +77,27 @@ public class ChrObjFunUtil {
 					pair.update(key, value);
 					return true;
 				}
+			}
+		};
+	}
+
+	public static <V> ChrObjSource<V> drop(int n, ChrObjSource<V> source) {
+		var pair = ChrObjPair.of(empty, (V) null);
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.source2(pair)))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static <V> ChrObjSource<V> dropWhile(ChrObjPredicate<V> fun, ChrObjSource<V> source) {
+		return new ChrObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(ChrObjPair_<V> pair) {
+				boolean p;
+				while ((p = source.source2(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		};
 	}
@@ -259,6 +283,26 @@ public class ChrObjFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail();
+			}
+		};
+	}
+
+	public static <V> ChrObjSource<V> take(int n, ChrObjSource<V> source) {
+		return new ChrObjSource<>() {
+			private int count = n;
+
+			public boolean source2(ChrObjPair_<V> pair) {
+				return 0 < count-- ? source.source2(pair) : false;
+			}
+		};
+	}
+
+	public static <V> ChrObjSource<V> takeWhile(ChrObjPredicate<V> fun, ChrObjSource<V> source) {
+		return new ChrObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(ChrObjPair_<V> pair) {
+				return source.source2(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		};
 	}

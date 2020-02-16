@@ -24,6 +24,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 
 public class ChrFunUtil {
 
+	private static char empty = ChrPrim.EMPTYVALUE;
+
 	public static Source<ChrSource> chunk(int n, ChrSource source) {
 		return new Source<>() {
 			private char c = source.g();
@@ -68,6 +70,26 @@ public class ChrFunUtil {
 					isFirst = false;
 					return c;
 				}
+			}
+		};
+	}
+
+	public static ChrSource drop(int n, ChrSource source) {
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.g() != empty))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static ChrSource dropWhile(ChrPred fun, ChrSource source) {
+		return new ChrSource() {
+			private boolean b = true;
+
+			public char g() {
+				char t;
+				while ((t = source.g()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		};
 	}
@@ -255,6 +277,27 @@ public class ChrFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static ChrSource take(int n, ChrSource source) {
+		return new ChrSource() {
+			private int count = n;
+
+			public char g() {
+				return 0 < count-- ? source.g() : null;
+			}
+		};
+	}
+
+	public static ChrSource takeWhile(ChrPred fun, ChrSource source) {
+		return new ChrSource() {
+			private boolean b = true;
+
+			public char g() {
+				char t;
+				return (t = source.g()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		};
 	}
