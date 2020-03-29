@@ -111,30 +111,25 @@ class Matcher {
 		var st = Read.each(new State(input));
 
 		for (var ch : pattern.toCharArray())
-			switch (ch) {
-			case '*':
-				st = st.concatMap(state -> Read.from(() -> new Source<State>() {
-					private int start = state.pos;
-					private int end = state.pos;
+			st = switch (ch) {
+			case '*' -> st.concatMap(state -> Read.from(() -> new Source<State>() {
+				private int start = state.pos;
+				private int end = state.pos;
 
-					public State g() {
-						if (end <= state.input.length()) {
-							var m = state.input.substring(start, end);
-							return new State(state.input, end++, PerList.cons(m, state.matches));
-						} else
-							return null;
-					}
-				}));
-				break;
-			case '?':
-				st = st.concatMap(state -> !state.eof() ? Read.each(new State(state, 1)) : Read.empty());
-				break;
-			default:
-				st = st.concatMap(state -> {
-					var isMatch = !state.eof() && state.input.charAt(state.pos) == ch;
-					return isMatch ? Read.each(new State(state, 1)) : Read.empty();
-				});
-			}
+				public State g() {
+					if (end <= state.input.length()) {
+						var m = state.input.substring(start, end);
+						return new State(state.input, end++, PerList.cons(m, state.matches));
+					} else
+						return null;
+				}
+			}));
+			case '?' -> st.concatMap(state -> !state.eof() ? Read.each(new State(state, 1)) : Read.empty());
+			default -> st.concatMap(state -> {
+				var isMatch = !state.eof() && state.input.charAt(state.pos) == ch;
+				return isMatch ? Read.each(new State(state, 1)) : Read.empty();
+			});
+			};
 
 		return st;
 	}

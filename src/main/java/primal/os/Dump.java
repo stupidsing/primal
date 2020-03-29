@@ -44,13 +44,13 @@ public class Dump {
 				dump(sb, indent1, Array.get(object, i));
 			}
 			sb.accept("}");
-		} else if (object instanceof BigDecimal) {
+		} else if (BigDecimal.class.isAssignableFrom(clazz)) {
 			sb.accept("new BigDecimal(\"" + object.toString() + "\")");
-		} else if (object instanceof Enum)
+		} else if (Enum.class.isAssignableFrom(clazz))
 			sb.accept(clazz + "." + ((Enum<?>) object).name());
-		else if (object instanceof Instant)
+		else if (Instant.class.isAssignableFrom(clazz))
 			sb.accept("Instant.ofEpochMilli(" + ((Instant) object).toEpochMilli() + "l)");
-		else if (object instanceof List) {
+		else if (List.class.isAssignableFrom(clazz)) {
 			sb.accept("List.of(");
 			var first = true;
 			for (var c : ((Collection<?>) object)) {
@@ -59,7 +59,7 @@ public class Dump {
 				first = false;
 			}
 			sb.accept(")");
-		} else if (object instanceof LocalDate) {
+		} else if (LocalDate.class.isAssignableFrom(clazz)) {
 			sb.accept("LocalDate.of(");
 			LocalDate ld = (LocalDate) object;
 			dump(sb, indent, ld.getYear());
@@ -68,7 +68,7 @@ public class Dump {
 			sb.accept(", ");
 			dump(sb, indent, ld.getDayOfMonth());
 			sb.accept(")");
-		} else if (object instanceof Map) {
+		} else if (Map.class.isAssignableFrom(clazz)) {
 			sb.accept("Map.ofEntries(");
 			var first = true;
 			for (var e : new TreeMap<>((Map<?, ?>) object).entrySet()) {
@@ -80,7 +80,7 @@ public class Dump {
 				first = false;
 			}
 			sb.accept(")");
-		} else if (object instanceof Number)
+		} else if (Number.class.isAssignableFrom(clazz))
 			sb.accept(((Number) object).toString());
 		else if (object instanceof Set) {
 			sb.accept("Set.of(");
@@ -91,16 +91,16 @@ public class Dump {
 				first = false;
 			}
 			sb.accept(")");
-		} else if (object instanceof String)
+		} else if (String.class.isAssignableFrom(clazz))
 			sb.accept("\"" + ((String) object).replace("\"", "\\\"") + "\"");
-		else if (object instanceof ZonedDateTime) {
+		else if (ZonedDateTime.class.isAssignableFrom(clazz)) {
 			sb.accept("ZonedDateTime.ofInstant(");
 			ZonedDateTime zdt = (ZonedDateTime) object;
 			dump(sb, indent, zdt.toInstant());
 			sb.accept(", ");
 			dump(sb, indent, zdt.getZone());
 			sb.accept(")");
-		} else if (object instanceof ZoneId)
+		} else if (ZoneId.class.isAssignableFrom(clazz))
 			sb.accept("ZoneId.of(\"" + ((ZoneId) object).toString() + "\")");
 		else if (Boolean.TRUE) {
 			String v = "r" + counter++;
