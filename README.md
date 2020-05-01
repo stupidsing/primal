@@ -56,6 +56,9 @@ primal.MoreVerbs
 	:
 	:
 primal.persistent.*
+primal.parser.Operator
+primal.parser.Commands
+primal.parser.Lexer
 primal.parser.*
 primal.Main
 ```
