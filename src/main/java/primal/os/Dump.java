@@ -82,7 +82,7 @@ public class Dump {
 			sb.accept(")");
 		} else if (Number.class.isAssignableFrom(clazz))
 			sb.accept(((Number) object).toString());
-		else if (object instanceof Set) {
+		else if (Set.class.isAssignableFrom(clazz)) {
 			sb.accept("Set.of(");
 			var first = true;
 			for (var c : new TreeSet<>((Collection<?>) object)) {

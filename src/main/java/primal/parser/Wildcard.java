@@ -57,12 +57,8 @@ public class Wildcard {
 			var i = 0;
 			for (var ch : pattern.toCharArray())
 				switch (ch) {
-				case '*':
-				case '?':
-					sb.append(input[i++]);
-					break;
-				default:
-					sb.append(ch);
+				case '*', '?' -> sb.append(input[i++]);
+				default -> sb.append(ch);
 				}
 		});
 	}
