@@ -1,11 +1,11 @@
 package primal.parser;
 
-import primal.MoreVerbs.Read;
-import primal.adt.Pair;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import primal.MoreVerbs.Read;
+import primal.adt.Pair;
 
 /**
  * Non-recursive, performance-improved parser for operator-based languages.
@@ -46,9 +46,9 @@ public class Lexer {
 		this.spacePrecedence = spaceOperator.precedence();
 		this.in = in;
 
-		var operatorByName = Read
-				.from(operators)
-				.filter(operator -> operator != spaceOperator)
+		var operatorByName = Read //
+				.from(operators) //
+				.filter(operator -> operator != spaceOperator) //
 				.toMap(Operator::name_);
 
 		commands = new Commands<>(operatorByName);
@@ -125,8 +125,8 @@ public class Lexer {
 				type = LexType.SPACE;
 			else if (ch == '\'' || ch == '"')
 				type = LexType.STR__;
-			else if (ch == '(' || ch == '[' || ch == '{'
-					|| ch == ')' || ch == ']' || ch == '}'
+			else if (ch == '(' || ch == '[' || ch == '{' //
+					|| ch == ')' || ch == ']' || ch == '}' //
 					|| ch == '`')
 				type = LexType.SYM__;
 			else
