@@ -36,7 +36,7 @@ public class Fail {
 		else if (th instanceof RuntimeException && m == null)
 			throw (RuntimeException) th;
 		else
-			throw new RuntimeException(m, th);
+			throw new RuntimeException((th != null ? th.getMessage() + "\n" : "") + m, th);
 	}
 
 }
