@@ -1,5 +1,7 @@
 ### How to run this?
-src/main/sh/replace.sh && mvn eclipse:clean eclipse:eclipse install assembly:single && java -jar target/primal-1.0-jar-with-dependencies.jar
+source <(curl -sL https://raw.githubusercontent.com/stupidsing/suite/master/src/main/sh/tools-path.sh | bash -) &&
+src/main/sh/replace.sh &&
+mvn eclipse:clean eclipse:eclipse install
 
 ### How to rename this?
 find -type f | xargs sed s/primal/newname/g
