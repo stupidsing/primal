@@ -1,5 +1,7 @@
 package primal.persistent;
 
+import static primal.statics.Fail.fail;
+
 import java.util.Iterator;
 
 import primal.Verbs.Equals;
@@ -45,7 +47,8 @@ public class PerMap<K extends Comparable<K>, V> implements Iterable<Pair<K, V>> 
 	}
 
 	public V getOrFail(K k) {
-		return tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd).g();
+		var opt = tree.findOpt(Pair.of(k, (V) null)).map(Pair::snd);
+		return opt.hasValue() ? opt.g() : fail("value not found for key: " + k);
 	}
 
 	public V getOrNull(K k) {

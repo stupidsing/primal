@@ -1,5 +1,7 @@
 package primal.statics;
 
+import static primal.statics.Fail.fail;
+
 import java.io.IOException;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -41,7 +43,7 @@ public class Rethrow {
 		try {
 			return source.g();
 		} catch (Exception ex) {
-			return Fail.fail(null, ex);
+			return fail(null, ex);
 		}
 	}
 
@@ -50,7 +52,7 @@ public class Rethrow {
 			try {
 				return predicate.test(t);
 			} catch (Exception ex) {
-				return Fail.fail("for " + t, ex);
+				return fail("for " + t, ex);
 			}
 		};
 	}
