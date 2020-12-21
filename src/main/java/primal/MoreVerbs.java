@@ -114,7 +114,7 @@ public class MoreVerbs {
 	}
 
 	public static class Encode {
-		public static Puller<Bytes> encode(Puller<Chars> charsPuller) {
+		public static Puller<Bytes> utf8(Puller<Chars> charsPuller) {
 			var source = charsPuller.source();
 
 			return Puller.of(new Source<>() {
