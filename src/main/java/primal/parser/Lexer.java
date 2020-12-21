@@ -2,7 +2,6 @@ package primal.parser;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import primal.MoreVerbs.Read;
 import primal.adt.Pair;
@@ -90,10 +89,13 @@ public class Lexer {
 
 			if (type == LexType.SPACE) {
 				var precs = new ArrayList<Integer>();
+				Operator opDetect = detect().operator;
 
-				for (var t : List.of(token0, detect()))
-					if (t != null && t.operator != null)
-						precs.add(t.operator.precedence());
+				if (token0 != null && token0.operator != null)
+					precs.add(token0.operator.precedence());
+
+				if (opDetect != null)
+					precs.add(opDetect.precedence());
 
 				if (!precs.isEmpty() && spacePrecedence < Collections.min(precs)) {
 					token = new Token(LexType.OPER_, spaceOperator);
