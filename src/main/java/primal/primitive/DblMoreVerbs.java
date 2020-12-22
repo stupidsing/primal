@@ -21,7 +21,7 @@ import primal.puller.Puller;
 
 public class DblMoreVerbs {
 
-	public static class ConcatDbl {
+	public static class ConcatDbl extends primal.primitive.DblVerbs.ConcatDbl {
 		@SafeVarargs
 		public static <T> DblStreamlet of(DblStreamlet... streamlets) {
 			return new DblStreamlet(() -> {

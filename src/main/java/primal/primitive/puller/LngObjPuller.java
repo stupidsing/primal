@@ -161,24 +161,11 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 	}
 
 	public LngObjPuller<V> drop(int n) {
-		var pair = LngObjPair.of(empty, (V) null);
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull(pair)))
-			n--;
-		return isAvailable ? this : empty();
+		return of(LngObjFunUtil.drop(n, source));
 	}
 
 	public LngObjPuller<V> dropWhile(LngObjPredicate<V> fun) {
-		return of(new LngObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(LngObjPair_<V> pair) {
-				boolean p;
-				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
-					;
-				return p;
-			}
-		});
+		return of(LngObjFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -394,23 +381,11 @@ public class LngObjPuller<V> implements PullerDefaults<LngObjPair<V>, LngObjPair
 	}
 
 	public LngObjPuller<V> take(int n) {
-		return of(new LngObjSource<>() {
-			private int count = n;
-
-			public boolean source2(LngObjPair_<V> pair) {
-				return 0 < count-- ? pull(pair) : false;
-			}
-		});
+		return of(LngObjFunUtil.take(n, source));
 	}
 
 	public LngObjPuller<V> takeWhile(LngObjPredicate<V> fun) {
-		return of(new LngObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(LngObjPair_<V> pair) {
-				return pull(pair) && (b &= fun.test(pair.k, pair.v));
-			}
-		});
+		return of(LngObjFunUtil.takeWhile(fun, source));
 	}
 
 	public LngObjPair<V>[] toArray() {

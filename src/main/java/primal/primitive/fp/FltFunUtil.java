@@ -24,6 +24,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 
 public class FltFunUtil {
 
+	private static float empty = FltPrim.EMPTYVALUE;
+
 	public static Source<FltSource> chunk(int n, FltSource source) {
 		return new Source<>() {
 			private float c = source.g();
@@ -68,6 +70,26 @@ public class FltFunUtil {
 					isFirst = false;
 					return c;
 				}
+			}
+		};
+	}
+
+	public static FltSource drop(int n, FltSource source) {
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.g() != empty))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static FltSource dropWhile(FltPred fun, FltSource source) {
+		return new FltSource() {
+			private boolean b = true;
+
+			public float g() {
+				float t;
+				while ((t = source.g()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		};
 	}
@@ -255,6 +277,27 @@ public class FltFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static FltSource take(int n, FltSource source) {
+		return new FltSource() {
+			private int count = n;
+
+			public float g() {
+				return 0 < count-- ? source.g() : null;
+			}
+		};
+	}
+
+	public static FltSource takeWhile(FltPred fun, FltSource source) {
+		return new FltSource() {
+			private boolean b = true;
+
+			public float g() {
+				float t;
+				return (t = source.g()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		};
 	}

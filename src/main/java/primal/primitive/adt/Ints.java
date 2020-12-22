@@ -16,10 +16,12 @@ import primal.Verbs.Compare;
 import primal.Verbs.Get;
 import primal.Verbs.Is;
 import primal.fp.Funs.Fun;
+import primal.fp.Funs.Sink;
 import primal.primitive.IntPrim;
 import primal.primitive.IntPrim.IntSource;
 import primal.primitive.IntVerbs.CopyInt;
 import primal.primitive.puller.IntPuller;
+import primal.puller.Puller;
 
 public class Ints implements Iterable<Integer> {
 
@@ -50,6 +52,28 @@ public class Ints implements Iterable<Integer> {
 		return c != 0 ? c : size0 - size1;
 	};
 
+	public static Ints build(Sink<IntsBuilder> sink) {
+		return build_(sink);
+	}
+
+	public static Ints concat(Ints... array) {
+		var length = 0;
+		for (var ints : array)
+			length += ints.size();
+		var cs1 = new int[length];
+		var i = 0;
+		for (var ints : array) {
+			var size_ = ints.size();
+			CopyInt.array(ints.cs, ints.start, cs1, i, size_);
+			i += size_;
+		}
+		return Ints.of(cs1);
+	}
+
+	public static Ints of(Puller<Ints> puller) {
+		return build(cb -> puller.forEach(cb::append));
+	}
+
 	public static Ints of(IntBuffer cb) {
 		var offset = cb.arrayOffset();
 		return of(cb.array(), offset, offset + cb.limit());
@@ -69,6 +93,12 @@ public class Ints implements Iterable<Integer> {
 
 	public static Ints of(int[] cs, int start, int end) {
 		return new Ints(cs, start, end);
+	}
+
+	private static Ints build_(Sink<IntsBuilder> sink) {
+		var sb = new IntsBuilder();
+		sink.f(sb);
+		return sb.toInts();
 	}
 
 	private Ints(int[] cs, int start, int end) {

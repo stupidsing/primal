@@ -177,23 +177,11 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngPred, LngSink,
 	}
 
 	public LngPuller drop(int n) {
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull() != empty))
-			n--;
-		return isAvailable ? this : empty();
+		return of(LngFunUtil.drop(n, source));
 	}
 
 	public LngPuller dropWhile(LngPred fun) {
-		return of(new LngSource() {
-			private boolean b = true;
-
-			public long g() {
-				long t;
-				while ((t = pull()) != empty && (b &= fun.test(t)))
-					;
-				return t;
-			}
-		});
+		return of(LngFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -370,24 +358,11 @@ public class LngPuller implements PullerDefaults<Long, LngOpt, LngPred, LngSink,
 	}
 
 	public LngPuller take(int n) {
-		return of(new LngSource() {
-			private int count = n;
-
-			public long g() {
-				return 0 < count-- ? pull() : null;
-			}
-		});
+		return of(LngFunUtil.take(n, source));
 	}
 
 	public LngPuller takeWhile(LngPred fun) {
-		return of(new LngSource() {
-			private boolean b = true;
-
-			public long g() {
-				long t;
-				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
-			}
-		});
+		return of(LngFunUtil.takeWhile(fun, source));
 	}
 
 	public long[] toArray() {

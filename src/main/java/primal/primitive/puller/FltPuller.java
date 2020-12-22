@@ -177,23 +177,11 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltPred, FltSink
 	}
 
 	public FltPuller drop(int n) {
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull() != empty))
-			n--;
-		return isAvailable ? this : empty();
+		return of(FltFunUtil.drop(n, source));
 	}
 
 	public FltPuller dropWhile(FltPred fun) {
-		return of(new FltSource() {
-			private boolean b = true;
-
-			public float g() {
-				float t;
-				while ((t = pull()) != empty && (b &= fun.test(t)))
-					;
-				return t;
-			}
-		});
+		return of(FltFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -370,24 +358,11 @@ public class FltPuller implements PullerDefaults<Float, FltOpt, FltPred, FltSink
 	}
 
 	public FltPuller take(int n) {
-		return of(new FltSource() {
-			private int count = n;
-
-			public float g() {
-				return 0 < count-- ? pull() : null;
-			}
-		});
+		return of(FltFunUtil.take(n, source));
 	}
 
 	public FltPuller takeWhile(FltPred fun) {
-		return of(new FltSource() {
-			private boolean b = true;
-
-			public float g() {
-				float t;
-				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
-			}
-		});
+		return of(FltFunUtil.takeWhile(fun, source));
 	}
 
 	public float[] toArray() {

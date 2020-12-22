@@ -21,7 +21,7 @@ import primal.puller.Puller;
 
 public class FltMoreVerbs {
 
-	public static class ConcatFlt {
+	public static class ConcatFlt extends primal.primitive.FltVerbs.ConcatFlt {
 		@SafeVarargs
 		public static <T> FltStreamlet of(FltStreamlet... streamlets) {
 			return new FltStreamlet(() -> {

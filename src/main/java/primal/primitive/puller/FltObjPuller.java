@@ -161,24 +161,11 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 	}
 
 	public FltObjPuller<V> drop(int n) {
-		var pair = FltObjPair.of(empty, (V) null);
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull(pair)))
-			n--;
-		return isAvailable ? this : empty();
+		return of(FltObjFunUtil.drop(n, source));
 	}
 
 	public FltObjPuller<V> dropWhile(FltObjPredicate<V> fun) {
-		return of(new FltObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(FltObjPair_<V> pair) {
-				boolean p;
-				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
-					;
-				return p;
-			}
-		});
+		return of(FltObjFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -394,23 +381,11 @@ public class FltObjPuller<V> implements PullerDefaults<FltObjPair<V>, FltObjPair
 	}
 
 	public FltObjPuller<V> take(int n) {
-		return of(new FltObjSource<>() {
-			private int count = n;
-
-			public boolean source2(FltObjPair_<V> pair) {
-				return 0 < count-- ? pull(pair) : false;
-			}
-		});
+		return of(FltObjFunUtil.take(n, source));
 	}
 
 	public FltObjPuller<V> takeWhile(FltObjPredicate<V> fun) {
-		return of(new FltObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(FltObjPair_<V> pair) {
-				return pull(pair) && (b &= fun.test(pair.k, pair.v));
-			}
-		});
+		return of(FltObjFunUtil.takeWhile(fun, source));
 	}
 
 	public FltObjPair<V>[] toArray() {

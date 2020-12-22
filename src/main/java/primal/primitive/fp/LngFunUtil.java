@@ -24,6 +24,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 
 public class LngFunUtil {
 
+	private static long empty = LngPrim.EMPTYVALUE;
+
 	public static Source<LngSource> chunk(int n, LngSource source) {
 		return new Source<>() {
 			private long c = source.g();
@@ -68,6 +70,26 @@ public class LngFunUtil {
 					isFirst = false;
 					return c;
 				}
+			}
+		};
+	}
+
+	public static LngSource drop(int n, LngSource source) {
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.g() != empty))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static LngSource dropWhile(LngPred fun, LngSource source) {
+		return new LngSource() {
+			private boolean b = true;
+
+			public long g() {
+				long t;
+				while ((t = source.g()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		};
 	}
@@ -255,6 +277,27 @@ public class LngFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static LngSource take(int n, LngSource source) {
+		return new LngSource() {
+			private int count = n;
+
+			public long g() {
+				return 0 < count-- ? source.g() : null;
+			}
+		};
+	}
+
+	public static LngSource takeWhile(LngPred fun, LngSource source) {
+		return new LngSource() {
+			private boolean b = true;
+
+			public long g() {
+				long t;
+				return (t = source.g()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		};
 	}

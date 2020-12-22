@@ -14,6 +14,7 @@ import primal.fp.Funs.Source;
 import primal.fp.Funs2.Source2;
 import primal.os.Log_;
 import primal.primitive.IntObj_Int;
+import primal.primitive.IntPrim;
 import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjPredicate;
 import primal.primitive.IntPrim.IntObjSource;
@@ -24,6 +25,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 import primal.statics.Rethrow;
 
 public class IntObjFunUtil {
+
+	private static int empty = IntPrim.EMPTYVALUE;
 
 	public static <V> Source<IntObjSource<V>> chunk(int n, IntObjSource<V> source) {
 		return new Source<>() {
@@ -74,6 +77,27 @@ public class IntObjFunUtil {
 					pair.update(key, value);
 					return true;
 				}
+			}
+		};
+	}
+
+	public static <V> IntObjSource<V> drop(int n, IntObjSource<V> source) {
+		var pair = IntObjPair.of(empty, (V) null);
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.source2(pair)))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static <V> IntObjSource<V> dropWhile(IntObjPredicate<V> fun, IntObjSource<V> source) {
+		return new IntObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(IntObjPair_<V> pair) {
+				boolean p;
+				while ((p = source.source2(pair)) && (b &= fun.test(pair.k, pair.v)))
+					;
+				return p;
 			}
 		};
 	}
@@ -259,6 +283,26 @@ public class IntObjFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail();
+			}
+		};
+	}
+
+	public static <V> IntObjSource<V> take(int n, IntObjSource<V> source) {
+		return new IntObjSource<>() {
+			private int count = n;
+
+			public boolean source2(IntObjPair_<V> pair) {
+				return 0 < count-- ? source.source2(pair) : false;
+			}
+		};
+	}
+
+	public static <V> IntObjSource<V> takeWhile(IntObjPredicate<V> fun, IntObjSource<V> source) {
+		return new IntObjSource<>() {
+			private boolean b = true;
+
+			public boolean source2(IntObjPair_<V> pair) {
+				return source.source2(pair) && (b &= fun.test(pair.k, pair.v));
 			}
 		};
 	}

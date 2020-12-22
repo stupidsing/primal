@@ -21,7 +21,7 @@ import primal.puller.Puller;
 
 public class ChrMoreVerbs {
 
-	public static class ConcatChr {
+	public static class ConcatChr extends primal.primitive.ChrVerbs.ConcatChr {
 		@SafeVarargs
 		public static <T> ChrStreamlet of(ChrStreamlet... streamlets) {
 			return new ChrStreamlet(() -> {

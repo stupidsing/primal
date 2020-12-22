@@ -16,10 +16,12 @@ import primal.Verbs.Compare;
 import primal.Verbs.Get;
 import primal.Verbs.Is;
 import primal.fp.Funs.Fun;
+import primal.fp.Funs.Sink;
 import primal.primitive.ChrPrim;
 import primal.primitive.ChrPrim.ChrSource;
 import primal.primitive.ChrVerbs.CopyChr;
 import primal.primitive.puller.ChrPuller;
+import primal.puller.Puller;
 
 public class Chars implements Iterable<Character> {
 
@@ -50,6 +52,28 @@ public class Chars implements Iterable<Character> {
 		return c != 0 ? c : size0 - size1;
 	};
 
+	public static Chars build(Sink<CharsBuilder> sink) {
+		return build_(sink);
+	}
+
+	public static Chars concat(Chars... array) {
+		var length = 0;
+		for (var chars : array)
+			length += chars.size();
+		var cs1 = new char[length];
+		var i = 0;
+		for (var chars : array) {
+			var size_ = chars.size();
+			CopyChr.array(chars.cs, chars.start, cs1, i, size_);
+			i += size_;
+		}
+		return Chars.of(cs1);
+	}
+
+	public static Chars of(Puller<Chars> puller) {
+		return build(cb -> puller.forEach(cb::append));
+	}
+
 	public static Chars of(CharBuffer cb) {
 		var offset = cb.arrayOffset();
 		return of(cb.array(), offset, offset + cb.limit());
@@ -69,6 +93,12 @@ public class Chars implements Iterable<Character> {
 
 	public static Chars of(char[] cs, int start, int end) {
 		return new Chars(cs, start, end);
+	}
+
+	private static Chars build_(Sink<CharsBuilder> sink) {
+		var sb = new CharsBuilder();
+		sink.f(sb);
+		return sb.toChars();
 	}
 
 	private Chars(char[] cs, int start, int end) {

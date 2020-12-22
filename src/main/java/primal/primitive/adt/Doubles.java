@@ -16,10 +16,12 @@ import primal.Verbs.Compare;
 import primal.Verbs.Get;
 import primal.Verbs.Is;
 import primal.fp.Funs.Fun;
+import primal.fp.Funs.Sink;
 import primal.primitive.DblPrim;
 import primal.primitive.DblPrim.DblSource;
 import primal.primitive.DblVerbs.CopyDbl;
 import primal.primitive.puller.DblPuller;
+import primal.puller.Puller;
 
 public class Doubles implements Iterable<Double> {
 
@@ -50,6 +52,28 @@ public class Doubles implements Iterable<Double> {
 		return c != 0 ? c : size0 - size1;
 	};
 
+	public static Doubles build(Sink<DoublesBuilder> sink) {
+		return build_(sink);
+	}
+
+	public static Doubles concat(Doubles... array) {
+		var length = 0;
+		for (var doubles : array)
+			length += doubles.size();
+		var cs1 = new double[length];
+		var i = 0;
+		for (var doubles : array) {
+			var size_ = doubles.size();
+			CopyDbl.array(doubles.cs, doubles.start, cs1, i, size_);
+			i += size_;
+		}
+		return Doubles.of(cs1);
+	}
+
+	public static Doubles of(Puller<Doubles> puller) {
+		return build(cb -> puller.forEach(cb::append));
+	}
+
 	public static Doubles of(DoubleBuffer cb) {
 		var offset = cb.arrayOffset();
 		return of(cb.array(), offset, offset + cb.limit());
@@ -69,6 +93,12 @@ public class Doubles implements Iterable<Double> {
 
 	public static Doubles of(double[] cs, int start, int end) {
 		return new Doubles(cs, start, end);
+	}
+
+	private static Doubles build_(Sink<DoublesBuilder> sink) {
+		var sb = new DoublesBuilder();
+		sink.f(sb);
+		return sb.toDoubles();
 	}
 
 	private Doubles(double[] cs, int start, int end) {

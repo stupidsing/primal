@@ -21,7 +21,7 @@ import primal.puller.Puller;
 
 public class LngMoreVerbs {
 
-	public static class ConcatLng {
+	public static class ConcatLng extends primal.primitive.LngVerbs.ConcatLng {
 		@SafeVarargs
 		public static <T> LngStreamlet of(LngStreamlet... streamlets) {
 			return new LngStreamlet(() -> {

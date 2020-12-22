@@ -177,23 +177,11 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSi
 	}
 
 	public IntPuller drop(int n) {
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull() != empty))
-			n--;
-		return isAvailable ? this : empty();
+		return of(IntFunUtil.drop(n, source));
 	}
 
 	public IntPuller dropWhile(IntPred fun) {
-		return of(new IntSource() {
-			private boolean b = true;
-
-			public int g() {
-				int t;
-				while ((t = pull()) != empty && (b &= fun.test(t)))
-					;
-				return t;
-			}
-		});
+		return of(IntFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -370,24 +358,11 @@ public class IntPuller implements PullerDefaults<Integer, IntOpt, IntPred, IntSi
 	}
 
 	public IntPuller take(int n) {
-		return of(new IntSource() {
-			private int count = n;
-
-			public int g() {
-				return 0 < count-- ? pull() : null;
-			}
-		});
+		return of(IntFunUtil.take(n, source));
 	}
 
 	public IntPuller takeWhile(IntPred fun) {
-		return of(new IntSource() {
-			private boolean b = true;
-
-			public int g() {
-				int t;
-				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
-			}
-		});
+		return of(IntFunUtil.takeWhile(fun, source));
 	}
 
 	public int[] toArray() {

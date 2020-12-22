@@ -21,7 +21,7 @@ import primal.puller.Puller;
 
 public class IntMoreVerbs {
 
-	public static class ConcatInt {
+	public static class ConcatInt extends primal.primitive.IntVerbs.ConcatInt {
 		@SafeVarargs
 		public static <T> IntStreamlet of(IntStreamlet... streamlets) {
 			return new IntStreamlet(() -> {

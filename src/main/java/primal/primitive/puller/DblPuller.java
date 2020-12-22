@@ -177,23 +177,11 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblPred, DblSin
 	}
 
 	public DblPuller drop(int n) {
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull() != empty))
-			n--;
-		return isAvailable ? this : empty();
+		return of(DblFunUtil.drop(n, source));
 	}
 
 	public DblPuller dropWhile(DblPred fun) {
-		return of(new DblSource() {
-			private boolean b = true;
-
-			public double g() {
-				double t;
-				while ((t = pull()) != empty && (b &= fun.test(t)))
-					;
-				return t;
-			}
-		});
+		return of(DblFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -370,24 +358,11 @@ public class DblPuller implements PullerDefaults<Double, DblOpt, DblPred, DblSin
 	}
 
 	public DblPuller take(int n) {
-		return of(new DblSource() {
-			private int count = n;
-
-			public double g() {
-				return 0 < count-- ? pull() : null;
-			}
-		});
+		return of(DblFunUtil.take(n, source));
 	}
 
 	public DblPuller takeWhile(DblPred fun) {
-		return of(new DblSource() {
-			private boolean b = true;
-
-			public double g() {
-				double t;
-				return (t = pull()) != empty && (b &= fun.test(t)) ? t : empty;
-			}
-		});
+		return of(DblFunUtil.takeWhile(fun, source));
 	}
 
 	public double[] toArray() {

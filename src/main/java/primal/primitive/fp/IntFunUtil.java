@@ -24,6 +24,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 
 public class IntFunUtil {
 
+	private static int empty = IntPrim.EMPTYVALUE;
+
 	public static Source<IntSource> chunk(int n, IntSource source) {
 		return new Source<>() {
 			private int c = source.g();
@@ -68,6 +70,26 @@ public class IntFunUtil {
 					isFirst = false;
 					return c;
 				}
+			}
+		};
+	}
+
+	public static IntSource drop(int n, IntSource source) {
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.g() != empty))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static IntSource dropWhile(IntPred fun, IntSource source) {
+		return new IntSource() {
+			private boolean b = true;
+
+			public int g() {
+				int t;
+				while ((t = source.g()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		};
 	}
@@ -255,6 +277,27 @@ public class IntFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static IntSource take(int n, IntSource source) {
+		return new IntSource() {
+			private int count = n;
+
+			public int g() {
+				return 0 < count-- ? source.g() : null;
+			}
+		};
+	}
+
+	public static IntSource takeWhile(IntPred fun, IntSource source) {
+		return new IntSource() {
+			private boolean b = true;
+
+			public int g() {
+				int t;
+				return (t = source.g()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		};
 	}

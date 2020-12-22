@@ -161,24 +161,11 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 	}
 
 	public DblObjPuller<V> drop(int n) {
-		var pair = DblObjPair.of(empty, (V) null);
-		var isAvailable = true;
-		while (0 < n && (isAvailable &= pull(pair)))
-			n--;
-		return isAvailable ? this : empty();
+		return of(DblObjFunUtil.drop(n, source));
 	}
 
 	public DblObjPuller<V> dropWhile(DblObjPredicate<V> fun) {
-		return of(new DblObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(DblObjPair_<V> pair) {
-				boolean p;
-				while ((p = pull(pair)) && (b &= fun.test(pair.k, pair.v)))
-					;
-				return p;
-			}
-		});
+		return of(DblObjFunUtil.dropWhile(fun, source));
 	}
 
 	@Override
@@ -394,23 +381,11 @@ public class DblObjPuller<V> implements PullerDefaults<DblObjPair<V>, DblObjPair
 	}
 
 	public DblObjPuller<V> take(int n) {
-		return of(new DblObjSource<>() {
-			private int count = n;
-
-			public boolean source2(DblObjPair_<V> pair) {
-				return 0 < count-- ? pull(pair) : false;
-			}
-		});
+		return of(DblObjFunUtil.take(n, source));
 	}
 
 	public DblObjPuller<V> takeWhile(DblObjPredicate<V> fun) {
-		return of(new DblObjSource<>() {
-			private boolean b = true;
-
-			public boolean source2(DblObjPair_<V> pair) {
-				return pull(pair) && (b &= fun.test(pair.k, pair.v));
-			}
-		});
+		return of(DblObjFunUtil.takeWhile(fun, source));
 	}
 
 	public DblObjPair<V>[] toArray() {

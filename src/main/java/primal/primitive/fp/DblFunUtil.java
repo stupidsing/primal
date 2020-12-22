@@ -24,6 +24,8 @@ import primal.statics.Fail.InterruptedRuntimeException;
 
 public class DblFunUtil {
 
+	private static double empty = DblPrim.EMPTYVALUE;
+
 	public static Source<DblSource> chunk(int n, DblSource source) {
 		return new Source<>() {
 			private double c = source.g();
@@ -68,6 +70,26 @@ public class DblFunUtil {
 					isFirst = false;
 					return c;
 				}
+			}
+		};
+	}
+
+	public static DblSource drop(int n, DblSource source) {
+		var isAvailable = true;
+		while (0 < n && (isAvailable &= source.g() != empty))
+			n--;
+		return isAvailable ? source : nullSource();
+	}
+
+	public static DblSource dropWhile(DblPred fun, DblSource source) {
+		return new DblSource() {
+			private boolean b = true;
+
+			public double g() {
+				double t;
+				while ((t = source.g()) != empty && (b &= fun.test(t)))
+					;
+				return t;
 			}
 		};
 	}
@@ -255,6 +277,27 @@ public class DblFunUtil {
 			} catch (InterruptedException | InterruptedRuntimeException ex) {
 				thread.interrupt();
 				return fail(ex);
+			}
+		};
+	}
+
+	public static DblSource take(int n, DblSource source) {
+		return new DblSource() {
+			private int count = n;
+
+			public double g() {
+				return 0 < count-- ? source.g() : null;
+			}
+		};
+	}
+
+	public static DblSource takeWhile(DblPred fun, DblSource source) {
+		return new DblSource() {
+			private boolean b = true;
+
+			public double g() {
+				double t;
+				return (t = source.g()) != empty && (b &= fun.test(t)) ? t : empty;
 			}
 		};
 	}

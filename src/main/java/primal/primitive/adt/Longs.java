@@ -16,10 +16,12 @@ import primal.Verbs.Compare;
 import primal.Verbs.Get;
 import primal.Verbs.Is;
 import primal.fp.Funs.Fun;
+import primal.fp.Funs.Sink;
 import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.LngSource;
 import primal.primitive.LngVerbs.CopyLng;
 import primal.primitive.puller.LngPuller;
+import primal.puller.Puller;
 
 public class Longs implements Iterable<Long> {
 
@@ -50,6 +52,28 @@ public class Longs implements Iterable<Long> {
 		return c != 0 ? c : size0 - size1;
 	};
 
+	public static Longs build(Sink<LongsBuilder> sink) {
+		return build_(sink);
+	}
+
+	public static Longs concat(Longs... array) {
+		var length = 0;
+		for (var longs : array)
+			length += longs.size();
+		var cs1 = new long[length];
+		var i = 0;
+		for (var longs : array) {
+			var size_ = longs.size();
+			CopyLng.array(longs.cs, longs.start, cs1, i, size_);
+			i += size_;
+		}
+		return Longs.of(cs1);
+	}
+
+	public static Longs of(Puller<Longs> puller) {
+		return build(cb -> puller.forEach(cb::append));
+	}
+
 	public static Longs of(LongBuffer cb) {
 		var offset = cb.arrayOffset();
 		return of(cb.array(), offset, offset + cb.limit());
@@ -69,6 +93,12 @@ public class Longs implements Iterable<Long> {
 
 	public static Longs of(long[] cs, int start, int end) {
 		return new Longs(cs, start, end);
+	}
+
+	private static Longs build_(Sink<LongsBuilder> sink) {
+		var sb = new LongsBuilder();
+		sink.f(sb);
+		return sb.toLongs();
 	}
 
 	private Longs(long[] cs, int start, int end) {

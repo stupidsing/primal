@@ -34,7 +34,6 @@ import primal.fp.Funs2.Source2;
 import primal.primitive.adt.Bytes;
 import primal.primitive.adt.Bytes.BytesBuilder;
 import primal.primitive.adt.Chars;
-import primal.primitive.fp.AsChr;
 import primal.puller.Puller;
 import primal.puller.Puller2;
 import primal.streamlet.Streamlet;
@@ -66,7 +65,7 @@ public class MoreVerbs {
 				private Chars decode() {
 					var bytes = bb.toBytes();
 
-					return AsChr.build(cb -> {
+					return Chars.build(cb -> {
 						var s = 0;
 
 						while (s < bytes.size()) {

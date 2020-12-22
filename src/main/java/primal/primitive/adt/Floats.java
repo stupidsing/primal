@@ -16,10 +16,12 @@ import primal.Verbs.Compare;
 import primal.Verbs.Get;
 import primal.Verbs.Is;
 import primal.fp.Funs.Fun;
+import primal.fp.Funs.Sink;
 import primal.primitive.FltPrim;
 import primal.primitive.FltPrim.FltSource;
 import primal.primitive.FltVerbs.CopyFlt;
 import primal.primitive.puller.FltPuller;
+import primal.puller.Puller;
 
 public class Floats implements Iterable<Float> {
 
@@ -50,6 +52,28 @@ public class Floats implements Iterable<Float> {
 		return c != 0 ? c : size0 - size1;
 	};
 
+	public static Floats build(Sink<FloatsBuilder> sink) {
+		return build_(sink);
+	}
+
+	public static Floats concat(Floats... array) {
+		var length = 0;
+		for (var floats : array)
+			length += floats.size();
+		var cs1 = new float[length];
+		var i = 0;
+		for (var floats : array) {
+			var size_ = floats.size();
+			CopyFlt.array(floats.cs, floats.start, cs1, i, size_);
+			i += size_;
+		}
+		return Floats.of(cs1);
+	}
+
+	public static Floats of(Puller<Floats> puller) {
+		return build(cb -> puller.forEach(cb::append));
+	}
+
 	public static Floats of(FloatBuffer cb) {
 		var offset = cb.arrayOffset();
 		return of(cb.array(), offset, offset + cb.limit());
@@ -69,6 +93,12 @@ public class Floats implements Iterable<Float> {
 
 	public static Floats of(float[] cs, int start, int end) {
 		return new Floats(cs, start, end);
+	}
+
+	private static Floats build_(Sink<FloatsBuilder> sink) {
+		var sb = new FloatsBuilder();
+		sink.f(sb);
+		return sb.toFloats();
 	}
 
 	private Floats(float[] cs, int start, int end) {
