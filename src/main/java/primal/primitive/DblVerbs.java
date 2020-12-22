@@ -27,7 +27,7 @@ public class DblVerbs {
 		}
 	}
 
-	public static class ToDbl {
+	public static class NewDbl {
 		public static double[] array(int length, Int_Dbl f) {
 			var cs = new double[length];
 			for (var i = 0; i < length; i++)

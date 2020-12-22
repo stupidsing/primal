@@ -410,12 +410,12 @@ public class Verbs {
 		}
 
 		public static ThreadPoolExecutor executor() {
-			return newExecutor(8, 32);
+			return executor(8, 32);
 		}
 
 		public static ThreadPoolExecutor executorByProcessors() {
 			var nProcessors = Runtime.getRuntime().availableProcessors();
-			return newExecutor(nProcessors, nProcessors);
+			return executor(nProcessors, nProcessors);
 		}
 
 		@SuppressWarnings("unchecked")
@@ -427,7 +427,7 @@ public class Verbs {
 			return new Th(runnable);
 		}
 
-		private static ThreadPoolExecutor newExecutor(int corePoolSize, int maxPoolSize) {
+		private static ThreadPoolExecutor executor(int corePoolSize, int maxPoolSize) {
 			var queue = new ArrayBlockingQueue<Runnable>(256);
 			return new ThreadPoolExecutor(corePoolSize, maxPoolSize, 10, TimeUnit.SECONDS, queue);
 		}

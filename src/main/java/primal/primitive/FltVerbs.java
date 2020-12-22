@@ -27,7 +27,7 @@ public class FltVerbs {
 		}
 	}
 
-	public static class ToFlt {
+	public static class NewFlt {
 		public static float[] array(int length, Int_Flt f) {
 			var cs = new float[length];
 			for (var i = 0; i < length; i++)

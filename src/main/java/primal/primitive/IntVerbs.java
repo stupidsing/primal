@@ -27,7 +27,7 @@ public class IntVerbs {
 		}
 	}
 
-	public static class ToInt {
+	public static class NewInt {
 		public static int[] array(int length, Int_Int f) {
 			var cs = new int[length];
 			for (var i = 0; i < length; i++)

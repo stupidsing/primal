@@ -27,7 +27,7 @@ public class LngVerbs {
 		}
 	}
 
-	public static class ToLng {
+	public static class NewLng {
 		public static long[] array(int length, Int_Lng f) {
 			var cs = new long[length];
 			for (var i = 0; i < length; i++)

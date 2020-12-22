@@ -27,7 +27,7 @@ public class ChrVerbs {
 		}
 	}
 
-	public static class ToChr {
+	public static class NewChr {
 		public static char[] array(int length, Int_Chr f) {
 			var cs = new char[length];
 			for (var i = 0; i < length; i++)
