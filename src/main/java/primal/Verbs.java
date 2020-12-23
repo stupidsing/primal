@@ -39,6 +39,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 
@@ -401,6 +402,18 @@ public class Verbs {
 	}
 
 	public static class New {
+		public static <T> T[] array(int length, Class<T> clazz, IntFunction<T> f) {
+			var ts = array(clazz, length);
+			for (var i = 0; i < length; i++)
+				ts[i] = f.apply(i);
+			return ts;
+		}
+
+		@SuppressWarnings("unchecked")
+		public static <T> T[] array(Class<T> clazz, int dim) {
+			return (T[]) Array.newInstance(clazz, dim);
+		}
+
 		public static <T> T clazz(Class<T> clazz) {
 			return ex(() -> {
 				var ctor = clazz.getDeclaredConstructor();
@@ -416,11 +429,6 @@ public class Verbs {
 		public static ThreadPoolExecutor executorByProcessors() {
 			var nProcessors = Runtime.getRuntime().availableProcessors();
 			return executor(nProcessors, nProcessors);
-		}
-
-		@SuppressWarnings("unchecked")
-		public static <T> T[] array(Class<T> clazz, int dim) {
-			return (T[]) Array.newInstance(clazz, dim);
 		}
 
 		public static Th thread(RunnableEx runnable) {
