@@ -56,7 +56,7 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet closeAtEnd(Closeable c) {
-		return chrStreamlet(() -> {
+		return doubleStreamlet(() -> {
 			var in = spawn();
 			in.closeAtEnd(c);
 			return in;
@@ -72,12 +72,12 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet cons(double c) {
-		return chrStreamlet(() -> spawn().cons(c));
+		return doubleStreamlet(() -> spawn().cons(c));
 	}
 
 	public DblStreamlet collect() {
 		var doubles = toList_();
-		return chrStreamlet(() -> DblPuller.of(doubles.cs, doubles.start, doubles.end, 1));
+		return doubleStreamlet(() -> DblPuller.of(doubles.cs, doubles.start, doubles.end, 1));
 	}
 
 	public <U, O> Streamlet<O> cross(Streamlet<U> st1, DblObj_Obj<U, O> fun) {
@@ -85,15 +85,15 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet distinct() {
-		return chrStreamlet(() -> spawn().distinct());
+		return doubleStreamlet(() -> spawn().distinct());
 	}
 
 	public DblStreamlet drop(int n) {
-		return chrStreamlet(() -> spawn().drop(n));
+		return doubleStreamlet(() -> spawn().drop(n));
 	}
 
 	public DblStreamlet dropWhile(DblPred fun) {
-		return chrStreamlet(() -> spawn().dropWhile(fun));
+		return doubleStreamlet(() -> spawn().dropWhile(fun));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet filter(DblPred fun) {
-		return chrStreamlet(() -> spawn().filter(fun));
+		return doubleStreamlet(() -> spawn().filter(fun));
 	}
 
 	public double first() {
@@ -122,11 +122,11 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public <V> DblObjStreamlet<DoublesBuilder> groupBy() {
-		return chrObjStreamlet(this::groupBy_);
+		return doubleObjStreamlet(this::groupBy_);
 	}
 
 	public <V> DblObjStreamlet<V> groupBy(Fun<DblStreamlet, V> fun) {
-		return new DblObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(chrStreamlet(()-> list.toDoubles().puller()))));
+		return new DblObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(doubleStreamlet(()-> list.toDoubles().puller()))));
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblObjStreamlet<Integer> index() {
-		return chrObjStreamlet(() -> DblObjPuller.of(new DblObjSource<>() {
+		return doubleObjStreamlet(() -> DblObjPuller.of(new DblObjSource<>() {
 			private DblPuller puller = spawn();
 			private int i = 0;
 
@@ -172,11 +172,11 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet mapDbl(Dbl_Dbl fun) {
-		return chrStreamlet(() -> spawn().mapDbl(fun));
+		return doubleStreamlet(() -> spawn().mapDbl(fun));
 	}
 
 	public <K, V> DblObjStreamlet<V> mapDblObj(Dbl_Obj<V> fun0) {
-		return chrObjStreamlet(() -> spawn().mapDblObj(fun0));
+		return doubleObjStreamlet(() -> spawn().mapDblObj(fun0));
 	}
 
 	public double max() {
@@ -204,19 +204,19 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet reverse() {
-		return chrStreamlet(() -> spawn().reverse());
+		return doubleStreamlet(() -> spawn().reverse());
 	}
 
 	public DblStreamlet skip(int n) {
-		return chrStreamlet(() -> spawn().skip(n));
+		return doubleStreamlet(() -> spawn().skip(n));
 	}
 
 	public DblStreamlet snoc(double c) {
-		return chrStreamlet(() -> spawn().snoc(c));
+		return doubleStreamlet(() -> spawn().snoc(c));
 	}
 
 	public DblStreamlet sort() {
-		return chrStreamlet(() -> spawn().sort());
+		return doubleStreamlet(() -> spawn().sort());
 	}
 
 	public double sum() {
@@ -224,11 +224,11 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 	}
 
 	public DblStreamlet take(int n) {
-		return chrStreamlet(() -> spawn().take(n));
+		return doubleStreamlet(() -> spawn().take(n));
 	}
 
 	public DblStreamlet takeWhile(DblPred fun) {
-		return chrStreamlet(() -> spawn().takeWhile(fun));
+		return doubleStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public double[] toArray() {
@@ -328,11 +328,11 @@ public class DblStreamlet implements StreamletDefaults<Double, DblOpt, DblPred, 
 		return streamlet(() -> Puller.of(col));
 	}
 
-	private static DblStreamlet chrStreamlet(Source<DblPuller> in) {
+	private static DblStreamlet doubleStreamlet(Source<DblPuller> in) {
 		return new DblStreamlet(in);
 	}
 
-	private static <V> DblObjStreamlet<V> chrObjStreamlet(Source<DblObjPuller<V>> in) {
+	private static <V> DblObjStreamlet<V> doubleObjStreamlet(Source<DblObjPuller<V>> in) {
 		return new DblObjStreamlet<>(in);
 	}
 

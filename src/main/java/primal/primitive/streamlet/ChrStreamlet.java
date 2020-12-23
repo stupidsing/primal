@@ -56,7 +56,7 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet closeAtEnd(Closeable c) {
-		return chrStreamlet(() -> {
+		return charStreamlet(() -> {
 			var in = spawn();
 			in.closeAtEnd(c);
 			return in;
@@ -72,12 +72,12 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet cons(char c) {
-		return chrStreamlet(() -> spawn().cons(c));
+		return charStreamlet(() -> spawn().cons(c));
 	}
 
 	public ChrStreamlet collect() {
 		var chars = toList_();
-		return chrStreamlet(() -> ChrPuller.of(chars.cs, chars.start, chars.end, 1));
+		return charStreamlet(() -> ChrPuller.of(chars.cs, chars.start, chars.end, 1));
 	}
 
 	public <U, O> Streamlet<O> cross(Streamlet<U> st1, ChrObj_Obj<U, O> fun) {
@@ -85,15 +85,15 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet distinct() {
-		return chrStreamlet(() -> spawn().distinct());
+		return charStreamlet(() -> spawn().distinct());
 	}
 
 	public ChrStreamlet drop(int n) {
-		return chrStreamlet(() -> spawn().drop(n));
+		return charStreamlet(() -> spawn().drop(n));
 	}
 
 	public ChrStreamlet dropWhile(ChrPred fun) {
-		return chrStreamlet(() -> spawn().dropWhile(fun));
+		return charStreamlet(() -> spawn().dropWhile(fun));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet filter(ChrPred fun) {
-		return chrStreamlet(() -> spawn().filter(fun));
+		return charStreamlet(() -> spawn().filter(fun));
 	}
 
 	public char first() {
@@ -122,11 +122,11 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public <V> ChrObjStreamlet<CharsBuilder> groupBy() {
-		return chrObjStreamlet(this::groupBy_);
+		return charObjStreamlet(this::groupBy_);
 	}
 
 	public <V> ChrObjStreamlet<V> groupBy(Fun<ChrStreamlet, V> fun) {
-		return new ChrObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(chrStreamlet(()-> list.toChars().puller()))));
+		return new ChrObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(charStreamlet(()-> list.toChars().puller()))));
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrObjStreamlet<Integer> index() {
-		return chrObjStreamlet(() -> ChrObjPuller.of(new ChrObjSource<>() {
+		return charObjStreamlet(() -> ChrObjPuller.of(new ChrObjSource<>() {
 			private ChrPuller puller = spawn();
 			private int i = 0;
 
@@ -172,11 +172,11 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet mapChr(Chr_Chr fun) {
-		return chrStreamlet(() -> spawn().mapChr(fun));
+		return charStreamlet(() -> spawn().mapChr(fun));
 	}
 
 	public <K, V> ChrObjStreamlet<V> mapChrObj(Chr_Obj<V> fun0) {
-		return chrObjStreamlet(() -> spawn().mapChrObj(fun0));
+		return charObjStreamlet(() -> spawn().mapChrObj(fun0));
 	}
 
 	public char max() {
@@ -204,19 +204,19 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet reverse() {
-		return chrStreamlet(() -> spawn().reverse());
+		return charStreamlet(() -> spawn().reverse());
 	}
 
 	public ChrStreamlet skip(int n) {
-		return chrStreamlet(() -> spawn().skip(n));
+		return charStreamlet(() -> spawn().skip(n));
 	}
 
 	public ChrStreamlet snoc(char c) {
-		return chrStreamlet(() -> spawn().snoc(c));
+		return charStreamlet(() -> spawn().snoc(c));
 	}
 
 	public ChrStreamlet sort() {
-		return chrStreamlet(() -> spawn().sort());
+		return charStreamlet(() -> spawn().sort());
 	}
 
 	public char sum() {
@@ -224,11 +224,11 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 	}
 
 	public ChrStreamlet take(int n) {
-		return chrStreamlet(() -> spawn().take(n));
+		return charStreamlet(() -> spawn().take(n));
 	}
 
 	public ChrStreamlet takeWhile(ChrPred fun) {
-		return chrStreamlet(() -> spawn().takeWhile(fun));
+		return charStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public char[] toArray() {
@@ -328,11 +328,11 @@ public class ChrStreamlet implements StreamletDefaults<Character, ChrOpt, ChrPre
 		return streamlet(() -> Puller.of(col));
 	}
 
-	private static ChrStreamlet chrStreamlet(Source<ChrPuller> in) {
+	private static ChrStreamlet charStreamlet(Source<ChrPuller> in) {
 		return new ChrStreamlet(in);
 	}
 
-	private static <V> ChrObjStreamlet<V> chrObjStreamlet(Source<ChrObjPuller<V>> in) {
+	private static <V> ChrObjStreamlet<V> charObjStreamlet(Source<ChrObjPuller<V>> in) {
 		return new ChrObjStreamlet<>(in);
 	}
 

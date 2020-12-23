@@ -56,7 +56,7 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet closeAtEnd(Closeable c) {
-		return chrStreamlet(() -> {
+		return floatStreamlet(() -> {
 			var in = spawn();
 			in.closeAtEnd(c);
 			return in;
@@ -72,12 +72,12 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet cons(float c) {
-		return chrStreamlet(() -> spawn().cons(c));
+		return floatStreamlet(() -> spawn().cons(c));
 	}
 
 	public FltStreamlet collect() {
 		var floats = toList_();
-		return chrStreamlet(() -> FltPuller.of(floats.cs, floats.start, floats.end, 1));
+		return floatStreamlet(() -> FltPuller.of(floats.cs, floats.start, floats.end, 1));
 	}
 
 	public <U, O> Streamlet<O> cross(Streamlet<U> st1, FltObj_Obj<U, O> fun) {
@@ -85,15 +85,15 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet distinct() {
-		return chrStreamlet(() -> spawn().distinct());
+		return floatStreamlet(() -> spawn().distinct());
 	}
 
 	public FltStreamlet drop(int n) {
-		return chrStreamlet(() -> spawn().drop(n));
+		return floatStreamlet(() -> spawn().drop(n));
 	}
 
 	public FltStreamlet dropWhile(FltPred fun) {
-		return chrStreamlet(() -> spawn().dropWhile(fun));
+		return floatStreamlet(() -> spawn().dropWhile(fun));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet filter(FltPred fun) {
-		return chrStreamlet(() -> spawn().filter(fun));
+		return floatStreamlet(() -> spawn().filter(fun));
 	}
 
 	public float first() {
@@ -122,11 +122,11 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public <V> FltObjStreamlet<FloatsBuilder> groupBy() {
-		return chrObjStreamlet(this::groupBy_);
+		return floatObjStreamlet(this::groupBy_);
 	}
 
 	public <V> FltObjStreamlet<V> groupBy(Fun<FltStreamlet, V> fun) {
-		return new FltObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(chrStreamlet(()-> list.toFloats().puller()))));
+		return new FltObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(floatStreamlet(()-> list.toFloats().puller()))));
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltObjStreamlet<Integer> index() {
-		return chrObjStreamlet(() -> FltObjPuller.of(new FltObjSource<>() {
+		return floatObjStreamlet(() -> FltObjPuller.of(new FltObjSource<>() {
 			private FltPuller puller = spawn();
 			private int i = 0;
 
@@ -172,11 +172,11 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet mapFlt(Flt_Flt fun) {
-		return chrStreamlet(() -> spawn().mapFlt(fun));
+		return floatStreamlet(() -> spawn().mapFlt(fun));
 	}
 
 	public <K, V> FltObjStreamlet<V> mapFltObj(Flt_Obj<V> fun0) {
-		return chrObjStreamlet(() -> spawn().mapFltObj(fun0));
+		return floatObjStreamlet(() -> spawn().mapFltObj(fun0));
 	}
 
 	public float max() {
@@ -204,19 +204,19 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet reverse() {
-		return chrStreamlet(() -> spawn().reverse());
+		return floatStreamlet(() -> spawn().reverse());
 	}
 
 	public FltStreamlet skip(int n) {
-		return chrStreamlet(() -> spawn().skip(n));
+		return floatStreamlet(() -> spawn().skip(n));
 	}
 
 	public FltStreamlet snoc(float c) {
-		return chrStreamlet(() -> spawn().snoc(c));
+		return floatStreamlet(() -> spawn().snoc(c));
 	}
 
 	public FltStreamlet sort() {
-		return chrStreamlet(() -> spawn().sort());
+		return floatStreamlet(() -> spawn().sort());
 	}
 
 	public float sum() {
@@ -224,11 +224,11 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 	}
 
 	public FltStreamlet take(int n) {
-		return chrStreamlet(() -> spawn().take(n));
+		return floatStreamlet(() -> spawn().take(n));
 	}
 
 	public FltStreamlet takeWhile(FltPred fun) {
-		return chrStreamlet(() -> spawn().takeWhile(fun));
+		return floatStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public float[] toArray() {
@@ -328,11 +328,11 @@ public class FltStreamlet implements StreamletDefaults<Float, FltOpt, FltPred, F
 		return streamlet(() -> Puller.of(col));
 	}
 
-	private static FltStreamlet chrStreamlet(Source<FltPuller> in) {
+	private static FltStreamlet floatStreamlet(Source<FltPuller> in) {
 		return new FltStreamlet(in);
 	}
 
-	private static <V> FltObjStreamlet<V> chrObjStreamlet(Source<FltObjPuller<V>> in) {
+	private static <V> FltObjStreamlet<V> floatObjStreamlet(Source<FltObjPuller<V>> in) {
 		return new FltObjStreamlet<>(in);
 	}
 

@@ -56,7 +56,7 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet closeAtEnd(Closeable c) {
-		return chrStreamlet(() -> {
+		return longStreamlet(() -> {
 			var in = spawn();
 			in.closeAtEnd(c);
 			return in;
@@ -72,12 +72,12 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet cons(long c) {
-		return chrStreamlet(() -> spawn().cons(c));
+		return longStreamlet(() -> spawn().cons(c));
 	}
 
 	public LngStreamlet collect() {
 		var longs = toList_();
-		return chrStreamlet(() -> LngPuller.of(longs.cs, longs.start, longs.end, 1));
+		return longStreamlet(() -> LngPuller.of(longs.cs, longs.start, longs.end, 1));
 	}
 
 	public <U, O> Streamlet<O> cross(Streamlet<U> st1, LngObj_Obj<U, O> fun) {
@@ -85,15 +85,15 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet distinct() {
-		return chrStreamlet(() -> spawn().distinct());
+		return longStreamlet(() -> spawn().distinct());
 	}
 
 	public LngStreamlet drop(int n) {
-		return chrStreamlet(() -> spawn().drop(n));
+		return longStreamlet(() -> spawn().drop(n));
 	}
 
 	public LngStreamlet dropWhile(LngPred fun) {
-		return chrStreamlet(() -> spawn().dropWhile(fun));
+		return longStreamlet(() -> spawn().dropWhile(fun));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet filter(LngPred fun) {
-		return chrStreamlet(() -> spawn().filter(fun));
+		return longStreamlet(() -> spawn().filter(fun));
 	}
 
 	public long first() {
@@ -122,11 +122,11 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public <V> LngObjStreamlet<LongsBuilder> groupBy() {
-		return chrObjStreamlet(this::groupBy_);
+		return longObjStreamlet(this::groupBy_);
 	}
 
 	public <V> LngObjStreamlet<V> groupBy(Fun<LngStreamlet, V> fun) {
-		return new LngObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(chrStreamlet(()-> list.toLongs().puller()))));
+		return new LngObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(longStreamlet(()-> list.toLongs().puller()))));
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngObjStreamlet<Integer> index() {
-		return chrObjStreamlet(() -> LngObjPuller.of(new LngObjSource<>() {
+		return longObjStreamlet(() -> LngObjPuller.of(new LngObjSource<>() {
 			private LngPuller puller = spawn();
 			private int i = 0;
 
@@ -172,11 +172,11 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet mapLng(Lng_Lng fun) {
-		return chrStreamlet(() -> spawn().mapLng(fun));
+		return longStreamlet(() -> spawn().mapLng(fun));
 	}
 
 	public <K, V> LngObjStreamlet<V> mapLngObj(Lng_Obj<V> fun0) {
-		return chrObjStreamlet(() -> spawn().mapLngObj(fun0));
+		return longObjStreamlet(() -> spawn().mapLngObj(fun0));
 	}
 
 	public long max() {
@@ -204,19 +204,19 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet reverse() {
-		return chrStreamlet(() -> spawn().reverse());
+		return longStreamlet(() -> spawn().reverse());
 	}
 
 	public LngStreamlet skip(int n) {
-		return chrStreamlet(() -> spawn().skip(n));
+		return longStreamlet(() -> spawn().skip(n));
 	}
 
 	public LngStreamlet snoc(long c) {
-		return chrStreamlet(() -> spawn().snoc(c));
+		return longStreamlet(() -> spawn().snoc(c));
 	}
 
 	public LngStreamlet sort() {
-		return chrStreamlet(() -> spawn().sort());
+		return longStreamlet(() -> spawn().sort());
 	}
 
 	public long sum() {
@@ -224,11 +224,11 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 	}
 
 	public LngStreamlet take(int n) {
-		return chrStreamlet(() -> spawn().take(n));
+		return longStreamlet(() -> spawn().take(n));
 	}
 
 	public LngStreamlet takeWhile(LngPred fun) {
-		return chrStreamlet(() -> spawn().takeWhile(fun));
+		return longStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public long[] toArray() {
@@ -328,11 +328,11 @@ public class LngStreamlet implements StreamletDefaults<Long, LngOpt, LngPred, Ln
 		return streamlet(() -> Puller.of(col));
 	}
 
-	private static LngStreamlet chrStreamlet(Source<LngPuller> in) {
+	private static LngStreamlet longStreamlet(Source<LngPuller> in) {
 		return new LngStreamlet(in);
 	}
 
-	private static <V> LngObjStreamlet<V> chrObjStreamlet(Source<LngObjPuller<V>> in) {
+	private static <V> LngObjStreamlet<V> longObjStreamlet(Source<LngObjPuller<V>> in) {
 		return new LngObjStreamlet<>(in);
 	}
 

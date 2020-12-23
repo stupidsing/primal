@@ -56,7 +56,7 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet closeAtEnd(Closeable c) {
-		return chrStreamlet(() -> {
+		return intStreamlet(() -> {
 			var in = spawn();
 			in.closeAtEnd(c);
 			return in;
@@ -72,12 +72,12 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet cons(int c) {
-		return chrStreamlet(() -> spawn().cons(c));
+		return intStreamlet(() -> spawn().cons(c));
 	}
 
 	public IntStreamlet collect() {
 		var ints = toList_();
-		return chrStreamlet(() -> IntPuller.of(ints.cs, ints.start, ints.end, 1));
+		return intStreamlet(() -> IntPuller.of(ints.cs, ints.start, ints.end, 1));
 	}
 
 	public <U, O> Streamlet<O> cross(Streamlet<U> st1, IntObj_Obj<U, O> fun) {
@@ -85,15 +85,15 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet distinct() {
-		return chrStreamlet(() -> spawn().distinct());
+		return intStreamlet(() -> spawn().distinct());
 	}
 
 	public IntStreamlet drop(int n) {
-		return chrStreamlet(() -> spawn().drop(n));
+		return intStreamlet(() -> spawn().drop(n));
 	}
 
 	public IntStreamlet dropWhile(IntPred fun) {
-		return chrStreamlet(() -> spawn().dropWhile(fun));
+		return intStreamlet(() -> spawn().dropWhile(fun));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet filter(IntPred fun) {
-		return chrStreamlet(() -> spawn().filter(fun));
+		return intStreamlet(() -> spawn().filter(fun));
 	}
 
 	public int first() {
@@ -122,11 +122,11 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public <V> IntObjStreamlet<IntsBuilder> groupBy() {
-		return chrObjStreamlet(this::groupBy_);
+		return intObjStreamlet(this::groupBy_);
 	}
 
 	public <V> IntObjStreamlet<V> groupBy(Fun<IntStreamlet, V> fun) {
-		return new IntObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(chrStreamlet(()-> list.toInts().puller()))));
+		return new IntObjStreamlet<V>(() -> groupBy_().mapValue(list -> fun.apply(intStreamlet(()-> list.toInts().puller()))));
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntObjStreamlet<Integer> index() {
-		return chrObjStreamlet(() -> IntObjPuller.of(new IntObjSource<>() {
+		return intObjStreamlet(() -> IntObjPuller.of(new IntObjSource<>() {
 			private IntPuller puller = spawn();
 			private int i = 0;
 
@@ -172,11 +172,11 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet mapInt(Int_Int fun) {
-		return chrStreamlet(() -> spawn().mapInt(fun));
+		return intStreamlet(() -> spawn().mapInt(fun));
 	}
 
 	public <K, V> IntObjStreamlet<V> mapIntObj(Int_Obj<V> fun0) {
-		return chrObjStreamlet(() -> spawn().mapIntObj(fun0));
+		return intObjStreamlet(() -> spawn().mapIntObj(fun0));
 	}
 
 	public int max() {
@@ -204,19 +204,19 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet reverse() {
-		return chrStreamlet(() -> spawn().reverse());
+		return intStreamlet(() -> spawn().reverse());
 	}
 
 	public IntStreamlet skip(int n) {
-		return chrStreamlet(() -> spawn().skip(n));
+		return intStreamlet(() -> spawn().skip(n));
 	}
 
 	public IntStreamlet snoc(int c) {
-		return chrStreamlet(() -> spawn().snoc(c));
+		return intStreamlet(() -> spawn().snoc(c));
 	}
 
 	public IntStreamlet sort() {
-		return chrStreamlet(() -> spawn().sort());
+		return intStreamlet(() -> spawn().sort());
 	}
 
 	public int sum() {
@@ -224,11 +224,11 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 	}
 
 	public IntStreamlet take(int n) {
-		return chrStreamlet(() -> spawn().take(n));
+		return intStreamlet(() -> spawn().take(n));
 	}
 
 	public IntStreamlet takeWhile(IntPred fun) {
-		return chrStreamlet(() -> spawn().takeWhile(fun));
+		return intStreamlet(() -> spawn().takeWhile(fun));
 	}
 
 	public int[] toArray() {
@@ -328,11 +328,11 @@ public class IntStreamlet implements StreamletDefaults<Integer, IntOpt, IntPred,
 		return streamlet(() -> Puller.of(col));
 	}
 
-	private static IntStreamlet chrStreamlet(Source<IntPuller> in) {
+	private static IntStreamlet intStreamlet(Source<IntPuller> in) {
 		return new IntStreamlet(in);
 	}
 
-	private static <V> IntObjStreamlet<V> chrObjStreamlet(Source<IntObjPuller<V>> in) {
+	private static <V> IntObjStreamlet<V> intObjStreamlet(Source<IntObjPuller<V>> in) {
 		return new IntObjStreamlet<>(in);
 	}
 
