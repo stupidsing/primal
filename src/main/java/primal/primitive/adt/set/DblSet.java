@@ -10,8 +10,7 @@ import primal.primitive.DblVerbs.CopyDbl;
 import primal.primitive.fp.DblFunUtil;
 
 /**
- * Set with doubleacter elements. Double.MIN_VALUE is not allowed. Not
- * thread-safe.
+ * Set with double elements. Double.MIN_VALUE is not allowed. Not thread-safe.
  *
  * @author ywsing
  */

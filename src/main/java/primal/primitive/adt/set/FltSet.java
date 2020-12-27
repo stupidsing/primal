@@ -10,8 +10,7 @@ import primal.primitive.FltVerbs.CopyFlt;
 import primal.primitive.fp.FltFunUtil;
 
 /**
- * Set with floatacter elements. Float.MIN_VALUE is not allowed. Not
- * thread-safe.
+ * Set with float elements. Float.MIN_VALUE is not allowed. Not thread-safe.
  *
  * @author ywsing
  */

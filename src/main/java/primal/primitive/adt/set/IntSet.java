@@ -10,8 +10,7 @@ import primal.primitive.IntVerbs.CopyInt;
 import primal.primitive.fp.IntFunUtil;
 
 /**
- * Set with intacter elements. Integer.MIN_VALUE is not allowed. Not
- * thread-safe.
+ * Set with int elements. Integer.MIN_VALUE is not allowed. Not thread-safe.
  *
  * @author ywsing
  */

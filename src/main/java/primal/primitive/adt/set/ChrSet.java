@@ -10,8 +10,7 @@ import primal.primitive.ChrVerbs.CopyChr;
 import primal.primitive.fp.ChrFunUtil;
 
 /**
- * Set with character elements. Character.MIN_VALUE is not allowed. Not
- * thread-safe.
+ * Set with char elements. Character.MIN_VALUE is not allowed. Not thread-safe.
  *
  * @author ywsing
  */

@@ -10,8 +10,7 @@ import primal.primitive.LngVerbs.CopyLng;
 import primal.primitive.fp.LngFunUtil;
 
 /**
- * Set with longacter elements. Long.MIN_VALUE is not allowed. Not
- * thread-safe.
+ * Set with long elements. Long.MIN_VALUE is not allowed. Not thread-safe.
  *
  * @author ywsing
  */
