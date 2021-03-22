@@ -44,8 +44,7 @@ public class DblObjMap<V> {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof DblObjMap) {
-			var other = (DblObjMap<?>) object;
+		if (object instanceof DblObjMap<?> other) {
 			var b = size == other.size;
 			for (var pair : DblObjFunUtil.iter(source_()))
 				b &= other.get(pair.k).equals(pair.v);

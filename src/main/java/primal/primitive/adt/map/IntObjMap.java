@@ -44,8 +44,7 @@ public class IntObjMap<V> {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof IntObjMap) {
-			var other = (IntObjMap<?>) object;
+		if (object instanceof IntObjMap<?> other) {
 			var b = size == other.size;
 			for (var pair : IntObjFunUtil.iter(source_()))
 				b &= other.get(pair.k).equals(pair.v);

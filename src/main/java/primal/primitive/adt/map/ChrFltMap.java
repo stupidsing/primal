@@ -63,8 +63,7 @@ public class ChrFltMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof ChrFltMap) {
-			var other = (ChrFltMap) object;
+		if (object instanceof ChrFltMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

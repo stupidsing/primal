@@ -63,8 +63,7 @@ public class FltIntMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof FltIntMap) {
-			var other = (FltIntMap) object;
+		if (object instanceof FltIntMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

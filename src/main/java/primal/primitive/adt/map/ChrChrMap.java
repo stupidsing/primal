@@ -61,8 +61,7 @@ public class ChrChrMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof ChrChrMap) {
-			var other = (ChrChrMap) object;
+		if (object instanceof ChrChrMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

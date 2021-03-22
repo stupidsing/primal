@@ -63,8 +63,7 @@ public class IntLngMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof IntLngMap) {
-			var other = (IntLngMap) object;
+		if (object instanceof IntLngMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

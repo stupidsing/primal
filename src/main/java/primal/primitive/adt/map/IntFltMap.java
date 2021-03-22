@@ -63,8 +63,7 @@ public class IntFltMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof IntFltMap) {
-			var other = (IntFltMap) object;
+		if (object instanceof IntFltMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

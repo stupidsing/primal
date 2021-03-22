@@ -44,8 +44,7 @@ public class ChrObjMap<V> {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof ChrObjMap) {
-			var other = (ChrObjMap<?>) object;
+		if (object instanceof ChrObjMap<?> other) {
 			var b = size == other.size;
 			for (var pair : ChrObjFunUtil.iter(source_()))
 				b &= other.get(pair.k).equals(pair.v);

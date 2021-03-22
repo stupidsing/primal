@@ -61,8 +61,7 @@ public class DblDblMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof DblDblMap) {
-			var other = (DblDblMap) object;
+		if (object instanceof DblDblMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

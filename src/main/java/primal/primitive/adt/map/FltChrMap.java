@@ -63,8 +63,7 @@ public class FltChrMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof FltChrMap) {
-			var other = (FltChrMap) object;
+		if (object instanceof FltChrMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

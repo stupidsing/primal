@@ -63,8 +63,7 @@ public class DblChrMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof DblChrMap) {
-			var other = (DblChrMap) object;
+		if (object instanceof DblChrMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

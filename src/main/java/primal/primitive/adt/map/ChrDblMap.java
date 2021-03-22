@@ -63,8 +63,7 @@ public class ChrDblMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof ChrDblMap) {
-			var other = (ChrDblMap) object;
+		if (object instanceof ChrDblMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

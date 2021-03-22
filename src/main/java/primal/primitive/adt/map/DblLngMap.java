@@ -63,8 +63,7 @@ public class DblLngMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof DblLngMap) {
-			var other = (DblLngMap) object;
+		if (object instanceof DblLngMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

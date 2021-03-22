@@ -63,8 +63,7 @@ public class LngChrMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof LngChrMap) {
-			var other = (LngChrMap) object;
+		if (object instanceof LngChrMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

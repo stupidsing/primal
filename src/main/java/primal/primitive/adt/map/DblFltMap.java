@@ -63,8 +63,7 @@ public class DblFltMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof DblFltMap) {
-			var other = (DblFltMap) object;
+		if (object instanceof DblFltMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

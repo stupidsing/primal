@@ -31,10 +31,10 @@ public class Fail {
 	}
 
 	private static <T> T t(String m, Throwable th) {
-		if (th instanceof InterruptedException)
-			throw new InterruptedRuntimeException((InterruptedException) th);
-		else if (th instanceof RuntimeException && m == null)
-			throw (RuntimeException) th;
+		if (th instanceof InterruptedException ex)
+			throw new InterruptedRuntimeException(ex);
+		else if (th instanceof RuntimeException ex && m == null)
+			throw ex;
 		else
 			throw new RuntimeException((th != null ? th.getMessage() + "\n" : "") + m, th);
 	}

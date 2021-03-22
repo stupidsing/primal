@@ -53,8 +53,7 @@ public class IntIntMap1 {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof IntIntMap1) {
-			var other = (IntIntMap1) object;
+		if (object instanceof IntIntMap1 other) {
 			var b = size == other.size;
 			for (var pair : streamlet())
 				b &= other.get(pair.k) == pair.v;

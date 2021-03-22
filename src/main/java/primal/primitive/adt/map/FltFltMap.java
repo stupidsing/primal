@@ -61,8 +61,7 @@ public class FltFltMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof FltFltMap) {
-			var other = (FltFltMap) object;
+		if (object instanceof FltFltMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;

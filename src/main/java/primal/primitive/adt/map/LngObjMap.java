@@ -44,8 +44,7 @@ public class LngObjMap<V> {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof LngObjMap) {
-			var other = (LngObjMap<?>) object;
+		if (object instanceof LngObjMap<?> other) {
 			var b = size == other.size;
 			for (var pair : LngObjFunUtil.iter(source_()))
 				b &= other.get(pair.k).equals(pair.v);

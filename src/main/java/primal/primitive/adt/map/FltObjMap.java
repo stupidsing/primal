@@ -44,8 +44,7 @@ public class FltObjMap<V> {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof FltObjMap) {
-			var other = (FltObjMap<?>) object;
+		if (object instanceof FltObjMap<?> other) {
 			var b = size == other.size;
 			for (var pair : FltObjFunUtil.iter(source_()))
 				b &= other.get(pair.k).equals(pair.v);

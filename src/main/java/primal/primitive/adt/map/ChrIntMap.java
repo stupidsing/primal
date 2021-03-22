@@ -63,8 +63,7 @@ public class ChrIntMap {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof ChrIntMap) {
-			var other = (ChrIntMap) object;
+		if (object instanceof ChrIntMap other) {
 			var b = size == other.size;
 			for (var pair : puller())
 				b &= other.get(pair.k) == pair.v;
