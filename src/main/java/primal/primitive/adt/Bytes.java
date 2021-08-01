@@ -238,7 +238,7 @@ public class Bytes implements Iterable<Byte> {
 	public String toString() {
 		return Build.string(sb -> {
 			for (var i = start; i < end; i++)
-				sb.append(" " + Format.hex2(bs[i]));
+				sb.append(String.format(" %02x", bs[i]));
 		});
 	}
 
