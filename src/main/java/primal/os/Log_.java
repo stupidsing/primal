@@ -11,6 +11,10 @@ public class Log_ {
 
 	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
+	public static void infof(String format, Object... args) {
+		info(String.format(format, args)); // [I]
+	}
+
 	public static void info(String message) {
 		out.log("🧐", message); // [I]
 	}
