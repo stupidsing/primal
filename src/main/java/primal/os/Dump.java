@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -24,14 +26,28 @@ public class Dump {
 
 	public static String dump(Object object) {
 		var sb = new StringBuilder();
-		dump(sb::append, " //\n", object);
+		new Dump().dump(sb::append, " //\n", object);
 		return sb.toString();
 	}
+
+	private Set<Integer> ids = new HashSet<>();
 
 	/**
 	 * Assumes set and map keys are comparable for a consistent sorting order.
 	 */
-	private static void dump(Consumer<String> sb, String indent, Object object) {
+	private void dump(Consumer<String> sb, String indent, Object object) {
+		int id = System.identityHashCode(object);
+		if (ids.add(id))
+			try {
+				dump_(sb, indent, object);
+			} finally {
+				ids.remove(id);
+			}
+		else
+			sb.accept("<recurse>");
+	}
+
+	private void dump_(Consumer<String> sb, String indent, Object object) {
 		var clazz = object != null ? object.getClass() : null;
 		String indent1 = indent + "\t";
 
@@ -44,9 +60,11 @@ public class Dump {
 				dump(sb, indent1, Array.get(object, i));
 			}
 			sb.accept("}");
-		} else if (BigDecimal.class.isAssignableFrom(clazz)) {
+		} else if (BigDecimal.class.isAssignableFrom(clazz))
 			sb.accept("new BigDecimal(\"" + object.toString() + "\")");
-		} else if (Enum.class.isAssignableFrom(clazz))
+		else if (Class.class.isAssignableFrom(clazz))
+			sb.accept( ((Class<?>) object).getName() + ".class");
+		else if (Enum.class.isAssignableFrom(clazz))
 			sb.accept(clazz + "." + ((Enum<?>) object).name());
 		else if (Instant.class.isAssignableFrom(clazz))
 			sb.accept("Instant.ofEpochMilli(" + ((Instant) object).toEpochMilli() + "l)");
@@ -101,22 +119,45 @@ public class Dump {
 			dump(sb, indent, zdt.getZone());
 			sb.accept(")");
 		} else if (ZoneId.class.isAssignableFrom(clazz))
-			sb.accept("ZoneId.of(\"" + ((ZoneId) object).toString() + "\")");
+			sb.accept("ZoneId.of(\"" + object + "\")");
 		else if (Boolean.TRUE) {
 			String v = "r" + counter++;
 			String className = clazz.getCanonicalName();
+			var fields = new HashSet<String>();
 
 			sb.accept("((Supplier<" + className + ">) () -> {" //
 					+ indent1 + "var " + v + " = new " + clazz.getCanonicalName() + "();");
 
 			for (var f : clazz.getFields()) {
-				Object child;
-				try {
-					child = f.get(object);
-				} catch (Exception e) {
-					child = e.getMessage();
+				if (fields.add(f.getName().toLowerCase(Locale.ROOT))) {
+					Object child;
+					try {
+						child = f.get(object);
+					} catch (Exception e) {
+						child = e.getMessage();
+					}
+					sb.accept(indent1 + v + "." + f.getName() + " = ");
+					dump(sb, indent1, child);
+					sb.accept(";");
 				}
-				sb.accept(indent1 + v + "." + f.getName() + " = " + Dump.dump(child) + ";");
+			}
+
+			for (var m : clazz.getMethods()) {
+				String methodName = m.getName();
+				String key = methodName.substring(3);
+				if (methodName.startsWith("get") //
+						&& m.getParameterCount() == 0 //
+						&& fields.add(key.toLowerCase(Locale.ROOT))) {
+					Object child;
+					try {
+						child = m.invoke(object);
+					} catch (Exception e) {
+						child = e.getMessage();
+					}
+					sb.accept(indent1 + v + ".set" + key + "(");
+					dump(sb, indent1, child);
+					sb.accept(");");
+				}
 			}
 
 			sb.accept(indent1 + "return " + v + ";");
