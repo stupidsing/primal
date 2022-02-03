@@ -13,7 +13,6 @@ import java.util.Iterator;
 import primal.Nouns.Buffer;
 import primal.Verbs.Build;
 import primal.Verbs.Compare;
-import primal.Verbs.Format;
 import primal.Verbs.Get;
 import primal.fp.Funs.Fun;
 import primal.puller.Puller;
