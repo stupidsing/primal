@@ -62,5 +62,6 @@ primal.parser.Operator
 primal.parser.Commands
 primal.parser.Lexer
 primal.parser.*
+primal.node.Node
 primal.Main
 ```
