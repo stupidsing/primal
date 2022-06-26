@@ -46,9 +46,9 @@ primal.primitive.fp.ChrObjFunUtil
 primal.primitive.puller.ChrPuller
 primal.primitive.adt.Chars
 primal.streamlet.Streamlet2
-primal.primitive.streamlet.ChrObjStreamlet
+primal.streamlet.primitive.ChrObjStreamlet
 primal.streamlet.Streamlet
-primal.primitive.streamlet.ChrStreamlet
+primal.streamlet.primitive.ChrStreamlet
 	:
 	:
 	:
