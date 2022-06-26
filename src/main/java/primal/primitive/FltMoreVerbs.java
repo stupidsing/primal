@@ -13,11 +13,11 @@ import primal.primitive.adt.map.FltObjMap;
 import primal.primitive.adt.map.ObjFltMap;
 import primal.primitive.adt.set.FltSet;
 import primal.primitive.fp.FltFunUtil;
-import primal.primitive.puller.FltObjPuller;
-import primal.primitive.puller.FltPuller;
-import primal.primitive.streamlet.FltObjStreamlet;
-import primal.primitive.streamlet.FltStreamlet;
 import primal.puller.Puller;
+import primal.puller.primitive.FltObjPuller;
+import primal.puller.primitive.FltPuller;
+import primal.streamlet.primitive.FltObjStreamlet;
+import primal.streamlet.primitive.FltStreamlet;
 
 public class FltMoreVerbs {
 

@@ -1,4 +1,4 @@
-package primal.primitive.streamlet;
+package primal.streamlet.primitive;
 
 import static primal.statics.Fail.fail;
 
@@ -29,10 +29,10 @@ import primal.primitive.adt.map.ChrObjMap;
 import primal.primitive.adt.map.ObjChrMap;
 import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.fp.ChrObjFunUtil;
-import primal.primitive.puller.ChrObjPuller;
-import primal.primitive.puller.ChrPuller;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.ChrObjPuller;
+import primal.puller.primitive.ChrPuller;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
 import primal.streamlet.StreamletDefaults;

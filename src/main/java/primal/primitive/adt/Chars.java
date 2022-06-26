@@ -20,8 +20,8 @@ import primal.fp.Funs.Sink;
 import primal.primitive.ChrPrim;
 import primal.primitive.ChrPrim.ChrSource;
 import primal.primitive.ChrVerbs.CopyChr;
-import primal.primitive.puller.ChrPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.ChrPuller;
 
 public class Chars implements Iterable<Character> {
 

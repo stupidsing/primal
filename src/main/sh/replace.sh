@@ -52,8 +52,6 @@ replace src/main/java/primal/primitive/adt/ChrRange.java
 replace src/main/java/primal/primitive/fp/AsChr.java
 replace src/main/java/primal/primitive/fp/ChrFunUtil.java
 replace src/main/java/primal/primitive/fp/ChrObjFunUtil.java
-replace src/main/java/primal/primitive/streamlet/ChrObjStreamlet.java
-replace src/main/java/primal/primitive/streamlet/ChrStreamlet.java
 replace src/main/java/primal/primitive/Chr_Dbl.java
 replace src/main/java/primal/primitive/ChrDblPredicate.java
 replace src/main/java/primal/primitive/ChrDblSink.java
@@ -66,5 +64,7 @@ replace src/main/java/primal/primitive/ChrObj_Dbl.java
 replace src/main/java/primal/primitive/ChrOpt.java
 replace src/main/java/primal/primitive/ChrPrim.java
 replace src/main/java/primal/primitive/ChrVerbs.java
-replace src/main/java/primal/primitive/puller/ChrObjPuller.java
-replace src/main/java/primal/primitive/puller/ChrPuller.java
+replace src/main/java/primal/puller/primitive/ChrObjPuller.java
+replace src/main/java/primal/puller/primitive/ChrPuller.java
+replace src/main/java/primal/streamlet/primitive/ChrObjStreamlet.java
+replace src/main/java/primal/streamlet/primitive/ChrStreamlet.java

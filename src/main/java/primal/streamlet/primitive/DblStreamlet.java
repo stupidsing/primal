@@ -1,4 +1,4 @@
-package primal.primitive.streamlet;
+package primal.streamlet.primitive;
 
 import java.io.Closeable;
 import java.util.Iterator;
@@ -27,10 +27,10 @@ import primal.primitive.adt.Doubles.DoublesBuilder;
 import primal.primitive.adt.map.DblObjMap;
 import primal.primitive.adt.map.ObjDblMap;
 import primal.primitive.adt.set.DblSet;
-import primal.primitive.puller.DblObjPuller;
-import primal.primitive.puller.DblPuller;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.DblObjPuller;
+import primal.puller.primitive.DblPuller;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
 import primal.streamlet.StreamletDefaults;

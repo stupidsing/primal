@@ -14,7 +14,7 @@ import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.fp.DblObjFunUtil;
-import primal.primitive.puller.DblObjPuller;
+import primal.puller.primitive.DblObjPuller;
 
 /**
  * Map with generic object key and doubleacter object value. Double.MIN_VALUE

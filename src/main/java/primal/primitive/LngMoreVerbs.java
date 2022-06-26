@@ -13,11 +13,11 @@ import primal.primitive.adt.map.LngObjMap;
 import primal.primitive.adt.map.ObjLngMap;
 import primal.primitive.adt.set.LngSet;
 import primal.primitive.fp.LngFunUtil;
-import primal.primitive.puller.LngObjPuller;
-import primal.primitive.puller.LngPuller;
-import primal.primitive.streamlet.LngObjStreamlet;
-import primal.primitive.streamlet.LngStreamlet;
 import primal.puller.Puller;
+import primal.puller.primitive.LngObjPuller;
+import primal.puller.primitive.LngPuller;
+import primal.streamlet.primitive.LngObjStreamlet;
+import primal.streamlet.primitive.LngStreamlet;
 
 public class LngMoreVerbs {
 

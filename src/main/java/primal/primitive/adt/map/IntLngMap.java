@@ -16,8 +16,8 @@ import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.IntLngPair;
-import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.IntObjPuller;
 
 /**
  * Map with primitive int key and primitive long value. Long.MIN_VALUE is

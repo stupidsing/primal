@@ -1,4 +1,4 @@
-package primal.primitive.streamlet;
+package primal.streamlet.primitive;
 
 import java.io.Closeable;
 import java.util.Iterator;
@@ -27,10 +27,10 @@ import primal.primitive.adt.Chars.CharsBuilder;
 import primal.primitive.adt.map.ChrObjMap;
 import primal.primitive.adt.map.ObjChrMap;
 import primal.primitive.adt.set.ChrSet;
-import primal.primitive.puller.ChrObjPuller;
-import primal.primitive.puller.ChrPuller;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.ChrObjPuller;
+import primal.puller.primitive.ChrPuller;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
 import primal.streamlet.StreamletDefaults;

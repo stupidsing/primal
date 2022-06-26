@@ -1,4 +1,4 @@
-package primal.primitive.streamlet;
+package primal.streamlet.primitive;
 
 import java.io.Closeable;
 import java.util.Iterator;
@@ -27,10 +27,10 @@ import primal.primitive.adt.Longs.LongsBuilder;
 import primal.primitive.adt.map.LngObjMap;
 import primal.primitive.adt.map.ObjLngMap;
 import primal.primitive.adt.set.LngSet;
-import primal.primitive.puller.LngObjPuller;
-import primal.primitive.puller.LngPuller;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.LngObjPuller;
+import primal.puller.primitive.LngPuller;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
 import primal.streamlet.StreamletDefaults;

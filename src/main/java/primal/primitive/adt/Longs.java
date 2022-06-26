@@ -20,8 +20,8 @@ import primal.fp.Funs.Sink;
 import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.LngSource;
 import primal.primitive.LngVerbs.CopyLng;
-import primal.primitive.puller.LngPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.LngPuller;
 
 public class Longs implements Iterable<Long> {
 

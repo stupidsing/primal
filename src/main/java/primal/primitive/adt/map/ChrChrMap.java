@@ -14,8 +14,8 @@ import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Chr;
 import primal.primitive.adt.pair.ChrChrPair;
-import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.ChrObjPuller;
 
 /**
  * Map with primitive char key and primitive char value. Character.MIN_VALUE is

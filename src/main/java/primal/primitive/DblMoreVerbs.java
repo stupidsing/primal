@@ -13,11 +13,11 @@ import primal.primitive.adt.map.DblObjMap;
 import primal.primitive.adt.map.ObjDblMap;
 import primal.primitive.adt.set.DblSet;
 import primal.primitive.fp.DblFunUtil;
-import primal.primitive.puller.DblObjPuller;
-import primal.primitive.puller.DblPuller;
-import primal.primitive.streamlet.DblObjStreamlet;
-import primal.primitive.streamlet.DblStreamlet;
 import primal.puller.Puller;
+import primal.puller.primitive.DblObjPuller;
+import primal.puller.primitive.DblPuller;
+import primal.streamlet.primitive.DblObjStreamlet;
+import primal.streamlet.primitive.DblStreamlet;
 
 public class DblMoreVerbs {
 

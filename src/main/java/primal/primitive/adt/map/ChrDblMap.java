@@ -16,8 +16,8 @@ import primal.primitive.DblPrim;
 import primal.primitive.DblPrim.Obj_Dbl;
 import primal.primitive.Dbl_Dbl;
 import primal.primitive.adt.pair.ChrDblPair;
-import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.ChrObjPuller;
 
 /**
  * Map with primitive char key and primitive double value. Double.MIN_VALUE is

@@ -11,7 +11,7 @@ import primal.primitive.FltPrim.FltObjSource;
 import primal.primitive.FltPrim.Flt_Obj;
 import primal.primitive.adt.pair.FltObjPair;
 import primal.primitive.fp.FltObjFunUtil;
-import primal.primitive.puller.FltObjPuller;
+import primal.puller.primitive.FltObjPuller;
 
 /**
  * Map with primitive integer key and a generic object value. Null values are

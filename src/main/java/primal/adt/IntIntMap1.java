@@ -11,10 +11,10 @@ import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.Int_Int;
 import primal.primitive.adt.pair.IntIntPair;
-import primal.primitive.puller.IntObjPuller;
-import primal.primitive.puller.IntPuller;
-import primal.primitive.streamlet.IntObjStreamlet;
-import primal.primitive.streamlet.IntStreamlet;
+import primal.puller.primitive.IntObjPuller;
+import primal.puller.primitive.IntPuller;
+import primal.streamlet.primitive.IntObjStreamlet;
+import primal.streamlet.primitive.IntStreamlet;
 
 /**
  * Map with integer key and integer object value. EMPTYVALUE is not allowed in

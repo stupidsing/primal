@@ -14,7 +14,7 @@ import primal.primitive.ChrPrim.Obj_Chr;
 import primal.primitive.Chr_Chr;
 import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.fp.ChrObjFunUtil;
-import primal.primitive.puller.ChrObjPuller;
+import primal.puller.primitive.ChrObjPuller;
 
 /**
  * Map with generic object key and character object value. Character.MIN_VALUE

@@ -11,7 +11,7 @@ import primal.primitive.ChrPrim.ChrObjSource;
 import primal.primitive.ChrPrim.Chr_Obj;
 import primal.primitive.adt.pair.ChrObjPair;
 import primal.primitive.fp.ChrObjFunUtil;
-import primal.primitive.puller.ChrObjPuller;
+import primal.puller.primitive.ChrObjPuller;
 
 /**
  * Map with primitive integer key and a generic object value. Null values are

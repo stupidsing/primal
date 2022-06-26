@@ -16,8 +16,8 @@ import primal.primitive.IntPrim.IntObjSource;
 import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Dbl;
 import primal.primitive.adt.pair.IntDblPair;
-import primal.primitive.puller.IntObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.IntObjPuller;
 
 /**
  * Map with primitive int key and primitive double value. Double.MIN_VALUE is

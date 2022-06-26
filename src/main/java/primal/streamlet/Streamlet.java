@@ -24,10 +24,10 @@ import primal.fp.Funs.Source;
 import primal.fp.Funs2.Fun2;
 import primal.primitive.IntPrim.IntObjPair_;
 import primal.primitive.IntPrim.IntObjSource;
-import primal.primitive.puller.IntObjPuller;
-import primal.primitive.streamlet.IntObjStreamlet;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.IntObjPuller;
+import primal.streamlet.primitive.IntObjStreamlet;
 
 public class Streamlet<T> implements StreamletDefaults<T, Opt<T>, Predicate<T>, Puller<T>, Sink<T>, Source<T>> {
 

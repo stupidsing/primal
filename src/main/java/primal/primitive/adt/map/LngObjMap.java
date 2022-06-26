@@ -11,7 +11,7 @@ import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Lng_Obj;
 import primal.primitive.adt.pair.LngObjPair;
 import primal.primitive.fp.LngObjFunUtil;
-import primal.primitive.puller.LngObjPuller;
+import primal.puller.primitive.LngObjPuller;
 
 /**
  * Map with primitive integer key and a generic object value. Null values are

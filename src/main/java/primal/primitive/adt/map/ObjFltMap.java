@@ -14,7 +14,7 @@ import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Flt;
 import primal.primitive.adt.pair.FltObjPair;
 import primal.primitive.fp.FltObjFunUtil;
-import primal.primitive.puller.FltObjPuller;
+import primal.puller.primitive.FltObjPuller;
 
 /**
  * Map with generic object key and floatacter object value. Float.MIN_VALUE

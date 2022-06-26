@@ -13,11 +13,11 @@ import primal.primitive.adt.map.IntObjMap;
 import primal.primitive.adt.map.ObjIntMap;
 import primal.primitive.adt.set.IntSet;
 import primal.primitive.fp.IntFunUtil;
-import primal.primitive.puller.IntObjPuller;
-import primal.primitive.puller.IntPuller;
-import primal.primitive.streamlet.IntObjStreamlet;
-import primal.primitive.streamlet.IntStreamlet;
 import primal.puller.Puller;
+import primal.puller.primitive.IntObjPuller;
+import primal.puller.primitive.IntPuller;
+import primal.streamlet.primitive.IntObjStreamlet;
+import primal.streamlet.primitive.IntStreamlet;
 
 public class IntMoreVerbs {
 

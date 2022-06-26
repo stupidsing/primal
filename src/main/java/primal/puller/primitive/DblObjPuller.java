@@ -1,4 +1,4 @@
-package primal.primitive.puller;
+package primal.puller.primitive;
 
 import static primal.statics.Fail.fail;
 

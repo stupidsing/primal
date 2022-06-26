@@ -16,8 +16,8 @@ import primal.primitive.LngPrim;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Lng;
 import primal.primitive.adt.pair.ChrLngPair;
-import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.ChrObjPuller;
 
 /**
  * Map with primitive char key and primitive long value. Long.MIN_VALUE is

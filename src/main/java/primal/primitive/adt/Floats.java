@@ -20,8 +20,8 @@ import primal.fp.Funs.Sink;
 import primal.primitive.FltPrim;
 import primal.primitive.FltPrim.FltSource;
 import primal.primitive.FltVerbs.CopyFlt;
-import primal.primitive.puller.FltPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.FltPuller;
 
 public class Floats implements Iterable<Float> {
 

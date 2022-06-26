@@ -13,11 +13,11 @@ import primal.primitive.adt.map.ChrObjMap;
 import primal.primitive.adt.map.ObjChrMap;
 import primal.primitive.adt.set.ChrSet;
 import primal.primitive.fp.ChrFunUtil;
-import primal.primitive.puller.ChrObjPuller;
-import primal.primitive.puller.ChrPuller;
-import primal.primitive.streamlet.ChrObjStreamlet;
-import primal.primitive.streamlet.ChrStreamlet;
 import primal.puller.Puller;
+import primal.puller.primitive.ChrObjPuller;
+import primal.puller.primitive.ChrPuller;
+import primal.streamlet.primitive.ChrObjStreamlet;
+import primal.streamlet.primitive.ChrStreamlet;
 
 public class ChrMoreVerbs {
 

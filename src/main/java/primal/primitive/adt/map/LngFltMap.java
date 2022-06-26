@@ -16,8 +16,8 @@ import primal.primitive.LngPrim.LngObjSource;
 import primal.primitive.LngPrim.Obj_Lng;
 import primal.primitive.Lng_Flt;
 import primal.primitive.adt.pair.LngFltPair;
-import primal.primitive.puller.LngObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.LngObjPuller;
 
 /**
  * Map with primitive long key and primitive float value. Float.MIN_VALUE is

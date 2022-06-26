@@ -11,7 +11,7 @@ import primal.primitive.DblPrim.DblObjSource;
 import primal.primitive.DblPrim.Dbl_Obj;
 import primal.primitive.adt.pair.DblObjPair;
 import primal.primitive.fp.DblObjFunUtil;
-import primal.primitive.puller.DblObjPuller;
+import primal.puller.primitive.DblObjPuller;
 
 /**
  * Map with primitive integer key and a generic object value. Null values are

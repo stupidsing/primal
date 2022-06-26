@@ -20,8 +20,8 @@ import primal.fp.Funs.Sink;
 import primal.primitive.DblPrim;
 import primal.primitive.DblPrim.DblSource;
 import primal.primitive.DblVerbs.CopyDbl;
-import primal.primitive.puller.DblPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.DblPuller;
 
 public class Doubles implements Iterable<Double> {
 

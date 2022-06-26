@@ -14,7 +14,7 @@ import primal.primitive.IntPrim.Obj_Int;
 import primal.primitive.Int_Int;
 import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.fp.IntObjFunUtil;
-import primal.primitive.puller.IntObjPuller;
+import primal.puller.primitive.IntObjPuller;
 
 /**
  * Map with generic object key and intacter object value. Integer.MIN_VALUE

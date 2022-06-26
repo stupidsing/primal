@@ -1,4 +1,4 @@
-package primal.primitive.streamlet;
+package primal.streamlet.primitive;
 
 import static primal.statics.Fail.fail;
 
@@ -29,10 +29,10 @@ import primal.primitive.adt.map.IntObjMap;
 import primal.primitive.adt.map.ObjIntMap;
 import primal.primitive.adt.pair.IntObjPair;
 import primal.primitive.fp.IntObjFunUtil;
-import primal.primitive.puller.IntObjPuller;
-import primal.primitive.puller.IntPuller;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.IntObjPuller;
+import primal.puller.primitive.IntPuller;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
 import primal.streamlet.StreamletDefaults;

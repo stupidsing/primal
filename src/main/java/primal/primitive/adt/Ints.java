@@ -20,8 +20,8 @@ import primal.fp.Funs.Sink;
 import primal.primitive.IntPrim;
 import primal.primitive.IntPrim.IntSource;
 import primal.primitive.IntVerbs.CopyInt;
-import primal.primitive.puller.IntPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.IntPuller;
 
 public class Ints implements Iterable<Integer> {
 

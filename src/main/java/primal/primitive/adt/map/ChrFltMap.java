@@ -16,8 +16,8 @@ import primal.primitive.FltPrim;
 import primal.primitive.FltPrim.Obj_Flt;
 import primal.primitive.Flt_Flt;
 import primal.primitive.adt.pair.ChrFltPair;
-import primal.primitive.puller.ChrObjPuller;
 import primal.puller.Puller;
+import primal.puller.primitive.ChrObjPuller;
 
 /**
  * Map with primitive char key and primitive float value. Float.MIN_VALUE is

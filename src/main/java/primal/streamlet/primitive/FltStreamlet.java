@@ -1,4 +1,4 @@
-package primal.primitive.streamlet;
+package primal.streamlet.primitive;
 
 import java.io.Closeable;
 import java.util.Iterator;
@@ -27,10 +27,10 @@ import primal.primitive.adt.Floats.FloatsBuilder;
 import primal.primitive.adt.map.FltObjMap;
 import primal.primitive.adt.map.ObjFltMap;
 import primal.primitive.adt.set.FltSet;
-import primal.primitive.puller.FltObjPuller;
-import primal.primitive.puller.FltPuller;
 import primal.puller.Puller;
 import primal.puller.Puller2;
+import primal.puller.primitive.FltObjPuller;
+import primal.puller.primitive.FltPuller;
 import primal.streamlet.Streamlet;
 import primal.streamlet.Streamlet2;
 import primal.streamlet.StreamletDefaults;
