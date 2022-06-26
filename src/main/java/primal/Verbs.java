@@ -194,8 +194,6 @@ public class Verbs {
 	}
 
 	public static class Format {
-		private static String hexDigits = "0123456789ABCDEF";
-
 		public static String value(double d) {
 			var abs = abs(d);
 			String fmt;
