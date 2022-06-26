@@ -34,7 +34,7 @@ primal.puller.Puller2
 	:
 	:
 primal.primitive.Chr_Dbl
-primal.primitive.Chr_DblFlt
+primal.primitive.ChrDbl_Flt
 primal.primitive.ChrVerbs
 primal.primitive.ChrPrim
 primal.primitive.ChrOpt
