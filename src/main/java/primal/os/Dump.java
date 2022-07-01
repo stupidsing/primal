@@ -36,7 +36,7 @@ public class Dump {
 	 * Assumes set and map keys are comparable for a consistent sorting order.
 	 */
 	private void dump(Consumer<String> sb, String indent, Object object) {
-		int id = System.identityHashCode(object);
+		var id = System.identityHashCode(object);
 		if (ids.add(id))
 			try {
 				dump_(sb, indent, object);
@@ -49,7 +49,7 @@ public class Dump {
 
 	private void dump_(Consumer<String> sb, String indent, Object object) {
 		var clazz = object != null ? object.getClass() : null;
-		String indent1 = indent + "\t";
+		var indent1 = indent + "\t";
 
 		if (object == null)
 			sb.accept("null");
@@ -79,7 +79,7 @@ public class Dump {
 			sb.accept(")");
 		} else if (LocalDate.class.isAssignableFrom(clazz)) {
 			sb.accept("LocalDate.of(");
-			LocalDate ld = (LocalDate) object;
+			var ld = (LocalDate) object;
 			dump(sb, indent, ld.getYear());
 			sb.accept(", ");
 			dump(sb, indent, ld.getMonthValue());
@@ -113,7 +113,7 @@ public class Dump {
 			sb.accept("\"" + ((String) object).replace("\"", "\\\"") + "\"");
 		else if (ZonedDateTime.class.isAssignableFrom(clazz)) {
 			sb.accept("ZonedDateTime.ofInstant(");
-			ZonedDateTime zdt = (ZonedDateTime) object;
+			var zdt = (ZonedDateTime) object;
 			dump(sb, indent, zdt.toInstant());
 			sb.accept(", ");
 			dump(sb, indent, zdt.getZone());
@@ -121,8 +121,8 @@ public class Dump {
 		} else if (ZoneId.class.isAssignableFrom(clazz))
 			sb.accept("ZoneId.of(\"" + object + "\")");
 		else if (Boolean.TRUE) {
-			String v = "r" + counter++;
-			String className = clazz.getCanonicalName();
+			var v = "r" + counter++;
+			var className = clazz.getCanonicalName();
 			var fields = new HashSet<String>();
 
 			sb.accept("((Supplier<" + className + ">) () -> {" //
@@ -143,8 +143,8 @@ public class Dump {
 			}
 
 			for (var m : clazz.getMethods()) {
-				String methodName = m.getName();
-				String key = methodName.substring(3);
+				var methodName = m.getName();
+				var key = methodName.substring(3);
 				if (methodName.startsWith("get") //
 						&& m.getParameterCount() == 0 //
 						&& fields.add(key.toLowerCase(Locale.ROOT))) {
